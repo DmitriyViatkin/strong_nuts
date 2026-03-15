@@ -1,10 +1,12 @@
 import os
+import sys
 from pathlib import Path
 from dotenv import load_dotenv
-from wagtail.project_template.project_name.settings.base import WAGTAIL_SITE_NAME, WAGTAILADMIN_BASE_URL
+
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+sys.path.insert(0, str(BASE_DIR / 'src'))
 load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -39,6 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #my app
+    'accounts',
+    'cabinet',
+    'product_management',
+    'order_management',
+    'cms_pages',
+    'wagtail_cms',
+    'unfold_admin'
+
 ]
 
 MIDDLEWARE = [
