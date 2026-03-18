@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
-from wagtail.project_template.project_name.settings.base import STATICFILES_DIRS
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR / 'src'))
@@ -49,13 +49,13 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
 
     #my app
-    'src.accounts.apps.AccountsConfig',
-    'src.cabinet',
-    'src.product_management',
-    'src.order_management',
-    'src.cms_pages',
-    'src.wagtail_cms',
-    'src.unfold_admin',
+    'accounts.apps.AccountsConfig',
+    'cabinet',
+    'product_management',
+    'order_management',
+    'cms_pages',
+    'wagtail_cms',
+    'unfold_admin',
     'cities_light',
 
 ]

@@ -1,6 +1,6 @@
 from django.db import models
-from ..cabinet.models import User
-from..product_management.models import Product
+from cabinet.models import User
+from product_management.models import Product
 from django.utils.translation import gettext_lazy as _
 
 PAYMENT_STATUS = [

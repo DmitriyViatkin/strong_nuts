@@ -1,6 +1,6 @@
 from django.db import models
 from django.db import models
-from src.cabinet.models import User
+from cabinet.models import User
 
 from django.utils.translation import gettext_lazy as _
 

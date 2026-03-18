@@ -21,14 +21,15 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('cms/', include(wagtailadmin_urls)),
-    path('documents/', include(wagtaildocs_urls)),
-    path('', include(wagtail_urls))
+    # Без мовного префіксу
+    path('admin/',      admin.site.urls),
+    path('cms/',        include(wagtailadmin_urls)),
+    path('documents/',  include(wagtaildocs_urls)),
+    path('accounts/',   include('accounts.urls')),  # ← тут, без i18n
 ]
 
+# З мовним префіксом /uk/, /en/, /ru/
 urlpatterns += i18n_patterns(
-    path('', include(wagtail_urls)),
+    path('', include(wagtail_urls)),  # ← тільки один раз
 )

@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Реєстрація{% endblock %}
+{% block body_class %}page{% endblock %}
+
+{% block content %}
+<section class="first-section no-bg">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul>
+                <li><a href="/">Головна</a></li>
+                <li>Реєстрація</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="registration">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Реєстрація</h1>
+            </div>
+            <div class="col-12">
+                <div class="form__title">1. Контактні дані</div>
+            </div>
+
+            <div class="tabs">
+                <div class="row">
+                    <div class="col-lg-5 col-md-6">
+                        <div class="tabs__wrap">
+                            <ul class="tabs__caption">
+                                <li class="{% if active_tab == 'physical' %}active{% endif %}">
+                                    Фізична особа
+                                </li>
+                                <li class="{% if active_tab == 'legal' %}active{% endif %}">
+                                    Юридична особа
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ТАБ 1: ФІЗИЧНА ОСОБА -->
+                <div class="tabs__content {% if active_tab == 'physical' %}active{% endif %}">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_type" value="physical">
+
+                        <div class="row">
+                            <div class="col-lg-5 col-md-6">
+
+                                {% if physical_form.non_field_errors %}
+                                    <div class="form__error">
+                                        {{ physical_form.non_field_errors }}
+                                    </div>
+                                {% endif %}
+
+                                <input type="text"
+                                       name="first_name"
+                                       value="{{ physical_form.first_name.value|default:'' }}"
+                                       placeholder="ПІБ*" required>
+                                {% if physical_form.first_name.errors %}
+                                    <span class="error">{{ physical_form.first_name.errors }}</span>
+                                {% endif %}
+
+                                <input type="email"
+                                       name="email"
+                                       value="{{ physical_form.email.value|default:'' }}"
+                                       placeholder="Email*" required>
+                                {% if physical_form.email.errors %}
+                                    <span class="error">{{ physical_form.email.errors }}</span>
+                                {% endif %}
+
+                                <input type="tel"
+                                       name="phone"
+                                       value="{{ physical_form.phone.value|default:'' }}"
+                                       placeholder="Телефон*" required>
+
+                                <div class="form__title">2. Адреса</div>
+
+                                <select name="country">
+                                    <option value="">Країна</option>
+                                    {% for country in countries %}
+                                        <option value="{{ country.id }}">{{ country.name }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select name="region">
+                                    <option value="">Область</option>
+                                    {% for region in regions %}
+                                        <option value="{{ region.id }}">{{ region.name }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <input type="text" name="city" placeholder="Місто*" required>
+                                <input type="text" name="street" placeholder="Адреса">
+
+                                <div class="form__title">3. Пароль</div>
+
+                                <input type="password"
+                                       name="password1"
+                                       placeholder="Пароль*" required>
+                                {% if physical_form.password1.errors %}
+                                    <span class="error">{{ physical_form.password1.errors }}</span>
+                                {% endif %}
+
+                                <input type="password"
+                                       name="password2"
+                                       placeholder="Підтвердіть пароль*" required>
+                                {% if physical_form.password2.errors %}
+                                    <span class="error">{{ physical_form.password2.errors }}</span>
+                                {% endif %}
+
+                            </div>
+
+                            <div class="col-lg-5 col-md-6 offset-lg-1">
+                                <div class="wrapper">
+                                    <div class="file__wrap">
+                                        <input type="file" name="image" id="file2" class="inputfile">
+                                        <label for="file2"><span>Завантажити фото</span></label>
+                                    </div>
+                                    <div class="checkbox__wrap">
+                                        <input id="checkbox-fop" class="checkbox-custom"
+                                               name="is_fop" type="checkbox"
+                                               {% if physical_form.is_fop.value %}checked{% endif %}>
+                                        <label for="checkbox-fop" class="checkbox-custom-label">
+                                            <span>Є ФОП</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5 col-md-6">
+                                <div class="checkbox__wrap">
+                                    <input id="checkbox-agree" class="checkbox-custom"
+                                           name="agree" type="checkbox" required>
+                                    <label for="checkbox-agree" class="checkbox-custom-label">
+                                        <span>Я погоджуюсь з <a href="/terms/">Умовами реєстрації</a></span>
+                                    </label>
+                                </div>
+                                <button class="button" type="submit">Продовжити</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- ТАБ 2: ЮРИДИЧНА ОСОБА -->
+                <div class="tabs__content {% if active_tab == 'legal' %}active{% endif %}">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_type" value="legal">
+
+                        <div class="row">
+                            <div class="col-lg-5 col-md-6">
+
+                                {% if legal_form.non_field_errors %}
+                                    <div class="form__error">
+                                        {{ legal_form.non_field_errors }}
+                                    </div>
+                                {% endif %}
+
+                                <input type="text"
+                                       name="first_name"
+                                       value="{{ legal_form.first_name.value|default:'' }}"
+                                       placeholder="ПІБ*" required>
+
+                                <input type="email"
+                                       name="email"
+                                       value="{{ legal_form.email.value|default:'' }}"
+                                       placeholder="Email*" required>
+                                {% if legal_form.email.errors %}
+                                    <span class="error">{{ legal_form.email.errors }}</span>
+                                {% endif %}
+
+                                <input type="tel"
+                                       name="phone"
+                                       value="{{ legal_form.phone.value|default:'' }}"
+                                       placeholder="Телефон*" required>
+
+                                <div class="form__title">2. Адреса</div>
+
+                                <select name="country">
+                                    <option value="">Країна</option>
+                                    {% for country in countries %}
+                                        <option value="{{ country.id }}">{{ country.name }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select name="region">
+                                    <option value="">Область</option>
+                                    {% for region in regions %}
+                                        <option value="{{ region.id }}">{{ region.name }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <input type="text" name="city" placeholder="Місто*" required>
+                                <input type="text" name="street" placeholder="Адреса">
+
+                                <div class="form__title">3. Пароль</div>
+
+                                <input type="password"
+                                       name="password1"
+                                       placeholder="Пароль*" required>
+                                {% if legal_form.password1.errors %}
+                                    <span class="error">{{ legal_form.password1.errors }}</span>
+                                {% endif %}
+
+                                <input type="password"
+                                       name="password2"
+                                       placeholder="Підтвердіть пароль*" required>
+                                {% if legal_form.password2.errors %}
+                                    <span class="error">{{ legal_form.password2.errors }}</span>
+                                {% endif %}
+
+                            </div>
+
+                            <div class="col-lg-5 col-md-6 offset-lg-1">
+                                <div class="wrapper">
+
+                                    <div class="radio__wrap">
+                                        <input id="radio-ur" class="radio-custom"
+                                               name="legal_type" value="legal"
+                                               type="radio" checked>
+                                        <label for="radio-ur" class="radio-custom-label">
+                                            <span>Юр. особа</span>
+                                        </label>
+                                        <input id="radio-fop" class="radio-custom"
+                                               name="legal_type" value="fop"
+                                               type="radio">
+                                        <label for="radio-fop" class="radio-custom-label">
+                                            <span>ФОП</span>
+                                        </label>
+                                    </div>
+
+                                    <!-- Юр. особа -->
+                                    <div class="box-wrap">
+                                        <div class="ur box">
+                                            <div class="form__title">1. Реквізити</div>
+                                            <input type="text"
+                                                   name="okpo"
+                                                   value="{{ legal_form.okpo.value|default:'' }}"
+                                                   placeholder="ОКПО">
+
+                                            <div class="form__title">2. Юридична адреса</div>
+                                            <select name="legal_country">
+                                                <option value="">Країна</option>
+                                                {% for country in countries %}
+                                                    <option value="{{ country.id }}">{{ country.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <select name="legal_region">
+                                                <option value="">Область</option>
+                                                {% for region in regions %}
+                                                    <option value="{{ region.id }}">{{ region.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <input type="text" name="legal_city" placeholder="Місто*">
+                                            <input type="text" name="legal_street" placeholder="Адреса">
+                                            <input type="text" name="legal_zip" placeholder="Індекс">
+                                        </div>
+
+                                        <!-- ФОП -->
+                                        <div class="fop box">
+                                            <div class="form__title">1. Реквізити</div>
+                                            <input type="text"
+                                                   name="edrpou"
+                                                   value="{{ legal_form.edrpou.value|default:'' }}"
+                                                   placeholder="ЄДРПОУ">
+
+                                            <div class="form__title">2. Адреса ФОП</div>
+                                            <select name="legal_country">
+                                                <option value="">Країна</option>
+                                                {% for country in countries %}
+                                                    <option value="{{ country.id }}">{{ country.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <select name="legal_region">
+                                                <option value="">Область</option>
+                                                {% for region in regions %}
+                                                    <option value="{{ region.id }}">{{ region.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <input type="text" name="legal_city" placeholder="Місто*">
+                                            <input type="text" name="legal_street" placeholder="Адреса">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5 col-md-6">
+                                <div class="checkbox__wrap">
+                                    <input id="checkbox-agree-legal" class="checkbox-custom"
+                                           name="agree" type="checkbox" required>
+                                    <label for="checkbox-agree-legal" class="checkbox-custom-label">
+                                        <span>Я погоджуюсь з <a href="/terms/">Умовами реєстрації</a></span>
+                                    </label>
+                                </div>
+                                <button class="button" type="submit">Продовжити</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
