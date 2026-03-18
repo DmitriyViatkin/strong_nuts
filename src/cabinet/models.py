@@ -54,10 +54,10 @@ class Address(models.Model):
         null=True, blank=True,
         verbose_name=_('Область')
     )
-    city = models.ForeignKey(
-        City,
-        on_delete=models.SET_NULL,
-        null=True, blank=True,
+    city = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
         verbose_name=_('Місто')
     )
 

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.views import View
 from cities_light.models import Country, Region
 from .forms import RegisterPhysicalForm, RegisterLegalForm
@@ -45,3 +46,14 @@ class RegisterView(View):
                          self.get_context(legal_form=form))
 
         return redirect('accounts:register')
+
+
+class LogoutView(View):
+
+    def get(self, request):
+        logout(request)
+        return redirect('accounts:login')
+
+    def post(self, request):
+        logout(request)
+        return redirect('accounts:login')

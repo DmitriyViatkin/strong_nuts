@@ -21,12 +21,36 @@
 					<div class="col-lg-4 col-12">
 						<div class="wrap">
 							<ul class="log_in d-lg-flex d-none">
-								<li>
-									<a href="#"><i class="nut-icon icons-man-user"></i><span>Вход</span></a>
-								</li>
-								<li>
-									<a href="#"><span>Регистрация</span></a>
-								</li>
+								{% if user.is_authenticated %}
+									{# Сценарий: Пользователь вошел в систему #}
+									<li>
+									   <a href="{% url 'cabinet:my_cabinet' %}">
+										   <i class="nut-icon icons-man-user"></i>
+										   <span>Мой кабинет</span>
+									   </a>
+									</li>
+									<li>
+									   <form action="{% url 'accounts:logout' %}" method="post" style="display: inline;">
+										   {% csrf_token %}
+										   <button type="submit" class="btn-link" style="background: none; border: none; padding: 0; cursor: pointer; color: inherit; font: inherit;">
+											   <span>Выход</span>
+										   </button>
+									   </form>
+									</li>
+								{% else %}
+									{# Сценарий: Гость #}
+									<li>
+									   <a href="{% url 'accounts:login' %}">
+										   <i class="nut-icon icons-man-user"></i>
+										   <span>Вход</span>
+									   </a>
+									</li>
+									<li>
+									   <a href="{% url 'accounts:register' %}">
+										   <span>Регистрация</span>
+									   </a>
+									</li>
+								{% endif %}
 							</ul>
 							<div id="lang-menu" class="lang-menu">
 								<span class="title">Ru</span>
