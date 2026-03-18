@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
-
+from wagtail.project_template.project_name.settings.base import STATICFILES_DIRS
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR / 'src'))
@@ -12,6 +12,9 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
+
+AUTH_USER_MODEL = 'cabinet.User'
+
 
 INSTALLED_APPS = [
     #Unfold
@@ -46,13 +49,14 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
 
     #my app
-    'accounts',
-    'cabinet',
-    'product_management',
-    'order_management',
-    'cms_pages',
-    'wagtail_cms',
-    'unfold_admin'
+    'src.accounts.apps.AccountsConfig',
+    'src.cabinet',
+    'src.product_management',
+    'src.order_management',
+    'src.cms_pages',
+    'src.wagtail_cms',
+    'src.unfold_admin',
+    'cities_light',
 
 ]
 
@@ -131,11 +135,16 @@ WAGTAIL_CONTENT_LANGUAGES = [
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR/'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 WAGTAIL_SITE_NAME = "nuts_cms"
 WAGTAILADMIN_BASE_URL = "http://localhost:8000"
+
+CITIES_LIGHT_TRANSLATION_LANGUAGES = ['uk', 'ru', 'en']
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['UA']  # тільки Україна
+CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLC']
 
 UNFOLD = {
 
