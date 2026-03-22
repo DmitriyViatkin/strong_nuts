@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Вхід{% endblock %}
+{% block body_class %}page{% endblock %}
+
+{% block content %}
+
+<section class="first-section no-bg">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul>
+                <li><a href="/">Головна</a></li>
+                <li>Вхід</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="registration">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6">
+                <h1 class="text-center py-4">Увійти в особистий кабінет</h1>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="form__error">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <input type="email"
+                           name="email"
+                           value="{{ form.email.value|default:'' }}"
+                           placeholder="Email*" required>
+                    {% if form.email.errors %}
+                        <span class="error">{{ form.email.errors }}</span>
+                    {% endif %}
+
+                    <input type="password"
+                           name="password"
+                           placeholder="Пароль*" required>
+                    {% if form.password.errors %}
+                        <span class="error">{{ form.password.errors }}</span>
+                    {% endif %}
+
+                    <div class="mini_link">
+                        <a href="{% url 'accounts:password-recovery'%}">Забули пароль?</a>
+                    </div>
+
+                    <button class="button" type="submit">Увійти</button>
+
+                    <div class="mini_link">
+                        <a href="{% url 'accounts:register' %}">Реєстрація</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

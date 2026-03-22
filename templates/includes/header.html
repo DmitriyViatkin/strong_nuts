@@ -1,3 +1,5 @@
+{% load static %}
+
 <header class="top-header">
 		<div class="top-header__line">
 			<div class="container">
@@ -22,7 +24,7 @@
 						<div class="wrap">
 							<ul class="log_in d-lg-flex d-none">
 								{% if user.is_authenticated %}
-									{# Сценарий: Пользователь вошел в систему #}
+
 									<li>
 									   <a href="{% url 'cabinet:my_cabinet' %}">
 										   <i class="nut-icon icons-man-user"></i>
@@ -38,7 +40,7 @@
 									   </form>
 									</li>
 								{% else %}
-									{# Сценарий: Гость #}
+
 									<li>
 									   <a href="{% url 'accounts:login' %}">
 										   <i class="nut-icon icons-man-user"></i>
@@ -74,7 +76,7 @@
 					<div class="col-xl-4 col-lg-3 col-8 align-self-center">
 
 						<a href="/" class="logo">
-							<img src="img/logo.png" alt="alt">
+							<img src="{% static 'img/logo.png' %}" alt="alt">
 							<span>ОРЕХ<br> ПРИЧЕРНОМОРЬЯ</span>
 						</a>
 					</div>

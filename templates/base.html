@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load django_vite %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -35,7 +36,8 @@
 	<meta name="format-detection" content="address=no">
 
 	<link rel="stylesheet" href="{% static 'css/main.min.css' %}">
-
+	{% vite_hmr_client %}
+    {% vite_asset 'js/main.js' %}
 </head>
 
 <body class="home">

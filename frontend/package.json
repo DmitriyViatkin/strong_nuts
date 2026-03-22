@@ -1,0 +1,25 @@
+{
+  "name": "nuts-frontend",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.0",
+    "countup.js": "^2.8.0",
+    "jquery": "^3.7.0",
+    "lightgallery": "^2.7.0",
+    "parallax-js": "^3.1.0",
+    "picturefill": "^3.0.3",
+    "smooth-scroll": "^16.1.3",
+    "sticky-sidebar": "^3.3.1",
+    "swiper": "^12.1.2",
+    "tippy.js": "^6.3.7"
+  },
+  "devDependencies": {
+    "sass": "^1.70.0",
+    "vite": "^8.0.1"
+  }
+}
