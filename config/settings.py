@@ -85,6 +85,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #'wagtail.contrib.settings.context_processors.settings_processor',
+                'wagtail.contrib.settings.context_processors.settings'
             ],
         },
     },
@@ -134,7 +136,7 @@ WAGTAIL_CONTENT_LANGUAGES = [
 
 ]
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR/'static']
 
@@ -144,7 +146,7 @@ WAGTAIL_SITE_NAME = "nuts_cms"
 WAGTAILADMIN_BASE_URL = "http://localhost:8000"
 
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['uk', 'ru', 'en']
-CITIES_LIGHT_INCLUDE_COUNTRIES = ['UA']  # тільки Україна
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['UA']
 CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLC']
 
 UNFOLD = {
@@ -187,7 +189,9 @@ UNFOLD = {
 DJANGO_VITE = {
     'default':{
         'dev_mode': DEBUG,
-        'manifest_path':BASE_DIR/'static',
+        'dev_server_port': 5173,
+        'manifest_path':BASE_DIR/'static'/'dist'/'.vite'/'manifest.json',
+        'static_url_prefix':'dist'
     }
 }
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -207,3 +211,7 @@ CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = TIME_ZONE
+
+# Media
+MEDIA_URL="/media/"
+MEDIA_ROOT= os.path.join(BASE_DIR, "media")

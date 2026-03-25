@@ -1,9 +1,10 @@
-from wagtail.blocks import StructBlock, CharBlock, ListBlock, URLBlock
+from wagtail.blocks import StructBlock, CharBlock, ListBlock, URLBlock, StructBlockValidationError, RichTextBlock
 from wagtail.images.blocks import  ImageChooserBlock
+from wagtail import blocks
 
 class MessengerBlock(StructBlock):
-    name = CharBlock(lable='Назва')
-    link = URLBlock(lable="Посилання")
+    name = CharBlock(label='Назва (viber, telegram, watsap)')
+    link = URLBlock(label="Посилання")
 
     class Meta:
         icon = "link"
@@ -11,7 +12,13 @@ class MessengerBlock(StructBlock):
 
 class NavLinkBlock(StructBlock):
     name = CharBlock(label='Назва')
-    link = URLBlock(label='Посилання')
+    page = blocks.PageChooserBlock(required=False)
+    url = URLBlock(label='Посилання')
+
+    def clean(self,value):
+        if not value.get('page') and not value.get('url'):
+            raise StructBlockValidationError("Вкажіть сторінку або URL")
+        return value
 
     class Meta:
         icon = 'link'
@@ -19,9 +26,8 @@ class NavLinkBlock(StructBlock):
 
 
 class SocialLinkBlock(StructBlock):
-    name = CharBlock(label='Назва')
-    icon = ImageChooserBlock(label='Іконка')
-    URL_link = URLBlock(label='Посилання')
+    name = CharBlock(label='Назва (facebook, instagram, youtube)')
+    link = URLBlock(label="Посилання")
 
     class Meta:
         icon = 'link'
@@ -45,3 +51,17 @@ class AddressBlock(StructBlock):
     class Meta:
         icon = 'home'
         label = 'Адреса'
+
+class VideoBannerBlock(StructBlock):  # 👈 добавили
+    image = ImageChooserBlock(label="Фонове зображення")
+    video_url = URLBlock(label="Посилання на відео")
+    title = CharBlock(max_length=255, label="Заголовок")
+    text = RichTextBlock(
+        label="Текст",
+        features=['bold', 'italic', 'link', 'ul'],  # Можна налаштувати доступні інструменти
+        help_text="Додайте опис для банера")
+
+    class Meta:
+        template = "cms_pages/blocks/video_banner_block.html"
+        icon = "media"
+        label = "Відео банер"

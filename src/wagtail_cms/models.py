@@ -53,14 +53,7 @@ class HeaderSettings(BaseSiteSetting):
         default=True,
         verbose_name=_('Показувати іконку кошика')
     )
-    login_url = models.URLField(
-        blank=True,
-        verbose_name=_('URL входу')
-    )
-    register_url = models.URLField(
-        blank=True,
-        verbose_name=_('URL реєстрації')
-    )
+
 
     panels = [
         FieldPanel('logo'),
@@ -69,8 +62,7 @@ class HeaderSettings(BaseSiteSetting):
         FieldPanel('button_text'),
         FieldPanel('button_working_hours'),
         FieldPanel('cart_icon'),
-        FieldPanel('login_url'),
-        FieldPanel('register_url'),
+
         FieldPanel('social_links'),
         FieldPanel('messenger_links'),
         FieldPanel('nav_links'),
