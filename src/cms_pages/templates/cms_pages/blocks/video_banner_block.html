@@ -1,0 +1,15 @@
+{% load wagtailimages_tags %}
+
+{% image value.image original as bg %}
+
+<div class="wrap">
+    <a href="{{ value.video_url }}"
+       class="benefit-news__item overlay benefit-news__item_video_text"
+       style="background-image: url('{{ bg.url }}')">
+        <span>
+            <i class="nut-icon icons-play-icon"></i>
+        </span>
+        <h3>{{ value.title }}</h3>
+        <p>{{ value.text }}</p>
+    </a>
+</div>

@@ -177,11 +177,15 @@
         <div class="container">
             <nav class="menu_main menu_top">
                 <ul class="menu_main_ul">
-                    {% for item in settings.wagtail_cms.HeaderSettings.nav_links %}
-                        <li>
-                            <a href="{{ item.value.link }}">{{ item.value.name }}</a>
-                        </li>
-                    {% endfor %}
+                   {% for item in settings.wagtail_cms.HeaderSettings.nav_links %}
+    <li>
+            {% if item.value.page %}
+                    <a href="{{ item.value.page.url }}">{{ item.value.name }}</a>
+                {% else %}
+                    <a href="{{ item.value.url }}">{{ item.value.name }}</a>
+                {% endif %}
+                </li>
+             {% endfor %}
                 </ul>
             </nav>
         </div>

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static wagtailimages_tags wagtailcore_tags %}
+
+{% block content %}
+
+<section class="first-section no-bg">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul>
+                <li>
+                    <a href="/">Главная</a>
+                </li>
+                <li>
+                    {{ page.title_page }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div class="single-news">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <h1>{{ page.title_page }}</h1>
+                <div class="single-news__data">
+                    {{ page.date|date:"d.m.Y" }}
+                </div>
+            </div>
+            <div class="col-lg-7"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-12">
+               <main class="main">
+                    {% for block in page.body %}
+                        {% if block.block_type == 'text' %}
+                            <div>{{ block.value|richtext }}</div>
+                        {% elif block.block_type == 'image' %}
+                            {% image block.value original as img %}
+                            <img src="{{ img.url }}" alt="{{ img.title }}">
+                        {% endif %}
+                    {% endfor %}
+                </main>
+            </div>
+            <div class="col-lg-3 col-md-4 d-none d-md-block col-12">
+                <aside class="aside">
+                    <div class="sidebar__inner sticky">
+                        <div class="aside__title">
+                            Последние публикации
+                        </div>
+                        <ul>
+                            {% for item in latest_news %}
+                            <li>
+                                <div class="aside__item">
+                                    {% for block in item.images %}
+                                        {% if forloop.first %}
+                                            {% image block.value original as img %}
+                                            <div class="aside__item_img">
+                                                <img src="{{ img.url }}" alt="{{ img.title }}">
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div class="aside__item_data">
+                                        {{ item.date|date:"d.m.Y" }}
+                                    </div>
+                                    <div class="aside__item_title">
+                                        {{ item.title_page }}
+                                    </div>
+                                    <a href="{{ item.url }}">Читать <i class="nut-icon icons-read-more"></i></a>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

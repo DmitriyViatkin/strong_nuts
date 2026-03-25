@@ -5,7 +5,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import  StreamField
 from .blocks import (
     MessengerBlock, NavLinkBlock, SocialLinkBlock,
-    PhoneBlock, AddressBlock
+    PhoneBlock, AddressBlock, StatisticItemBlock
 )
 
 @register_setting
@@ -160,3 +160,17 @@ class FooterSettings(BaseSiteSetting):
 
     class Meta:
         verbose_name = _('Налаштування футера')
+
+@register_setting
+class StatisticSettings(BaseSiteSetting):
+
+    items = StreamField([
+        ('item', StatisticItemBlock()),
+    ], blank=True, use_json_field=True, verbose_name='Статистика')
+
+    panels = [
+        FieldPanel('items'),
+    ]
+
+    class Meta:
+        verbose_name = _('Статистика')

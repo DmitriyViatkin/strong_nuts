@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static wagtailimages_tags wagtailcore_tags %}
+
+{% block content %}
+
+<section class="first-section no-bg">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li>{{ page.title }}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="benefit-news">
+    <div class="container">
+
+        <div class="row align-items-center justify-content-center">
+            <div class="col-12">
+                <h1>{{ page.title_page|richtext }}</h1>
+                <p>{{ page.subtitle|richtext }}</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center">
+
+            {% if first_news %}
+            <div class="col-lg-8 py-4">
+                <div class="benefit-news__img">
+                    {% with image=first_news.get_first_image %}
+                        {% if image %}
+                            {% image image width-800 as img %}
+                            <img src="{{ img.url }}" alt="{{ first_news.title_page }}">
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+
+            <div class="col-lg-4 py-4">
+                <div class="news__item">
+                    <div class="wraper">
+                        <div class="item_data">{{ first_news.date|date:"d.m.Y" }}</div>
+                        <h3>{{ first_news.title_page }}</h3>
+                        {% for block in first_news.body %}
+                            {% if block.block_type == 'text' %}
+                                <p>{{ block.value|striptags|truncatechars:200 }}</p>
+                                {% if forloop.first %}{% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        <a href="{{ first_news.url }}">
+                            Читать <i class="nut-icon icons-read-more"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% for item in other_news %}
+            <div class="col-lg-4 col-md-6 col-12 py-4">
+                <div class="news__item">
+                    {% with image=item.get_first_image %}
+                        {% if image %}
+                            {% image image width-400 as img %}
+                            <span class="video_wrap">
+                                <img src="{{ img.url }}" alt="{{ item.title_page }}">
+                            </span>
+                        {% endif %}
+                    {% endwith %}
+                    <div class="wraper pr-5">
+                        <div class="item_data">{{ item.date|date:"d.m.Y" }}</div>
+                        <h3>{{ item.title_page }}</h3>
+                        {% for block in item.body %}
+                            {% if block.block_type == 'text' %}
+                                <p>{{ block.value|striptags|truncatechars:120 }}</p>
+                            {% endif %}
+                        {% endfor %}
+                        <a href="{{ item.url }}">
+                            Читать <i class="nut-icon icons-read-more"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="col-12 py-4">
+                {% for block in page.promo_banner %}
+                    {% include_block block %}
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="wrapper">
+                <a href="#" class="button button_transparent">
+                    Посмотреть еще
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

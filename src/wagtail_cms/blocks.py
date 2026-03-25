@@ -58,10 +58,20 @@ class VideoBannerBlock(StructBlock):  # 👈 добавили
     title = CharBlock(max_length=255, label="Заголовок")
     text = RichTextBlock(
         label="Текст",
-        features=['bold', 'italic', 'link', 'ul'],  # Можна налаштувати доступні інструменти
+        features=['bold', 'italic', 'link', 'ul'],
         help_text="Додайте опис для банера")
 
     class Meta:
         template = "cms_pages/blocks/video_banner_block.html"
         icon = "media"
         label = "Відео банер"
+
+class StatisticItemBlock(StructBlock):
+    number = CharBlock(label='Число (например: 240)')
+    unit = CharBlock(label='Одиниця (Га, %, шт)', required=False)
+    description = CharBlock(label='Опис')
+    sub_description = CharBlock(label='Підопис', required=False)
+
+    class Meta:
+        icon = 'list-ul'
+        label = 'Статистика'
