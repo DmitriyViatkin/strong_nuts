@@ -1,7 +1,8 @@
 {% load static %}
 {% load i18n %}
 {% load wagtailimages_tags %}
-
+{% load wagtailsettings_tags %}  {# ← добавить #}
+{% get_settings %}
 <header class="top-header">
     <div class="top-header__line">
         <div class="container">
@@ -10,10 +11,10 @@
                 <!-- Соцмережі -->
                 <div class="col-lg-4 col-12 d-lg-block d-none">
                     <ul class="line_social">
-                        {% for item in settings.wagtail_cms.HeaderSettings.social_links %}
+                        {% for item in settings.wagtail_cms.BrandSettings.social_links %}
                             <li>
                                 <a href="{{ item.value.link }}">
-                                    {% image item.value.icon original %}
+                                    <i class="nut-icon icons-{{ item.value.name|lower }}"></i>
                                 </a>
                             </li>
                         {% endfor %}
@@ -89,8 +90,8 @@
                 </div>
                 <div class="col-xl-4 col-lg-3 col-8 align-self-center">
                     <a href="/" class="logo">
-                        {% if settings.wagtail_cms.HeaderSettings.logo %}
-                            {% image settings.wagtail_cms.HeaderSettings.logo original %}
+                        {% if settings.wagtail_cms.BrandSettings.logo %}
+                            {% image settings.wagtail_cms.BrandSettings.logo original %}
                         {% else %}
                             <img src="{% static 'img/logo.png' %}" alt="logo">
                         {% endif %}
@@ -105,7 +106,7 @@
 
                                 <!-- Месенджери -->
                                 <ul class="logo_social">
-                                    {% for item in settings.wagtail_cms.HeaderSettings.messenger_links %}
+                                    {% for item in settings.wagtail_cms.BrandSettings.messenger_links %}
                                         <li>
                                             <a href="{{ item.value.link }}">
                                                 <i class="nut-icon icons-{{ item.value.name|lower }}"></i>
@@ -177,7 +178,7 @@
         <div class="container">
             <nav class="menu_main menu_top">
                 <ul class="menu_main_ul">
-                   {% for item in settings.wagtail_cms.HeaderSettings.nav_links %}
+                   {% for item in settings.wagtail_cms.NavLinks.naw_link %}
     <li>
             {% if item.value.page %}
                     <a href="{{ item.value.page.url }}">{{ item.value.name }}</a>

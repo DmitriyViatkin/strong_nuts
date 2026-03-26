@@ -1,5 +1,7 @@
 {% load static %}
 {% load wagtailimages_tags %}
+{% load wagtailsettings_tags %}
+{% get_settings %}
 
 <footer class="footer__bottom">
     <div class="container">
@@ -16,26 +18,22 @@
                                 {% for item in settings.wagtail_cms.ContactSettings.phone_numbers %}
                                     {% if item.value.number_1 %}
                                         <li>
-                                            <a href="tel:{{ item.value.number_1 }}">
-                                                {{ item.value.number_1 }}
-                                            </a>
+                                            <a href="tel:{{ item.value.number_1 }}">{{ item.value.number_1 }}</a>
                                         </li>
                                     {% endif %}
                                     {% if item.value.number_2 %}
                                         <li>
-                                            <a href="tel:{{ item.value.number_2 }}">
-                                                {{ item.value.number_2 }}
-                                            </a>
+                                            <a href="tel:{{ item.value.number_2 }}">{{ item.value.number_2 }}</a>
                                         </li>
                                     {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
 
-                        <!-- Месенджери -->
+                        <!-- Месенджери (з BrandSettings) -->
                         <div class="bottom_social_links">
                             <ul>
-                                {% for item in settings.wagtail_cms.ContactSettings.messenger_links %}
+                                {% for item in settings.wagtail_cms.BrandSettings.messenger_links %}
                                     <li>
                                         <a href="{{ item.value.link }}">
                                             <i class="nut-icon icons-{{ item.value.name|lower }}"></i>
@@ -91,22 +89,24 @@
         <div class="bottom_menu">
             <div class="row align-items-center">
                 <div class="col-lg-2">
-                    <div class="wraper">
-                        <a href="/" class="logo">
-                            {% if settings.wagtail_cms.FooterSettings.logo %}
-                                {% image settings.wagtail_cms.FooterSettings.logo original %}
-                            {% else %}
-                                <img src="{% static 'img/logo.png' %}" alt="logo">
-                            {% endif %}
-                            <span>ГОРІХ<br>ПРИЧОРНОМОР'Я</span>
-                        </a>
-                    </div>
+                    <a href="/" class="logo">
+                        {% if settings.wagtail_cms.BrandSettings.logo %}
+                            {% image settings.wagtail_cms.BrandSettings.logo original %}
+                        {% else %}
+                            <img src="{% static 'img/logo.png' %}" alt="logo">
+                        {% endif %}
+                        <span>ГОРІХ<br>ПРИЧОРНОМОР'Я</span>
+                    </a>
                 </div>
                 <div class="col-lg-10">
                     <ul class="menu_main_ul">
-                        {% for item in settings.wagtail_cms.FooterSettings.nav_links %}
+                        {% for item in settings.wagtail_cms.NavLinks.naw_link %}
                             <li>
-                                <a href="{{ item.value.link }}">{{ item.value.name }}</a>
+                                {% if item.value.page %}
+                                    <a href="{{ item.value.page.url }}">{{ item.value.name }}</a>
+                                {% else %}
+                                    <a href="{{ item.value.url }}">{{ item.value.name }}</a>
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>
@@ -134,10 +134,11 @@
                     </p>
                 </div>
                 <div class="col-md-4 col-12">
+                    <!-- Соцмережі (з BrandSettings) -->
                     <ul class="copy__social">
-                        {% for item in settings.wagtail_cms.FooterSettings.social_links %}
+                        {% for item in settings.wagtail_cms.BrandSettings.social_links %}
                             <li>
-                                <a href="{{ item.value.URL_link }}">
+                                <a href="{{ item.value.link }}">
                                     <i class="nut-icon icons-{{ item.value.name|lower }}"></i>
                                 </a>
                             </li>
