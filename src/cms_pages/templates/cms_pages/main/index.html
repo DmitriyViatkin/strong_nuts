@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% load static wagtailimages_tags wagtailcore_tags %}
+
+{% block content %}
+
+<!-- Видео баннер -->
+{% if page.video_banner_image %}
+    {% image page.video_banner_image original as bg %}
+    <section class="first-section overlay" style="background-image: url('{{ bg.url }}')">
+{% else %}
+    <section class="first-section overlay">
+{% endif %}
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <a href="{{ page.video_banner_url }}">
+                <h1>{{ page.video_banner_title }}</h1>
+                <p>{{ page.video_banner_text }}</p>
+                <span><i class="nut-icon icons-play-icon"></i></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Продукция -->
+<section class="production">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-12">
+                <h2>Продукція</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            {% for product in products %}
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="wrap">
+                    <div class="production__item">
+                        <div class="products-container swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <a href="{{ product.url }}">
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}"/>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                        <div class="wrap">
+                            <div class="production__item_title">{{ product.name }}</div>
+                            <div class="production__item_art"><span>Арт:</span> {{ product.sku }}</div>
+                            <div class="production__item_descr">{{ product.description }}</div>
+                            <div class="production__item_sum">
+                                <div class="sum_item">
+                                    <div class="sum_item_title"><p>Цена:</p></div>
+                                    <div class="sum_item_new"><p>{{ product.price }} <i>грн.</i></p></div>
+                                </div>
+                                <div class="sum_item">
+                                    <div class="sum_item_button">
+                                        <a href="#" class="button">Купить</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="wrapper">
+                <a href="#" class="button button_transparent">Перейти в магазин</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- О производителе -->
+<section class="manufacturer gray_section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-5">
+                <h2>{{ page.about_title }}</h2>
+                <div class="manufacturer__descr">{{ page.about_text|richtext }}</div>
+                <a href="{{ page.about_button_url }}" class="button button_transparent">
+                    {{ page.about_button_text }}
+                </a>
+            </div>
+            <div class="col-md-7">
+                <div class="manufacturer-container swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for block in page.about_images %}
+                            {% image block.value original as img %}
+                            <div class="swiper-slide">
+                                <div class="manufacturer__item manufacturer__item_video">
+                                    <img src="{{ img.url }}" alt="{{ img.title }}">
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="wrap">
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Статистика -->
+<section class="timer">
+    <div class="container">
+        <div class="row">
+            {% for block in settings.wagtail_cms.StatisticSettings.items %}
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="wrap">
+                    <span class="timer__single"
+                          data-from="1"
+                          data-to="{{ block.value.number }}"
+                          data-speed="3000"
+                          data-refresh-interval="50">
+                    </span>
+                    <sup>{{ block.value.unit }}</sup>
+                    <div class="timer__descr">
+                        <div>{{ block.value.description }}</div>
+                        {% if block.value.sub_description %}
+                            {{ block.value.sub_description }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Промо видео -->
+<div class="parallax" data-scrollax-parent="true">
+    <section class="goal overlay cover"
+             data-scrollax="properties: { translateY: '30%' }">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <a href="{{ page.promo_video_url }}"
+                   data-scrollax="properties: { 'translateY': '5%', 'opacity': 1 }">
+                    <h2>{{ page.promo_video_title }}</h2>
+                    <span><i class="nut-icon icons-play-icon"></i></span>
+                    <p><i>{{ page.promo_video_text }}</i></p>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- О пользе продукта -->
+<section class="benefit">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-12">
+                <h2>{{ page.benefit_title }}</h2>
+                <p>{{ page.benefit_subtitle }}</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            {% for block in page.benefit_items %}
+                {% image block.value.image original as benefit_img %}
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="wrap">
+                        <div class="benefit__item overlay"
+                             style="background-image: url('{{ benefit_img.url }}')">
+                            <i class="nut-icon {{ block.value.icon }}"></i>
+                            <h3>{{ block.value.title }}</h3>
+                        </div>
+                        <div class="benefit__item item_hover overlay_green">
+                            <i class="nut-icon {{ block.value.icon }}"></i>
+                            <h3>{{ block.value.title }}</h3>
+                            <p>{{ block.value.text_1 }}</p>
+                            {% if block.value.text_2 %}
+                                <p>{{ block.value.text_2 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Эко баннер -->
+<div class="parallax" data-scrollax-parent="true">
+    <section class="eco overlay"
+             data-scrollax="properties: { translateY: '30%' }">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <a href="{{ page.eco_url }}"
+                   data-scrollax="properties: { 'translateY': '5%', 'opacity': 1 }">
+                    <i class="nut-icon icons-eco"></i>
+                    <h2>{{ page.eco_title }}</h2>
+                    <p>{{ page.eco_text }}</p>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Новости -->
+<section class="news gray_section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-12">
+                <h2>{{ page.news_title }}</h2>
+                <p class="news__descr">{{ page.news_subtitle }}</p>
+            </div>
+            <div class="col-md-6 col-12 d-flex justify-content-end">
+                <div class="wrap">
+                    <div class="navigation"></div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="news-container swiper-container">
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-wrapper">
+                        {% for item in news %}
+                        <div class="swiper-slide">
+                            <div class="news__item">
+                                {% with image=item.get_first_image %}
+                                    {% if image %}
+                                        {% image image width-400 as img %}
+                                        <span class="video_wrap">
+                                            <img src="{{ img.url }}" alt="{{ item.title_page }}">
+                                        </span>
+                                    {% endif %}
+                                {% endwith %}
+                                <div class="wraper">
+                                    <div class="item_data">{{ item.date|date:"d.m.Y" }}</div>
+                                    <h3>{{ item.title_page }}</h3>
+                                    {% for block in item.body %}
+                                        {% if block.block_type == 'text' %}
+                                            <p>{{ block.value|striptags|truncatechars:120 }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <a href="{{ item.url }}">
+                                        Читать <i class="nut-icon icons-read-more"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="wrapper">
+                <a href="#" class="button button_transparent">Смотреть все новости</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

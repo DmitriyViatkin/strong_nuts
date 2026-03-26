@@ -8,30 +8,55 @@ from .blocks import (
     PhoneBlock, AddressBlock, StatisticItemBlock
 )
 
-@register_setting
-class HeaderSettings(BaseSiteSetting):
 
-    logo = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True, blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name=_('Логотип')
-    )
-    top_banner_discount = models.CharField(
-        max_length=200, blank=True,
-        verbose_name=_('Текст банера знижки')
-    )
+@register_setting
+class BrandSettings(BaseSiteSetting):
+
+    logo = models.ForeignKey('wagtailimages.Image', null=True, blank=True,
+                             on_delete=models.SET_NULL, related_name='+', verbose_name=_('Логотип'))
     social_links = StreamField(
         [('social', SocialLinkBlock())],
         use_json_field=True, blank=True,
         verbose_name=_('Соцмережі')
     )
+
     messenger_links = StreamField(
         [('messenger', MessengerBlock())],
         use_json_field=True, blank=True,
         verbose_name=_('Месенджери')
     )
+
+    panels = [
+        FieldPanel('logo'),
+        FieldPanel('social_links'),
+        FieldPanel('messenger_links'),
+    ]
+
+    class Meta:
+        verbose_name = _('Налаштування бренду')
+
+
+@register_setting
+class NavLinks (BaseSiteSetting):
+
+    naw_link = StreamField([('nav', NavLinkBlock())], use_json_field=True, blank=True,
+                            verbose_name=_('Навігаційне меню')
+                            )
+
+    panels = [
+        FieldPanel('naw_link'),
+    ]
+
+
+@register_setting
+class HeaderSettings(BaseSiteSetting):
+
+
+    top_banner_discount = models.CharField(
+        max_length=200, blank=True,
+        verbose_name=_('Текст банера знижки')
+    )
+
     phone_number = models.CharField(
         max_length=20, blank=True,
         verbose_name=_('Телефон')
@@ -44,11 +69,7 @@ class HeaderSettings(BaseSiteSetting):
         max_length=100, blank=True,
         verbose_name=_('Години роботи')
     )
-    nav_links = StreamField(
-        [('nav', NavLinkBlock())],
-        use_json_field=True, blank=True,
-        verbose_name=_('Навігаційне меню')
-    )
+
     cart_icon = models.BooleanField(
         default=True,
         verbose_name=_('Показувати іконку кошика')
@@ -56,16 +77,14 @@ class HeaderSettings(BaseSiteSetting):
 
 
     panels = [
-        FieldPanel('logo'),
+
         FieldPanel('top_banner_discount'),
         FieldPanel('phone_number'),
         FieldPanel('button_text'),
         FieldPanel('button_working_hours'),
         FieldPanel('cart_icon'),
 
-        FieldPanel('social_links'),
-        FieldPanel('messenger_links'),
-        FieldPanel('nav_links'),
+
     ]
 
     class Meta:
@@ -84,11 +103,7 @@ class ContactSettings(BaseSiteSetting):
         use_json_field=True, blank=True,
         verbose_name=_('Телефони')
     )
-    messenger_links = StreamField(
-        [('messenger', MessengerBlock())],
-        use_json_field=True, blank=True,
-        verbose_name=_('Месенджери')
-    )
+
     email = models.EmailField(
         blank=True,
         verbose_name=_('Email')
@@ -106,7 +121,7 @@ class ContactSettings(BaseSiteSetting):
     panels = [
         FieldPanel('seo'),
         FieldPanel('phone_numbers'),
-        FieldPanel('messenger_links'),
+
         FieldPanel('email'),
         FieldPanel('map_embed_url'),
         FieldPanel('address'),
@@ -119,23 +134,7 @@ class ContactSettings(BaseSiteSetting):
 @register_setting
 class FooterSettings(BaseSiteSetting):
 
-    logo = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True, blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name=_('Логотип')
-    )
-    nav_links = StreamField(
-        [('nav', NavLinkBlock())],
-        use_json_field=True, blank=True,
-        verbose_name=_('Навігаційне меню')
-    )
-    social_links = StreamField(
-        [('social', SocialLinkBlock())],
-        use_json_field=True, blank=True,
-        verbose_name=_('Соцмережі')
-    )
+
     developer_name = models.CharField(
         max_length=100, blank=True,
         verbose_name=_('Розробник')
@@ -150,9 +149,7 @@ class FooterSettings(BaseSiteSetting):
     )
 
     panels = [
-        FieldPanel('logo'),
-        FieldPanel('nav_links'),
-        FieldPanel('social_links'),
+
         FieldPanel('developer_name'),
         FieldPanel('developer_url'),
         FieldPanel('copyright_text'),

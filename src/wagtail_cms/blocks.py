@@ -1,11 +1,12 @@
-from wagtail.blocks import StructBlock, CharBlock, ListBlock, URLBlock, StructBlockValidationError, RichTextBlock
+from wagtail.blocks import (StructBlock, CharBlock,ChoiceBlock, ListBlock, URLBlock,
+                            StreamBlock, StructBlockValidationError, RichTextBlock)
 from wagtail.images.blocks import  ImageChooserBlock
 from wagtail import blocks
 
 class MessengerBlock(StructBlock):
     name = CharBlock(label='Назва (viber, telegram, watsap)')
     link = URLBlock(label="Посилання")
-
+    icon = ImageChooserBlock(label="Іконка", required=False)
     class Meta:
         icon = "link"
         label = 'Месенджер'
@@ -53,7 +54,7 @@ class AddressBlock(StructBlock):
         label = 'Адреса'
 
 class VideoBannerBlock(StructBlock):  # 👈 добавили
-    image = ImageChooserBlock(label="Фонове зображення")
+
     video_url = URLBlock(label="Посилання на відео")
     title = CharBlock(max_length=255, label="Заголовок")
     text = RichTextBlock(
@@ -75,3 +76,36 @@ class StatisticItemBlock(StructBlock):
     class Meta:
         icon = 'list-ul'
         label = 'Статистика'
+
+class BenefitItemBlock(StructBlock):
+    image = ImageChooserBlock(label='Фонове зображення')
+    icon = CharBlock(label='Клас іконки (наприклад: icons-group4)')
+    title = CharBlock(label='Заголовок')
+    text_1 = blocks.TextBlock(label='Текст 1')
+    text_2 = blocks.TextBlock(label='Текст 2', required=False)
+
+    class Meta:
+        icon = 'pick'
+        label = 'Картка користі'
+
+class MediaSourceBlock(StructBlock):
+    image = ImageChooserBlock(label="Зображення", required=False)
+    video = URLBlock(label="Посилання на відео", required=False)
+
+    class Meta:
+        label = "Медіа-файл"
+
+class GalleryBlock(StructBlock):
+    media = MediaSourceBlock(label="Вміст (Картинка або Відео)")
+    title = CharBlock(label='Заголовок', required=False)
+    description = CharBlock(label='Опис', required=False)
+    size = ChoiceBlock(
+        choices=[
+            ('large', 'Великий (7/12)'),
+            ('medium', 'Середній (5/12)'),
+            ('full', 'На всю ширину з відео'),
+            ('small', 'Маленький (4/12)'),
+        ],
+        default='small',
+        label='Розмір'
+    )

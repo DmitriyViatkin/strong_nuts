@@ -1011,6 +1011,18 @@ tests = ["defusedxml", "numpy", "packaging", "pympler", "pytest"]
 tests-min = ["defusedxml", "packaging", "pytest"]
 
 [[package]]
+name = "polib"
+version = "1.2.0"
+description = "A library to manipulate gettext files (po and mo files)."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "polib-1.2.0-py2.py3-none-any.whl", hash = "sha256:1c77ee1b81feb31df9bca258cbc58db1bbb32d10214b173882452c73af06d62d"},
+    {file = "polib-1.2.0.tar.gz", hash = "sha256:f3ef94aefed6e183e342a8a269ae1fc4742ba193186ad76f175938621dbfc26b"},
+]
+
+[[package]]
 name = "progressbar2"
 version = "4.5.0"
 description = "A Python Progressbar library to provide visual (yet text based) progress to long running operations."
@@ -1436,6 +1448,30 @@ docs = ["Sphinx (>=7.3)", "myst_parser (==2.0.0)", "pyenchant (>=3.1.1,<4)", "sp
 testing = ["Jinja2 (>=3.0,<3.2)", "azure-mgmt-cdn (>=12.0,<13.0)", "azure-mgmt-frontdoor (>=1.0,<1.1)", "boto3 (>=1.28,<2)", "coverage (>=3.7.0)", "curlylint (==0.13.1)", "django-pattern-library (>=0.7)", "djhtml (==3.0.6)", "doc8 (==1.1.2)", "factory-boy (>=3.2)", "freezegun (>=0.3.8)", "polib (>=1.1,<2.0)", "python-dateutil (>=2.7)", "responses (>=0.25,<1)", "ruff (==0.9.6)", "semgrep (==1.150.0)", "tblib (>=2.0,<3.0)"]
 
 [[package]]
+name = "wagtail-localize"
+version = "1.13"
+description = "Translation plugin for Wagtail CMS"
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "wagtail_localize-1.13-py3-none-any.whl", hash = "sha256:48296cb90eb3317bea62ecd5f23cc57088c9c9d39aca3b2261e4f19fa15de2cf"},
+    {file = "wagtail_localize-1.13.tar.gz", hash = "sha256:48ecfcd6d002009697b84d77ebcb042451a68da916a1f5ca0e161b472c2b74c8"},
+]
+
+[package.dependencies]
+Django = ">=4.2"
+polib = ">=1.1,<2.0"
+typing_extensions = ">=4.0"
+Wagtail = ">=6.3"
+
+[package.extras]
+documentation = ["mkdocs (==1.4.3)", "mkdocs-autorefs (>=0.4.0,<0.5)", "mkdocs-include-markdown-plugin (>=4.0.4,<5)", "mkdocs-material (>=9.1,<10)", "mkdocstrings[python] (==0.22.0)", "pygments (>=2.15,<2.16)"]
+google = ["google-cloud-translate (>=3.0.0)"]
+linting = ["pre-commit (>=4.2.0,<6)"]
+testing = ["coverage (>=7.0,<8.0)", "dj-database-url (>=2.1.0,<3)", "django-rq (>=2.5,<3.0)", "freezegun (>=1.2,<2)", "google-cloud-translate (>=3.0.0)", "wagtail-modeladmin (>=2.0,<3.0)"]
+
+[[package]]
 name = "wcwidth"
 version = "0.6.0"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -1489,4 +1525,4 @@ wand = ["Wand (>=0.6,<1.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "4b71d9fb8427aa9eef51bd951d921d79602209707fa961a3dd126a0deb415db5"
+content-hash = "3836f343b1c0e65e0c1a8c63b3dd5b8c518f251b238aa0617ffab7de04e11e32"

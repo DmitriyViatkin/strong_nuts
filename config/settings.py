@@ -21,12 +21,15 @@ INSTALLED_APPS = [
     'unfold',
     'unfold.contrib.filters',
     'unfold.contrib.forms',
-'django_vite',
+    'django_vite',
     #Wagtails
+
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',
-    'wagtail.contrib.simple_translation',
+   #'wagtail.contrib.simple_translation',
+    #'wagtail_localize',
+    #'wagtail_localize.locales',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -194,9 +197,10 @@ DJANGO_VITE = {
         'static_url_prefix':'dist'
     }
 }
+
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))  # PLW1508: default как строка
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True").lower() == "true"
@@ -214,4 +218,4 @@ CELERY_TIMEZONE = TIME_ZONE
 
 # Media
 MEDIA_URL="/media/"
-MEDIA_ROOT= os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
