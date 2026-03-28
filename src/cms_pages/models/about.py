@@ -63,13 +63,8 @@ class AboutManufacturerPage(Page):
         verbose_name='Видео баннер',
     )
 
-    # statistic → StatisticItemBlock
-    statistic = StreamField(
-        [('statistic', StatisticItemBlock())],
-        blank=True,
-        use_json_field=True,
-        verbose_name='Статистика',
-    )
+
+
 
     # image_baner → BanerBlock
     image_baner = StreamField(
@@ -90,10 +85,7 @@ class AboutManufacturerPage(Page):
             [FieldPanel('top_baner')],
             heading='Видео баннер',
         ),
-        MultiFieldPanel(
-            [FieldPanel('statistic')],
-            heading='Статистика',
-        ),
+
         MultiFieldPanel(
             [FieldPanel('image_baner')],
             heading='Баннер с изображением',

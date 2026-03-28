@@ -1,0 +1,30 @@
+{% load static %}
+{% load wagtailimages_tags %}
+{% load wagtailsettings_tags %}
+{% get_settings %}
+
+{# ===== СТАТИСТИКА из StatisticSettings ===== #}
+    {% if settings.wagtail_cms.StatisticSettings.items %}
+        <section class="timer gray_section">
+            <div class="container">
+                <div class="row">
+                    {% for block in settings.wagtail_cms.StatisticSettings.items %}
+                        {% if block.block_type == 'item' %}
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <div class="wrap">
+                                    <span class="timer__single"
+                                        data-from="1"
+                                        data-to="{{ block.value.number }}"
+                                        data-speed="3000"
+                                        data-refresh-interval="50">
+                                    </span>
+                                    <sup>{{ block.value.suffix }}</sup>
+                                    <div class="timer__descr">{{ block.value.description }}</div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}

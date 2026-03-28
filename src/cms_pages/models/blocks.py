@@ -9,7 +9,8 @@ class ContentBlock(StructBlock):
     image = ImageChooserBlock(label='Изображение')
     title = CharBlock(max_length=255, label='Заголовок')
     body_text = RichTextBlock(label='Текст')
-
+    button_text = CharBlock(max_length=100, required=False, label='Текст кнопки')
+    button_url = URLBlock(required=False, label='URL кнопки')
     class Meta:
         icon = 'doc-full'
         label = 'Контент блок'
