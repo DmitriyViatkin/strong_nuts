@@ -27,12 +27,7 @@ class Main (Page):
     max_count = 1
 
     # Видео баннер
-    video_banner_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True, blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
+
     video_banner_url = models.URLField(blank=True)
     video_banner_title = models.CharField(max_length=255, blank=True)
     video_banner_text = models.CharField(max_length=255, blank=True)

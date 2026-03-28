@@ -1,0 +1,248 @@
+ {% extends 'base.html' %}
+{% load static wagtailimages_tags wagtailcore_tags %}
+
+{% block content %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<!-- ═══ КОРЗИНА (попап) ═══════════════════════════════════════════════════════ -->
+<div class="container pr">
+    <div class="popup__cart">
+        <div class="wrap">
+            <div class="popup__cart_item">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ HERO / VIDEO BANNER ══════════════════════════════════════════════════ -->
+{% for block in page.top_baner %}
+    {% if block.block_type == 'top_baner' %}
+        <section class="first-section overlay"
+                 style="background-image: url({{ block.value.video_url }})">
+            <div class="container">
+                <div class="breadcrumbs">
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li>О производстве</li>
+                    </ul>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                    <a href="{{ block.value.video_url }}">
+                        <h1>{{ block.value.title }}</h1>
+                        <div>{{ block.value.text }}</div>
+                        <span><i class="nut-icon icons-play-icon"></i></span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}
+
+<!-- ═══ О ПРОИЗВОДИТЕЛЕ (content) ════════════════════════════════════════════ -->
+{% for block in page.content %}
+    {% if block.block_type == 'content' %}
+        <section class="manufacturer">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <h2>{{ block.value.title }}</h2>
+                        <div class="manufacturer__descr">
+                            {{ block.value.body_text }}
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        {% image block.value.image original as img %}
+                        <div class="manufacturer-container swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="manufacturer__item manufacturer__item_video">
+                                        <img src="{{ img.url }}" alt="{{ img.alt }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrap">
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}
+
+<!-- ═══ СТАТИСТИКА ════════════════════════════════════════════════════════════ -->
+<section class="timer">
+    <div class="container">
+        <div class="row">
+            {% for block in page.statistic %}
+                {% if block.block_type == 'statistic' %}
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="wrap">
+                            <span class="timer__single"
+                                  data-from="1"
+                                  data-to="{{ block.value.number }}"
+                                  data-speed="3000"
+                                  data-refresh-interval="50">
+                            </span>
+                            {% if block.value.unit %}
+                                <sup>{{ block.value.unit }}</sup>
+                            {% endif %}
+                            <div class="timer__descr">
+                                {{ block.value.description }}
+                                {% if block.value.sub_description %}
+                                    <div>{{ block.value.sub_description }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ГАЛЕРЕЯ (данные из GalleryPage) ══════════════════════════════════════ -->
+<section class="benefit gray_section gallery_section">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-12">
+                <h2>{{ page.gallery_section_title }}</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            {% for block in gallery %}
+                {% if block.block_type == 'item' %}
+                    {% with item=block.value %}
+                        {% if item.size == 'large' %}
+                            <div class="col-lg-7 col-md-6 col-12">
+                        {% elif item.size == 'full' %}
+                            <div class="col-lg-12 col-md-12 col-12">
+                        {% else %}
+                            <div class="col-lg-4 col-md-6 col-12">
+                        {% endif %}
+
+                            <div class="wrap {% if item.size == 'small' %}item_small{% endif %}">
+                                {% if item.media.video %}
+                                    {# слайд с видео #}
+                                    <a href="{{ item.media.video }}"
+                                       class="benefit__item overlay benefit__item_video_text
+                                              {% if item.size == 'small' %}item_small benefit__item_video{% endif %}"
+                                       {% if item.media.image %}
+                                           {% image item.media.image original as bg %}
+                                           style="background-image: url({{ bg.url }})"
+                                       {% endif %}>
+                                        <span><i class="nut-icon icons-play-icon"></i></span>
+                                        {% if item.title %}<h3>{{ item.title }}</h3>{% endif %}
+                                        {% if item.description %}<p>{{ item.description }}</p>{% endif %}
+                                    </a>
+                                {% else %}
+                                    {# слайд с картинкой #}
+                                    {% if item.media.image %}
+                                        {% image item.media.image original as bg %}
+                                        <div class="benefit__item {% if item.size == 'small' %}item_small{% endif %}"
+                                             style="background-image: url({{ bg.url }})">
+                                        </div>
+                                    {% endif %}
+                                    {% if item.title or item.description %}
+                                        <div class="benefit__item item_hover overlay_green">
+                                            {% if item.title %}<h3>{{ item.title }}</h3>{% endif %}
+                                            {% if item.description %}<p>{{ item.description }}</p>{% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="wrapper">
+                <a href="{% pageurl gallery_page %}" class="button button_transparent">
+                    Смотреть всю галерею
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ЭКО БАННЕР (image_baner) ═════════════════════════════════════════════ -->
+{% for block in page.image_baner %}
+    {% if block.block_type == 'image_baner' %}
+        {% image block.value.image original as eco_img %}
+        <div class="parallax" data-scrollax-parent="true">
+            <section class="eco overlay"
+                     style="background-image: url({{ eco_img.url }})"
+                     data-scrollax="properties: { translateY: '30%' }">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <a href="{{ block.value.button_url }}"
+                           data-scrollax="properties: { 'translateY': '5%', 'opacity': 1 }">
+                            <i class="nut-icon icons-eco"></i>
+                            <h2>{{ block.value.title }}</h2>
+                            {% if block.value.text %}
+                                <p>{{ block.value.text }}</p>
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    {% endif %}
+{% endfor %}
+
+<!-- ═══ НОВОСТИ (данные из DetailNewsPage) ═══════════════════════════════════ -->
+<section class="news gray_section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-12">
+                <h2>{{ page.news_section_title }}</h2>
+                <p class="news__descr">{{ page.news_section_subtitle }}</p>
+            </div>
+            <div class="col-md-6 col-12 d-flex justify-content-end">
+                <div class="wrap">
+                    <div class="navigation"></div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="news-container swiper-container">
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-wrapper">
+                        {% for news_item in news %}
+                            <div class="swiper-slide">
+                                <div class="news__item {% if news_item.is_video %}news__item_video{% endif %}">
+                                    <span class="video_wrap">
+                                        {% if news_item.preview_image %}
+                                            {% image news_item.preview_image fill-600x400 as thumb %}
+                                            <img src="{{ thumb.url }}" alt="{{ news_item.title }}">
+                                        {% endif %}
+                                    </span>
+                                    <div class="wraper">
+                                        <div class="item_data">
+                                            {{ news_item.date|date:"d.m.Y" }}
+                                        </div>
+                                        <h3>{{ news_item.title }}</h3>
+                                        <p>{{ news_item.intro|truncatewords:20 }}</p>
+                                        <a href="{% pageurl news_item %}">
+                                            Читать <i class="nut-icon icons-read-more"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="wrapper">
+                <a href="#" class="button button_transparent">Смотреть все новости</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
