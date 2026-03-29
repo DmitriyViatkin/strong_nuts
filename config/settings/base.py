@@ -2,11 +2,14 @@ import os
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
-from django.utils.translation import gettext_lazy as _
-from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+from django.utils.translation import gettext_lazy as _
+from config.settings.unfold_settings import UNFOLD
+from config.settings.celery_settings import *
+from config.settings.email_settings import *
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(BASE_DIR / 'src'))
 load_dotenv(BASE_DIR / '.env')
 
@@ -153,66 +156,8 @@ CITIES_LIGHT_TRANSLATION_LANGUAGES = ['uk', 'ru', 'en']
 CITIES_LIGHT_INCLUDE_COUNTRIES = ['UA']
 CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLC']
 
-UNFOLD = {
 
-"SITE_DROPDOWN": [
-        {
-            "icon": "diamond",
-            "title": _("Открыть сайт"),
-            "link": "https://example.com",
-            "attrs": {
-                "target": "_blank",
-            },
-        },
-        {
-            "icon": "home", # Сменил иконку для разнообразия
-            "title": _("Админка: Главная"),
-            "link": reverse_lazy("admin:index"),
-        },
-    ],
 
-    "DASHBOARD_CALLBACK":"unfold_admin.views.dashboard_callback",
-    'SITE_TITLE':"Nuts Admin",
-    'SITE_HEADER': "Nuts",
-    'SITE_SYMBOL': "nutrition",
-
-    #"INDEX_DASHBOARD": "unfold_admin.dashboard.CustomIndexDashboard",
-    "SIDEBAR": {
-            "show_search": True,
-            "show_all_applications": False,  # <- False убирает все лишние разделы
-        },
-    "NAVIGATION":[
-     {
-            "title": "Staff",
-            "icon": "badge",
-            "items": [
-                {"title": "Співробітники", "link": "/admin/auth/user/?is_staff=1"},
-                {"title": "Групи і права", "link": "/admin/auth/group/"},
-            ],
-        },
-        {
-            "title": "Users",
-            "icon": "people",
-            "link": "/admin/auth/user/?is_staff=0",
-        },
-        {
-            "title": "Orders",
-            "icon": "shopping_bag",
-            "link": "/admin/orders/order/",
-        },
-        {
-            "title": "Transactions",
-            "icon": "payments",
-            "link": "/admin/orders/transaction/",
-        },
-        {
-            "title": "Products",
-            "icon": "inventory_2",
-            "link": "/admin/catalog/product/",
-        },
-    ],
-
-}
 DJANGO_VITE = {
     'default':{
         'dev_mode': DEBUG,
@@ -222,23 +167,9 @@ DJANGO_VITE = {
     }
 }
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True").lower() == "true"
-EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "False").lower() == "true"
-SERVER_EMAIL = os.getenv("SERVER_EMAIL", EMAIL_HOST_USER)
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
 
-# Celery
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://127.0.0.1:6379/0")
-CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "redis://127.0.0.1:6379/0")
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_TIMEZONE = TIME_ZONE
+
+
 
 # Media
 MEDIA_URL="/media/"
