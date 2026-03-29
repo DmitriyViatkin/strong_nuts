@@ -136,25 +136,24 @@
     {% include "includes/statistic_block.html" %}
 
     {# ===== ВИДЕО БАННЕР из video_footer_banner ===== #}
-    {% for block in page.video_footer_banner %}
-        {% if block.block_type == 'image_banner' %}
-            <div class="parallax" data-scrollax-parent="true">
-                <section class="goal overlay cover"
-                    style="background-image: url('{{ block.value.background_image.url }}')"
-                    data-scrollax="properties: { translateY: '30%' }">
-                    <div class="container">
-                        <div class="row align-items-center justify-content-center">
-                            <a href="{{ block.value.video_url }}"
-                               data-scrollax="properties: { 'translateY': '5%', 'opacity': 1 }">
-                                <h2>{{ block.value.title }}</h2>
-                                <span><i class="nut-icon icons-play-icon"></i></span>
-                                <p><i>{{ block.value.text }}</i></p>
-                            </a>
+        {% for block in page.video_footer_banner %}
+            {% if block.block_type == 'image_banner' %}
+                <div class="parallax" data-scrollax-parent="true">
+                    <section class="goal overlay cover"
+                        data-scrollax="properties: { translateY: '30%' }">
+                        <div class="container">
+                            <div class="row align-items-center justify-content-center">
+                                <a href="{{ block.value.video_url }}"
+                                   data-scrollax="properties: { 'translateY': '5%', 'opacity': 1 }">
+                                    <h2>{{ block.value.title }}</h2>
+                                    <span><i class="nut-icon icons-play-icon"></i></span>
+                                    <p><i>{{ block.value.text|richtext }}</i></p>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </section>
-            </div>
-        {% endif %}
-    {% endfor %}
+                    </section>
+                </div>
+            {% endif %}
+        {% endfor %}
 
 {% endblock %}

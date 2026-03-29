@@ -1,0 +1,172 @@
+{% extends 'admin/index.html' %}
+{% load i18n %}
+
+{% block content %}
+
+{# ===== KPI КАРТОЧКИ ===== #}
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+
+  {# Замовлення сьогодні #}
+  <div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="material-symbols-outlined text-violet-500">shopping_bag</span>
+      <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Замовлення сьогодні" %}</span>
+    </div>
+    <div class="text-3xl font-bold text-gray-900 dark:text-white">{{ orders_today }}</div>
+    <div class="text-xs text-gray-400 mt-1">{% trans "Всього" %}: {{ total_orders }}</div>
+  </div>
+
+  {# Нові замовлення #}
+  <div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="material-symbols-outlined text-amber-500">pending</span>
+      <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Нові замовлення" %}</span>
+    </div>
+    <div class="text-3xl font-bold text-gray-900 dark:text-white">{{ new_orders }}</div>
+    <div class="text-xs text-gray-400 mt-1">{% trans "Статус: new" %}</div>
+  </div>
+
+  {# Користувачі #}
+  <div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="material-symbols-outlined text-blue-500">people</span>
+      <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Користувачі" %}</span>
+    </div>
+    <div class="text-3xl font-bold text-gray-900 dark:text-white">{{ total_users }}</div>
+    <div class="text-xs text-gray-400 mt-1">{% trans "Нових цього місяця" %}: {{ new_users_month }}</div>
+  </div>
+
+  {# Виручка за місяць #}
+  <div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="material-symbols-outlined text-green-500">payments</span>
+      <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Виручка за місяць" %}</span>
+    </div>
+    <div class="text-3xl font-bold text-gray-900 dark:text-white">{{ revenue_month }} ₴</div>
+    <div class="text-xs text-gray-400 mt-1">{% trans "За тиждень" %}: {{ revenue_week }} ₴</div>
+  </div>
+
+</div>
+
+{# ===== ДРУГА СТРОКА: Товари + Швидкі посилання ===== #}
+<div class="grid grid-cols-1 gap-4 lg:grid-cols-3 mb-6">
+
+  {# Товари #}
+  <div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="material-symbols-outlined text-violet-500">inventory_2</span>
+      <span class="font-semibold text-gray-700 dark:text-gray-200">{% trans "Товари" %}</span>
+    </div>
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Всього" %}</span>
+      <span class="font-bold text-gray-900 dark:text-white">{{ total_products }}</span>
+    </div>
+    <div class="flex justify-between items-center">
+      <span class="text-sm text-gray-500 dark:text-gray-400">{% trans "Активних" %}</span>
+      <span class="font-bold text-green-500">{{ active_products }}</span>
+    </div>
+  </div>
+
+  {# Швидкі посилання #}
+  <div class="lg:col-span-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="material-symbols-outlined text-violet-500">link</span>
+      <span class="font-semibold text-gray-700 dark:text-gray-200">{% trans "Швидкі посилання" %}</span>
+    </div>
+    <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+      <a href="/admin/order_management/clientorder/add/"
+         class="flex items-center gap-2 rounded-md px-3 py-2 text-sm bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/40 transition">
+        <span class="material-symbols-outlined text-base">add_shopping_cart</span>
+        {% trans "Нове замовлення" %}
+      </a>
+      <a href="/admin/product_management/product/add/"
+         class="flex items-center gap-2 rounded-md px-3 py-2 text-sm bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/40 transition">
+        <span class="material-symbols-outlined text-base">add_box</span>
+        {% trans "Новий товар" %}
+      </a>
+      <a href="/admin/cabinet/user/"
+         class="flex items-center gap-2 rounded-md px-3 py-2 text-sm bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/40 transition">
+        <span class="material-symbols-outlined text-base">person_search</span>
+        {% trans "Користувачі" %}
+      </a>
+      <a href="/admin/order_management/clientorder/?status=new"
+         class="flex items-center gap-2 rounded-md px-3 py-2 text-sm bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/40 transition">
+        <span class="material-symbols-outlined text-base">pending_actions</span>
+        {% trans "Нові замовлення" %}
+      </a>
+      <a href="/admin/order_management/billingoperation/?status=pending_payment"
+         class="flex items-center gap-2 rounded-md px-3 py-2 text-sm bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/40 transition">
+        <span class="material-symbols-outlined text-base">hourglass_empty</span>
+        {% trans "Очікують оплати" %}
+      </a>
+      <a href="/admin/product_management/product/?is_active=0"
+         class="flex items-center gap-2 rounded-md px-3 py-2 text-sm bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900/40 transition">
+        <span class="material-symbols-outlined text-base">visibility_off</span>
+        {% trans "Неактивні товари" %}
+      </a>
+    </div>
+  </div>
+
+</div>
+
+{# ===== ПОСЛЕДНИЕ ЗАКАЗЫ ===== #}
+<div class="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-violet-500">receipt_long</span>
+      <span class="font-semibold text-gray-700 dark:text-gray-200">{% trans "Останні замовлення" %}</span>
+    </div>
+    <a href="/admin/order_management/clientorder/"
+       class="text-sm text-violet-500 hover:text-violet-700 transition">
+      {% trans "Всі замовлення →" %}
+    </a>
+  </div>
+
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="border-b border-gray-100 dark:border-gray-800 text-left text-xs text-gray-400 uppercase">
+        <th class="pb-2 pr-4">№</th>
+        <th class="pb-2 pr-4">{% trans "Користувач" %}</th>
+        <th class="pb-2 pr-4">{% trans "Статус" %}</th>
+        <th class="pb-2 pr-4">{% trans "Доставка" %}</th>
+        <th class="pb-2 pr-4 text-right">{% trans "Сума" %}</th>
+        <th class="pb-2 text-right">{% trans "Дата" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in recent_orders %}
+      <tr class="border-b border-gray-50 dark:border-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition">
+        <td class="py-2 pr-4">
+          <a href="/admin/order_management/clientorder/{{ order.id }}/change/"
+             class="text-violet-500 hover:underline font-mono">#{{ order.id }}</a>
+        </td>
+        <td class="py-2 pr-4 text-gray-700 dark:text-gray-300">
+          {{ order.user.email|default:"—" }}
+        </td>
+        <td class="py-2 pr-4">
+          {% if order.status == 'new' %}
+            <span class="px-2 py-0.5 rounded-full text-xs bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">{{ order.get_status_display }}</span>
+          {% elif order.status == 'processing' %}
+            <span class="px-2 py-0.5 rounded-full text-xs bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">{{ order.get_status_display }}</span>
+          {% elif order.status == 'shipped' %}
+            <span class="px-2 py-0.5 rounded-full text-xs bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">{{ order.get_status_display }}</span>
+          {% elif order.status == 'delivered' %}
+            <span class="px-2 py-0.5 rounded-full text-xs bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">{{ order.get_status_display }}</span>
+          {% elif order.status == 'cancelled' %}
+            <span class="px-2 py-0.5 rounded-full text-xs bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300">{{ order.get_status_display }}</span>
+          {% endif %}
+        </td>
+        <td class="py-2 pr-4 text-gray-500 dark:text-gray-400">{{ order.get_delivery_display }}</td>
+        <td class="py-2 pr-4 text-right font-semibold text-gray-900 dark:text-white">{{ order.summary }} ₴</td>
+        <td class="py-2 text-right text-gray-400 text-xs">{{ order.created_at|date:"d.m.Y H:i" }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="py-6 text-center text-gray-400">{% trans "Замовлень поки немає" %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

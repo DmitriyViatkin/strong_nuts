@@ -3,7 +3,8 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
-
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR / 'src'))
@@ -154,9 +155,32 @@ CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLC']
 
 UNFOLD = {
 
+"SITE_DROPDOWN": [
+        {
+            "icon": "diamond",
+            "title": _("Открыть сайт"),
+            "link": "https://example.com",
+            "attrs": {
+                "target": "_blank",
+            },
+        },
+        {
+            "icon": "home", # Сменил иконку для разнообразия
+            "title": _("Админка: Главная"),
+            "link": reverse_lazy("admin:index"),
+        },
+    ],
+
+    "DASHBOARD_CALLBACK":"unfold_admin.views.dashboard_callback",
     'SITE_TITLE':"Nuts Admin",
     'SITE_HEADER': "Nuts",
     'SITE_SYMBOL': "nutrition",
+
+    #"INDEX_DASHBOARD": "unfold_admin.dashboard.CustomIndexDashboard",
+    "SIDEBAR": {
+            "show_search": True,
+            "show_all_applications": False,  # <- False убирает все лишние разделы
+        },
     "NAVIGATION":[
      {
             "title": "Staff",
