@@ -14,7 +14,7 @@ UNFOLD = {
         {
             "icon": "open_in_new",
             "title": _("Відкрити сайт"),
-            "link": "https://example.com",
+            "link": "http://127.0.0.1:8000/",
             "attrs": {"target": "_blank"},
         },
         {
@@ -49,17 +49,17 @@ UNFOLD = {
                     {
                         "title": _("Користувачі"),
                         "icon": "people",
-                        "link": "/admin/cabinet/user/?is_staff=0",
+                        "link": "/admin/cabinet/user/?is_staff=1",
                     },
                     {
                         "title": _("Співробітники"),
                         "icon": "badge",
-                        "link": "/admin/cabinet/user/?is_staff=1",
+                         "link": "/admin/cabinet/user/?is_staff=0",
                     },
                     {
                         "title": _("Групи і права"),
                         "icon": "admin_panel_settings",
-                        "link": "/admin/auth/group/",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
                     },
                 ],
             },
@@ -71,13 +71,16 @@ UNFOLD = {
                     {
                         "title": _("Замовлення"),
                         "icon": "shopping_bag",
-                        "link": "/admin/order_management/clientorder/",
+                        "link": reverse_lazy(
+                            "admin:order_management_clientorder_changelist"),
                         "badge": "unfold_admin.views.orders_badge",
                     },
                     {
                         "title": _("Транзакції"),
                         "icon": "payments",
-                        "link": "/admin/order_management/billingoperation/",
+                        "link":
+                            reverse_lazy(
+                                "admin:order_management_billingoperation_changelist"),
                     },
                 ],
             },
@@ -89,7 +92,8 @@ UNFOLD = {
                     {
                         "title": _("Товари"),
                         "icon": "inventory_2",
-                        "link": "/admin/product_management/product/",
+                        "link": reverse_lazy(
+                            "admin:product_management_product_changelist"),
                     },
                 ],
             },

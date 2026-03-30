@@ -4,9 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from django.utils.translation import gettext_lazy as _
-from config.settings.unfold_settings import UNFOLD
-from config.settings.celery_settings import *
-from config.settings.email_settings import *
+
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -26,6 +24,8 @@ INSTALLED_APPS = [
     'unfold.contrib.filters',
     'unfold.contrib.forms',
     'django_vite',
+    'ninja'
+    
     #Wagtails
 
     'wagtail.contrib.forms',
