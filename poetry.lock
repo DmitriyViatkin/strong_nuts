@@ -1676,6 +1676,21 @@ linting = ["pre-commit (>=4.2.0,<6)"]
 testing = ["coverage (>=7.0,<8.0)", "dj-database-url (>=2.1.0,<3)", "django-rq (>=2.5,<3.0)", "freezegun (>=1.2,<2)", "google-cloud-translate (>=3.0.0)", "wagtail-modeladmin (>=2.0,<3.0)"]
 
 [[package]]
+name = "wagtail-ninja"
+version = "0.1.20"
+description = "Ninja API for Wagtail"
+optional = false
+python-versions = ">=3.12"
+groups = ["main"]
+files = [
+    {file = "wagtail_ninja-0.1.20-py3-none-any.whl", hash = "sha256:41ed7c832b26c3533ebfe1e5a0cca1480bfca0dad6c23ebe9cc1ddcaedf4ac48"},
+    {file = "wagtail_ninja-0.1.20.tar.gz", hash = "sha256:da7ae512b2376b6c7100bcf47e12e9540abc0fafb17313bb2db4083b1fc3edc5"},
+]
+
+[package.dependencies]
+django-ninja = ">=1.4.3,<=1.7"
+
+[[package]]
 name = "wcwidth"
 version = "0.6.0"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -1729,4 +1744,4 @@ wand = ["Wand (>=0.6,<1.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "83837ff9ecd269aaf74b479b5f97bcdafae4651d0a93b8d3699d64bc8d911617"
+content-hash = "2d00507b8ba20db5c98d1b1cc702ee72f1762fe5a9c5987ab2a39b6dc76a1e47"

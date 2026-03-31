@@ -15,11 +15,15 @@ from wagtail_cms.blocks import VideoBannerBlock, BenefitItemBlock, GalleryBlock
 
 class UserAgreement(Page):
 
-    template = 'cms_page/user_agreement.html'
+    template = 'cms_page/therms-of-use.html'
 
-    text = RichTextField(
+    text = RichTextField( blank= True
 
     )
+    content_panels = Page.content_panels + [
+            FieldPanel('text'),
+        ]
 
 
-
+    class Meta:
+        verbose_name = 'Страница пользовательское соглашение'

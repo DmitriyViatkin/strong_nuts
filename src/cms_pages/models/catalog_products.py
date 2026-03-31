@@ -49,3 +49,7 @@ class CatalogProduct(Page):
         context['ware'] = Product.objects.all().order_by('-date')[:6]
 
         return context
+
+    class Meta:
+        verbose_name = 'Страница каталог продукции'
+        verbose_name_plural = 'Страницы каталог продукции'
