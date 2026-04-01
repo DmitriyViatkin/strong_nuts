@@ -1,0 +1,37 @@
+<div class="col-lg-3">
+    <nav class="navigation">
+        <p>Мій кабінет</p>
+        <ul>
+            <li>
+                <a href="{% url 'cabinet:profile' %}"
+                   class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                    Особисті дані
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'cabinet:history-trans' %}"
+                   class="{% if request.resolver_match.url_name == 'history-trans' %}active{% endif %}">
+                    Білінг операції
+                </a>
+            </li>
+        </ul>
+        <p>Моя історія замовлень</p>
+        <ul>
+            <li>
+                <a href="{% url 'cabinet:history-orders' %}"
+                   class="{% if request.resolver_match.url_name == 'orders' %}active{% endif %}">
+                    Мої замовлення
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'accounts:change_password' %}"
+                   class="{% if request.resolver_match.url_name == 'change_password' %}active{% endif %}">
+                    Пароль
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'accounts:logout' %}">Вихід</a>
+            </li>
+        </ul>
+    </nav>
+</div>

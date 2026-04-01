@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Особистий кабінет{% endblock %}
+{% block body_class %}page{% endblock %}
+
+{% block content %}
+
+    <section class="first-section no-bg">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="/">Головна</a></li>
+                    <li>Особистий кабінет</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="accaunt">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <h1>Особистий кабінет</h1>
+                </div>
+                <div class="col-lg-9 col-md-6">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="accaunt__manager">
+                                <ul>
+                                    <li><p>Ваш менеджер допоможе вам</p></li>
+                                    <li>
+                                        <i class="nut-icon icons-phone"></i>
+                                        <a href="tel:+380677771412">+38 067 777 14 12</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% if user.discount %}
+                        <div class="col-lg-6">
+                            <span class="discount">
+                                Ваша персональна знижка - {{ user.discount }}%
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% include 'base_cabinet/includes/navigation.html' %}
+
+                <div class="col-lg-9">
+                    {% block cabinet_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

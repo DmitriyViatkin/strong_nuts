@@ -1,0 +1,41 @@
+{% extends "base_cabinet.html" %}
+
+{% block cabinet_content %}
+<div class="col-lg-9">
+    <div class="row">
+        <div class="col-12">
+            {% if billing_operations %}
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <th><span>Дата</span></th>
+                            <th><span>Статус</span></th>
+                            <th><span>Сума</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for operation in billing_operations %}
+                        <tr>
+                            <td>{{ operation.date|date:"d.m.Y" }}</td>
+                            <td>{{ operation.get_status_display }}</td>
+                            <td>
+                                <div class="icons_wrap">
+                                    <span>{{ operation.amount }} грн.</span>
+                                    {% if operation.order %}
+                                        <a href="#" class="tooltip" title="Переглянути замовлення">
+                                            <i class="nut-icon icons-view"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="table__message">У вас ще немає операцій!</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
