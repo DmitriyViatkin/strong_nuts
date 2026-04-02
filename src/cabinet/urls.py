@@ -10,6 +10,7 @@ urlpatterns = [
          name='history-trans'),
     path('history-orders', views.ListClientOrders.as_view(),
          name='history-orders'),
+path('contact-information/', views.ContactInformation.as_view(), name='contact-information'),
 
 
 ]

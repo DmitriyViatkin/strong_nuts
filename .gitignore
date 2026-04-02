@@ -13,6 +13,8 @@ __pycache__/
 .env.local
 .venv/
 
+AGENTS.md
+
 # Distribution / packaging
 .Python
 build/

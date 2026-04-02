@@ -29,18 +29,7 @@ UNFOLD = {
         "show_all_applications": False,
 
         "navigation": [
-            {
-                "title": _("Main"),
-                "separator": False,
-                "collapsible": True,
-                "items": [
-                    {
-                        "title": _("Dashboard"),
-                        "icon": "dashboard",
-                        "link": reverse_lazy("admin:index"),
-                    },
-                ],
-            },
+
             {
                 "title": _("Management"),
                 "separator": True,

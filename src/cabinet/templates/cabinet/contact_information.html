@@ -1,0 +1,88 @@
+{% extends "base_cabinet/base_cabinet.html" %}
+
+{% block cabinet_content %}
+<div class="col-md-9">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% if user.is_fop %}
+                    {# Форма для ФОП / юр. лица #}
+                    <input type="text"
+                           name="company_name"
+                           placeholder="Назва компанії*"
+                           value="{{ form.company_name.value|default:'' }}">
+                    <input type="email"
+                           name="email"
+                           placeholder="Email*"
+                           value="{{ user.email }}">
+                    <input type="tel"
+                           name="phone"
+                           placeholder="Телефон*"
+                           value="{{ user.phone }}">
+                {% else %}
+                    {# Форма для физ. лица #}
+                    <input type="text"
+                           name="first_name"
+                           placeholder="Ім'я*"
+                           value="{{ user.first_name }}">
+                    <input type="text"
+                           name="last_name"
+                           placeholder="Прізвище та ім'я*"
+                           value="{{ user.last_name }}">
+                    <input type="email"
+                           name="email"
+                           placeholder="Email*"
+                           value="{{ user.email }}">
+                    <input type="tel"
+                           name="phone"
+                           placeholder="Телефон*"
+                           value="{{ user.phone }}">
+                {% endif %}
+
+                <button class="button float-left" type="submit">Зберегти</button>
+
+        </div>
+
+        <div class="col-md-6 align-self-center">
+            <div class="wrapper">
+                <div class="file__wrap">
+                    <input type="file" name="avatar" id="file" class="inputfile" />
+                    <label id="imagePreview"
+                           for="file"
+                           class="label__photo"
+                           {% if user.avatar %}
+                               style="background-image: url('{{ user.avatar.url }}');"
+                           {% endif %}>
+                        <span>Завантажити фото</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.getElementById('file').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('imagePreview');
+        const spanText = preview.querySelector('span');
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                // Встановлюємо фон лейбла як вибране зображення
+                preview.style.backgroundImage = `url('${e.target.result}')`;
+                preview.style.backgroundSize = 'cover';
+                preview.style.backgroundPosition = 'center';
+
+                if (spanText) spanText.style.display = 'none';
+            }
+
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+{% endblock %}

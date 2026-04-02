@@ -15,8 +15,8 @@ from wagtail_cms.blocks import VideoBannerBlock, BenefitItemBlock, GalleryBlock
 
 class UserAgreement(Page):
 
-    template = 'cms_page/therms-of-use.html'
-
+    template = 'cms_pages/therms-of-use.html'
+    max_count = 1
     text = RichTextField( blank= True
 
     )

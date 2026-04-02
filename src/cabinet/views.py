@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from django.views.generic   import ListView, DetailView
+from django.views.generic   import ListView, DetailView, UpdateView
+from django.urls import reverse
+from .forms import FopUserForm, RegularUserForm
 from order_management.models import ClientOrder, BillingOperation, OrderItem
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -19,7 +21,7 @@ class MyCabinetView(TemplateView):
 class ListBillingOperations(LoginRequiredMixin, ListView):
 
     model = BillingOperation
-    template_name = 'billing_operations_list.html'
+    template_name = 'cabinet/history-trans.html'
     context_object_name = 'billing_operations'
 
     def get_queryset(self):
@@ -33,7 +35,7 @@ class ListBillingOperations(LoginRequiredMixin, ListView):
 class ListClientOrders(LoginRequiredMixin, ListView):
 
     model = ClientOrder
-    template_name = 'history.html'
+    template_name = 'cabinet/history.html'
     context_object_name = 'client_orders'
 
     def get_queryset(self):
@@ -42,4 +44,19 @@ class ListClientOrders(LoginRequiredMixin, ListView):
          Відсортований за датою створення (найновіші перші).
          """
         return (ClientOrder.objects.filter(user=self.request.user)
-                .prefetch_related('items__product', 'transaction').order_by('-id'))
+                .prefetch_related('items__product', 'transactions').order_by('-id'))
+
+class ContactInformation(LoginRequiredMixin, UpdateView):
+    template_name = 'cabinet/contact_information.html'
+    context_object_name = 'user'
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form_class(self):
+        if self.request.user.is_fop:
+            return FopUserForm
+        return RegularUserForm
+
+    def get_success_url(self):
+        return reverse('cabinet:contact-information')
