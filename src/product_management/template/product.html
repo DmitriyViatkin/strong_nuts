@@ -1,0 +1,324 @@
+{% extends 'base.html' %}
+{% load static wagtailimages_tags wagtailcore_tags wagtailsettings_tags %}
+
+{% block content %}
+{% get_settings use_default_site=True %}
+	<div class="container pr">
+		<div class="popup__cart">
+			<div class="wrap">
+				<div class="popup__cart_item">
+					<div class="row align-items-center no-gutters item_row">
+						<div class="col-md-5 col-12">
+							<div class="item_title">
+								<p>{{ product.name }}</p>
+							</div>
+						</div>
+						<div class="col-md-7 col-12">
+							<div class="row align-items-center no-gutters">
+								<div class="col-6">
+									<div class="item_quantity">
+										<button type="button" class="quantity_minus">
+											<i class="nut-icon icons-qty-left"></i>
+										</button>
+										<input type="text" name="quantity" value="1" class="quantity_input">
+										<button type="button" class="quantity_plus">
+											<i class="nut-icon icons-qty-right"></i>
+										</button>
+									</div>
+								</div>
+								<div class="col-5">
+									<div class="item_sum">
+										<p>{{ product.price }} <span>грн.</span></p>
+									</div>
+								</div>
+								<div class="col-1">
+									<div class="item_close">
+										<a href="#">
+											<i class="nut-icon icons-close-button"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="popup__cart_sum">
+					<div class="sum_item">
+						<div class="sum_item_title">
+							<p>Разом </p>
+						</div>
+						<div class="sum_item_new">
+							<p>{{ product.price }} <i>грн.</i></p>
+						</div>
+					</div>
+					<div class="sum_item">
+						<div class="sum_item_button">
+							<a href="#" class="button">Перейти до кошика</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="first-section no-bg">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ul>
+					<li>
+						<a href="/">Головна</a>
+					</li>
+					<li>
+						{{ product.name }}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="product">
+		<div class="container">
+			<div class="row no-gutters">
+				<div class="col-lg-5 col-md-6">
+					<div class="wrap">
+						<div class="product__item">
+
+							{% if product.is_sale %}
+							<div class="sticker">
+								<i class="nut-icon icons-actciya"></i>
+								<p>Акція</p>
+							</div>
+							{% endif %}
+
+							<!-- Slider main container -->
+							<div class="products-container swiper-container">
+								<div class="swiper-wrapper">
+									{% for gallery_item in product.gallery.all %}
+									<div class="swiper-slide">
+										<a href="{{ gallery_item.image.url }}">
+											<img src="{{ gallery_item.image.url }}" alt="{{ product.name }}"/>
+										</a>
+									</div>
+									{% empty %}
+									<div class="swiper-slide">
+										<a href="#"><img src="{% static 'img/no-image.png' %}" alt="{{ product.name }}"/></a>
+									</div>
+									{% endfor %}
+								</div>
+
+								<!-- If we need navigation buttons -->
+								<div class="swiper-button-prev"></div>
+								<div class="swiper-button-next"></div>
+								<img class="zoom" src="{% static 'img/zoom.svg' %}" alt="zoom">
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-7 col-md-6">
+					<div class="product__content">
+						<div class="row">
+
+							{% if product.summary %}
+							<div class="col-md-6">
+								<div class="product__content_name">
+									{{ product.summary }}
+								</div>
+							</div>
+							{% endif %}
+
+							{% if product.articul %}
+							<div class="col-md-6">
+								<div class="product__content_art">
+									Арт:<span> {{ product.articul }}</span>
+								</div>
+							</div>
+							{% endif %}
+
+							<div class="col-lg-9">
+								<h1>{{ product.name }}</h1>
+							</div>
+							<div class="col-lg-3"></div>
+
+							<div class="col-12">
+								<div class="product__content_descr">
+									<ul>
+										{% if product.composition %}
+										<li>
+											<div class="row">
+												<div class="col-md-5">
+													<strong>Склад:</strong>
+												</div>
+												<div class="col-md-7">
+													<span>{{ product.composition }}</span>
+												</div>
+											</div>
+										</li>
+										{% endif %}
+
+										{% if product.mass %}
+										<li>
+											<div class="row">
+												<div class="col-md-5">
+													<strong>Маса нетто:</strong>
+												</div>
+												<div class="col-md-7">
+													<span>{{ product.mass }}</span>
+												</div>
+											</div>
+										</li>
+										{% endif %}
+
+										{% if product.energy_value %}
+										<li>
+											<div class="row">
+												<div class="col-md-5">
+													<strong>Енергетична цінність:</strong>
+												</div>
+												<div class="col-md-7">
+													<span>{{ product.energy_value }}</span>
+												</div>
+											</div>
+										</li>
+										{% endif %}
+
+										{% if product.expiration_date %}
+										<li>
+											<div class="row">
+												<div class="col-md-5">
+													<strong>Дата придатності:</strong>
+												</div>
+												<div class="col-md-7">
+													<span>{{ product.expiration_date }}</span>
+												</div>
+											</div>
+										</li>
+										{% endif %}
+
+										{% if product.packaging %}
+										<li>
+											<div class="row">
+												<div class="col-md-5">
+													<strong>Пакування:</strong>
+												</div>
+												<div class="col-md-7">
+													<span>{{ product.get_packaging_display }}</span>
+												</div>
+											</div>
+										</li>
+										{% endif %}
+									</ul>
+								</div>
+							</div>
+
+							{% if product.storage_conditions %}
+							<div class="col-12">
+								<div class="warning">
+									<i class="nut-icon icons-warning-sigh"></i>
+									<p>{{ product.storage_conditions }}</p>
+								</div>
+							</div>
+							{% endif %}
+
+							<div class="col-12">
+								<div class="product__content_sum">
+									<div class="sum_item">
+										<div class="sum_item_title">
+											<p>Ціна зараз: </p>
+										</div>
+										<div class="sum_item_new">
+											<p>{{ product.price }} <i>грн.</i></p>
+										</div>
+										{% if product.is_sale and product.old_price %}
+										<div class="sum_item_old">
+											<p>{{ product.old_price }} <i>грн.</i></p>
+										</div>
+										{% endif %}
+									</div>
+
+									{% if product.is_sale and product.discount_percent %}
+									<div class="sum_item">
+										<div class="sum_item_discount">
+											<p>-{{ product.discount_percent }}%</p>
+										</div>
+									</div>
+									{% endif %}
+
+									<div class="sum_item">
+										<div class="sum_item_button">
+											<a href="#" class="button">Купити</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="payment payment__product">
+		<div class="tabs">
+			<div class="tabs__wrap">
+				<div class="container">
+					<div class="row">
+						<ul class="tabs__caption">
+							<li class="active"><span>Описання</span></li>
+							<li><span>Доставка</span></li>
+							<li><span>Оплата</span></li>
+							<li><span>Відгуки</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+
+						<!-- Вкладка 1: Описання -->
+						<div class="tabs__content active">
+							<div class="row">
+								{% with first_image=product.gallery.first %}
+								{% if first_image %}
+								<div class="col-lg-4 col-md-6 col-12">
+									<img src="{{ first_image.image.url }}" class="tabs__content_img" alt="{{ product.name }}">
+								</div>
+								<div class="col-lg-8 col-md-6 col-12 align-self-center">
+								{% else %}
+								<div class="col-12">
+								{% endif %}
+									<div class="tabs__content_product">
+										{{ product.description|linebreaks }}
+									</div>
+								</div>
+								{% endwith %}
+							</div>
+						</div>
+
+						<!-- Вкладка 2: Доставка -->
+						<div class="tabs__content">
+							Інформація про доставку
+						</div>
+
+						<!-- Вкладка 3: Оплата -->
+						<div class="tabs__content">
+							Інформація про оплату
+						</div>
+
+						<!-- Вкладка 4: Відгуки -->
+						<div class="tabs__content">
+							Відгуки
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

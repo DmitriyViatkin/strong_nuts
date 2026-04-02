@@ -6,6 +6,9 @@ from django.conf.urls.i18n import i18n_patterns
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
+from product_management import urls as product_urls
+
+
 
 urlpatterns = [
 
@@ -19,6 +22,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('accounts/', include('accounts.urls')),
     path('cabinet/', include('cabinet.urls')),
+    path('products/', include(product_urls)),
     path('', include(wagtail_urls)),
 )
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

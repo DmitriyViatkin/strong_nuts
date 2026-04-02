@@ -16,11 +16,14 @@ class Gallery(models.Model):
         upload_to='gallery/',
         verbose_name=_('Зображення')
     )
-
+    
 
     class Meta:
         verbose_name = _('Зображення')
         verbose_name_plural = _('Галерея')
+
+    def __str__(self):
+        return f"Image{self.id}"
 
 
 
@@ -57,11 +60,29 @@ class Product(models.Model):
         blank=True, null=True,
         verbose_name=_('Термін придатності')
     )
+    storage_conditions = models.CharField(
+        max_length=500,
+        blank=True,
+        verbose_name=_('Умови зберігання')
+    )
+
+    # --- Цены ---
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name=_('Ціна')
     )
+    old_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True, null=True,
+        verbose_name=_('Стара ціна')
+    )
+    is_sale = models.BooleanField(
+        default=False,
+        verbose_name=_('Акція')
+    )
+
     articul = models.CharField(
         max_length=100,
         unique=True,
@@ -94,3 +115,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def discount_percent(self):
+        """Считает процент скидки автоматически"""
+        if self.is_sale and self.old_price and self.old_price > self.price:
+            return int((1 - self.price / self.old_price) * 100)
+        return 0

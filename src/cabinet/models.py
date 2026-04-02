@@ -136,7 +136,11 @@ class User(AbstractUser):
     )
     is_fop = models.BooleanField(
         default=False,
-        verbose_name=_('ФОП / Юридична особа')
+        verbose_name=_('ФОП')
+    )
+    is_jur_person= models.BooleanField(
+        default=False,
+        verbose_name=_('Юридична особа')
     )
     address = models.ForeignKey(
         Address,

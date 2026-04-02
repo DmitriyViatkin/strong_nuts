@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Історія операцій{% endblock %}
+{% block body_class %}page{% endblock %}
+
+{% block content %}
+
+    <section class="first-section no-bg">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="/">Головна</a></li>
+                    <li><a href="#">Особистий кабінет</a></li>
+                    <li>Білінг операції</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="accaunt">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <h1>Особистий кабінет</h1>
+                </div>
+                <div class="col-lg-9 col-md-6">
+                    <div class="accaunt__manager">
+                        <ul>
+                            <li><p>Ваш менеджер допоможе вам</p></li>
+                            <li>
+                                <i class="nut-icon icons-phone"></i>
+                                <a href="tel:+380677771412">+38 067 777 14 12</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <nav class="navigation">
+                        <p>Мій кабінет</p>
+                        <ul>
+                            <li><a href="#">Особисті дані</a></li>
+                            <li><a href="#" class="active">Білінг операції</a></li>
+                        </ul>
+                        <p>Моя історія замовлень</p>
+                        <ul>
+                            <li><a href="#">Мої замовлення</a></li>
+                            <li><a href="#">Обране</a></li>
+                            <li><a href="#">Вихід</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-12">
+                            {% if billing_operations %}
+                                <table id="table">
+                                    <thead>
+                                        <tr>
+                                            <th><span>Дата</span></th>
+                                            <th><span>Статус</span></th>
+                                            <th><span>Сума</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for operation in billing_operations %}
+                                        <tr>
+                                            <td>{{ operation.date|date:"d.m.Y" }}</td>
+                                            <td>{{ operation.get_status_display }}</td>
+                                            <td>
+                                                <div class="icons_wrap">
+                                                    <span>{{ operation.amount }} грн.</span>
+                                                    {% if operation.order %}
+                                                        <a href="#"
+                                                           class="tooltip"
+                                                           title="Переглянути замовлення">
+                                                            <i class="nut-icon icons-view"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <div class="table__message">У вас ще немає операцій!</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
