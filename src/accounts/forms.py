@@ -103,7 +103,7 @@ class RegisterLegalForm(forms.Form):
     password1 = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput)
 
-    # 👇 ДОБАВИЛИ
+     
     avatar = forms.ImageField(required=False)
 
     def clean_email(self):

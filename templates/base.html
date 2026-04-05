@@ -48,8 +48,10 @@
 	{% endblock %}
 
 	{% include "includes/footer.html"%}
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="{% static  'js/scripts.min.js' %}"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVofcK1JyIWtVb3kaEbvHi9WqHCteWpxI&amp;callback=initMap"></script>
+
+{% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -23,6 +23,7 @@ urlpatterns += i18n_patterns(
     path('accounts/', include('accounts.urls')),
     path('cabinet/', include('cabinet.urls')),
     path('products/', include(product_urls)),
+    path('api/', include('cms_pages.urls')),
     path('', include(wagtail_urls)),
 )
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

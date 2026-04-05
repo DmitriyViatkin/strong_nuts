@@ -7,4 +7,5 @@ from .corporate_clients_page import CorporateClientsPage
 from .delivery_payment import DeliveryPaymentPage
 from .user_agreement import UserAgreement
 from .catalog_products import CatalogProduct
+from .address_page import AddressPage
 

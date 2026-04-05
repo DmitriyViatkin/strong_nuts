@@ -34,3 +34,6 @@ stop_all:
 	pkill -f "runserver" || true
 	pkill -f "celery" || true
 	pkill -f "vite" || true
+
+initial_data:
+	$(PYTHON) $(MANAGE) start_page

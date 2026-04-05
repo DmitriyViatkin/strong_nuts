@@ -1,3 +1,6 @@
+{% load wagtailcore_tags %}
+
+
 <nav class="navigation">
     <p>Мої замовлення</p>
     <ul>
@@ -29,10 +32,12 @@
             </a>
         </li>
         <li>
-            <a href="#"
+            {% if address_page %}
+            <a href="{% pageurl address_page %}"
                class="{% if request.resolver_match.url_name == 'address' %}active{% endif %}">
                 Адреса та реквізити
             </a>
+            {% endif %}
         </li>
     </ul>
 </nav>

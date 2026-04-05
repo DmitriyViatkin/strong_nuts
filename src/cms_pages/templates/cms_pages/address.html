@@ -1,0 +1,193 @@
+{% extends "base_cabinet/base_cabinet.html" %}
+{% load wagtailimages_tags %}
+{% block cabinet_content %}
+<p>Країна ID: {{ address_form.country.value }}</p>
+<p>Регіон ID: {{ address_form.region.value }}</p>
+<p>Адреса об'єкт: {{ request.user.address }}</p>
+<p>Адреса ID: {{ request.user.address.id }}</p>
+<p>Країна об'єкт: {{ request.user.address.country }}</p>
+<div class="col-md-9">
+    <div class="row">
+        <div class="col-lg-6">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if request.user.is_jur_person %}
+                    <div class="form__title">1. Реквізити</div>
+                    {{ address_form.edrpou }}
+                    {{ address_form.company_name }}
+                    {{ address_form.pdv }}
+                    <div class="form__title">2. Адреса</div>
+                    {{ address_form.country }}
+                    {{ address_form.region }}
+                    {{ address_form.city }}
+                    {{ address_form.street }}
+                    {{ address_form.zip_code }}
+                {% else %}
+                    <div class="form__title">Адреса</div>
+                    {{ address_form.country }}
+                    {{ address_form.region }}
+                    {{ address_form.city }}
+                    {{ address_form.street }}
+                {% endif %}
+                <button class="button" type="submit">Зберегти</button>
+            </form>
+        </div>
+        <div class="col-lg-6 align-self-end">
+            {% if page.image %}
+                {% image page.image fill-600x800 as banner %}
+                <img src="{{ banner.url }}" alt="banner">
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+            jQuery(function($) {
+
+                function syncStyledSelect($select) {
+                    var $selected = $select.find('option:selected');
+                    var $wrapper = $select.closest('.select');
+                    var $styled = $wrapper.find('.select-styled').first();
+
+                    if ($selected.length && $selected.val()) {
+                        $styled.text($selected.text());
+                    } else {
+                        // fallback — placeholder (перший option)
+                        $styled.text($select.find('option').first().text());
+                    }
+                }
+
+                function rebuildCustomOptions($select) {
+                    var $wrapper = $select.closest('.select');
+                    var $styled = $wrapper.find('.select-styled').first();
+                    var $list = $wrapper.find('.select-options').first();
+
+                    $list.empty();
+
+                    $select.find('option').each(function() {
+                        var $option = $(this);
+
+                        var $li = $('<li>', {
+                            rel: $option.val(),
+                            text: $option.text()
+                        });
+
+                        $li.on('click', function(e) {
+                            e.stopPropagation();
+
+                            $select.val($option.val()).trigger('change');
+                            $styled.text($option.text()).removeClass('active');
+                            $list.hide();
+                        });
+
+                        $list.append($li);
+                    });
+                }
+
+                var $country = $('#id_country');
+                var $region = $('#id_region');
+
+                // 🔥 1. первинна синхронізація
+                syncStyledSelect($country);
+                syncStyledSelect($region);
+
+                // 🔥 2. якщо плагін вже створив список — перебудуємо його правильно
+                rebuildCustomOptions($country);
+                rebuildCustomOptions($region);
+
+                // 🔥 3. change country
+                $country.on('change', function() {
+                    syncStyledSelect($country);
+
+                    var countryId = $(this).val();
+
+                    // reset region
+                    $region.html('<option value="">Область</option>');
+                    rebuildCustomOptions($region);
+                    syncStyledSelect($region);
+
+                    if (!countryId) return;
+
+                    $.getJSON('/uk/api/regions/?country=' + countryId, function(data) {
+
+                        data.forEach(function(r) {
+                            $region.append(
+                                $('<option>', { value: r.id, text: r.name })
+                            );
+                        });
+
+                        // 🔥 після підвантаження
+                        rebuildCustomOptions($region);
+                        syncStyledSelect($region);
+                    });
+                });
+
+                // 🔥 4. change region
+                $region.on('change', function() {
+                    syncStyledSelect($region);
+                });
+
+            });
+</script>
+{% endblock %}
+{% block extra_js %}
+<script>
+jQuery(function($) {
+    function syncStyledSelect($select) {
+        var $selected = $select.find('option:selected');
+        var $wrapper = $select.closest('.select');
+        var $styled = $wrapper.find('.select-styled').first();
+        if ($selected.length && $selected.val()) {
+            $styled.text($selected.text());
+        } else {
+            $styled.text($select.find('option').first().text());
+        }
+    }
+
+    function rebuildCustomOptions($select) {
+        var $wrapper = $select.closest('.select');
+        var $styled = $wrapper.find('.select-styled').first();
+        var $list = $wrapper.find('.select-options').first();
+        $list.empty();
+        $select.find('option').each(function() {
+            var $option = $(this);
+            var $li = $('<li>', { rel: $option.val(), text: $option.text() });
+            $li.on('click', function(e) {
+                e.stopPropagation();
+                $select.val($option.val()).trigger('change');
+                $styled.text($option.text()).removeClass('active');
+                $list.hide();
+            });
+            $list.append($li);
+        });
+    }
+
+    var $country = $('#id_country');
+    var $region = $('#id_region');
+
+    syncStyledSelect($country);
+    syncStyledSelect($region);
+    rebuildCustomOptions($country);
+    rebuildCustomOptions($region);
+
+    $country.on('change', function() {
+        syncStyledSelect($country);
+        var countryId = $(this).val();
+        $region.html('<option value="">Область</option>');
+        rebuildCustomOptions($region);
+        syncStyledSelect($region);
+        if (!countryId) return;
+        $.getJSON('/uk/api/regions/?country=' + countryId, function(data) {
+            data.forEach(function(r) {
+                $region.append($('<option>', { value: r.id, text: r.name }));
+            });
+            rebuildCustomOptions($region);
+            syncStyledSelect($region);
+        });
+    });
+
+    $region.on('change', function() {
+        syncStyledSelect($region);
+    });
+});
+</script>
+{% endblock %}

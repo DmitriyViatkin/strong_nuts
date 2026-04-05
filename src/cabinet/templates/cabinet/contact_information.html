@@ -7,30 +7,34 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
-                {% if user.is_fop %}
+                {% if user.is_jur_person %}
                     {# Форма для ФОП / юр. лица #}
                     <input type="text"
                            name="company_name"
                            placeholder="Назва компанії*"
                            value="{{ form.company_name.value|default:'' }}">
+
+                    <input type="text"
+                               name="full_name"
+                               placeholder="ФИО"
+                                value="{{ form.full_name.value|default:'' }}">
+
                     <input type="email"
                            name="email"
                            placeholder="Email*"
                            value="{{ user.email }}">
+
                     <input type="tel"
                            name="phone"
                            placeholder="Телефон*"
                            value="{{ user.phone }}">
                 {% else %}
                     {# Форма для физ. лица #}
+
                     <input type="text"
-                           name="first_name"
-                           placeholder="Ім'я*"
-                           value="{{ user.first_name }}">
-                    <input type="text"
-                           name="last_name"
-                           placeholder="Прізвище та ім'я*"
-                           value="{{ user.last_name }}">
+                           name="full_name"
+                           placeholder="ФИО"
+                           value="{{ form.full_name.value|default:'' }}">
                     <input type="email"
                            name="email"
                            placeholder="Email*"

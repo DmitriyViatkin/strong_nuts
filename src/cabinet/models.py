@@ -127,7 +127,12 @@ class User(AbstractUser):
         upload_to='users/images/',
         blank=True, null=True,
         verbose_name=_('Аватар'),
-
+    )
+    second_name = models.CharField(
+        max_length=150,
+        blank=True,
+        null=True,
+        verbose_name=_('По батькові')
     )
     phone = models.CharField(
         max_length=13,
@@ -165,6 +170,12 @@ class User(AbstractUser):
             return self.address.company_name
         return f'{self.first_name} {self.last_name}'.strip() or self.email
 
+
+    def full_name(self):
+
+      parts = filter(None, [self.first_name, self.second_name, self.last_name])
+      return ' '.join(parts) or self.email
+
     @property
     def is_legal(self):
-        return self.is_fop
+        return self.is_jur_person
