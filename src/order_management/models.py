@@ -58,6 +58,32 @@ class ClientOrder(models.Model):
         verbose_name=_('Дата замовлення')
     )
 
+    payment_status = models.CharField(
+        max_length=20,
+        choices=PAYMENT_STATUS,
+        default='pending_payment',
+        verbose_name=_('Статус оплати')
+    )
+    delivery_address = models.CharField(
+        max_length=500, blank=  True, verbose_name= _('Адреса доставки')
+    )
+    phone = models.CharField(
+        max_length=20, blank=True, verbose_name=_('Телефон для доставки')
+    )
+    recipient_name = models.CharField( max_length= 255, blank=True,
+                                       verbose_name=_('Ім\'я отримувача') )
+
+    tracking_number = models.CharField(
+        max_length=100, blank=True, verbose_name=_('Номер ТТН)')
+         )
+    np_city_ref  = models.CharField( max_length=100, blank=True,
+                                     verbose_name=_('NP City Ref') )
+
+    np_warehouse_ref = models.CharField( max_length=100, blank=True,
+                                        verbose_name=_('NP відділення Ref') )
+
+    np_warehouse_description = models.CharField( max_length=255, blank=True,
+                                                verbose_name=_('NP відділення') )
     class Meta:
         verbose_name = _('Замовлення')
         verbose_name_plural = _('Замовлення')
