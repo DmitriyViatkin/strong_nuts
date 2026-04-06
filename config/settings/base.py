@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'wagtail_cms',
     'unfold_admin',
     'cities_light',
+    'cart',
 
 ]
 
