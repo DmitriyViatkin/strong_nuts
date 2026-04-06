@@ -162,7 +162,7 @@
                                     </div>
                                     <div class="sum_item">
                                         <div class="sum_item_button">
-                                            <a href="#" class="button">Купить</a>
+                                            <a href="#" class="button add-to-cart-btn " data-product-id="{{ product.id}}">Купить</a>
                                         </div>
                                     </div>
                                 </div>
@@ -219,3 +219,43 @@
     {% endfor %}
 
 {% endblock %}
+
+{% block extra_js %}
+        <script>
+document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productId = this.dataset.productId;
+        const button = this;
+
+        fetch('{% url "cart:add" %}',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                quantity: 1
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            // Оновлення лічильника в шапці
+            const counter = document.querySelector('.cart-count');
+            if (counter) counter.textContent = data.quantity;
+
+            // Візуальний фідбек
+            button.textContent = 'Додано ✓';
+            setTimeout(() => button.textContent = 'Купити', 2000);
+        })
+        .catch(err => console.error('Помилка:', err));
+    });
+});
+</script>
+
+
+
+{% endblock %}
+
+

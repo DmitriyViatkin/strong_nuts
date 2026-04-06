@@ -1,55 +1,64 @@
 (function ($) {
 	'use strict';
 
-	// ================= INIT =================
 	$(document).ready(function () {
 
-		// Scrollax
+		// ================= INIT =================
 		if ($.Scrollax) {
 			$.Scrollax();
 		}
 
 		// ================= LINKS =================
-		$("a[href='#']").on('click', function (e) {
+		// Отключаем переход по пустым ссылкам
+		$(document).on('click', "a[href='#']", function (e) {
 			e.preventDefault();
 		});
 
 		// ================= MOBILE MENU =================
-		$('.top-header').before(`
-			<div class="mobile-menu d-lg-none">
-				<div class="row">
-					<div class="col-12">
-						<a href="/" class="logo">
-							<img src="img/logo.png" alt="logo">
-							<span>Твій<br> бренд</span>
-						</a>
-						<i class="nut-icon icons-close-button"></i>
+		const $header = $('.top-header');
+		if ($header.length && !$('.mobile-menu').length) {
+			$header.before(`
+				<div class="mobile-menu d-lg-none">
+					<div class="row">
+						<div class="col-12">
+							<a href="/" class="logo">
+								<img src="/static/img/logo.png" alt="logo">
+								<span>Strong<br> Nuts</span>
+							</a>
+							<i class="nut-icon icons-close-button"></i>
+						</div>
 					</div>
 				</div>
-			</div>
-		`);
+			`);
+			$('.menu_top').first().clone().appendTo('.mobile-menu');
+		}
 
-		$('.menu_top').clone().appendTo('.mobile-menu');
-
-		$('.mobile-menu-button, .mobile-menu .icons-close-button').on('click', function () {
+		$(document).on('click', '.mobile-menu-button, .mobile-menu .icons-close-button', function () {
 			$('.mobile-menu').stop().slideToggle();
 			$('.top-header').toggleClass('d-none');
 		});
 
-		// ================= DOM MOVES =================
-		$('.logo_tel_mobile, .logo_button_mobile').insertBefore('.lang-menu');
-		$('.line_social, .log_in').clone().appendTo('.mobile-line');
-		$('.mobile-line ul.log_in').removeClass('d-none');
+		// ================= DOM MOVES (Безопасные) =================
+		if ($('.lang-menu').length) {
+			$('.logo_tel_mobile, .logo_button_mobile').insertBefore('.lang-menu');
+		}
+		if ($('.mobile-line').length) {
+			$('.line_social, .log_in').clone().appendTo('.mobile-line');
+			$('.mobile-line ul.log_in').removeClass('d-none');
+		}
 
-		$('.news-container .swiper-button-next').insertBefore('.news .wrap .navigation');
-		$('.news-container .swiper-button-prev').insertBefore('.news .wrap .navigation');
+		const $newsNext = $('.news-container .swiper-button-next');
+		const $newsPrev = $('.news-container .swiper-button-prev');
+		const $newsNav = $('.news .wrap .navigation');
+		if ($newsNext.length && $newsNav.length) $newsNext.insertBefore($newsNav);
+		if ($newsPrev.length && $newsNav.length) $newsPrev.insertBefore($newsNav);
 
-		// ================= COUNTER =================
-		var blockScrolled = $('.timer');
-
-		if (blockScrolled.length) {
+		// ================= COUNTER (ИСПРАВЛЕНО) =================
+		const $timerBlock = $('.timer');
+		if ($timerBlock.length) {
 			$(window).on('scroll.counter', function () {
-				if ($(window).scrollTop() > blockScrolled.offset().top - $(window).height() / 2) {
+				const offset = $timerBlock.offset();
+				if (offset && $(window).scrollTop() > offset.top - $(window).height() / 2) {
 					if ($.fn.countTo) {
 						$('.timer__single').countTo();
 					}
@@ -59,7 +68,7 @@
 		}
 
 		// ================= TABS =================
-		$('ul.tabs__caption').on('click', 'li:not(.active)', function () {
+		$(document).on('click', 'ul.tabs__caption li:not(.active)', function () {
 			$(this)
 				.addClass('active').siblings().removeClass('active')
 				.closest('.tabs')
@@ -71,18 +80,18 @@
 
 		// ================= RADIO =================
 		function initRadioToggle(selector) {
-			$(selector + ' input[type="radio"]').on('click', function () {
-				var val = $(this).val();
-				var target = $("." + val);
-				$(".box").not(target).hide();
-				target.show();
+			$(document).on('click', selector + ' input[type="radio"]', function () {
+				const val = $(this).val();
+				const $target = $("." + val);
+				$(".box").not($target).hide();
+				$target.show();
 			});
 		}
 
 		initRadioToggle('.radio__wrap');
 		initRadioToggle('.radio__wrapper_click');
 
-		$('.radio__wrapper_click .radio-custom_last').on('click', function () {
+		$(document).on('click', '.radio__wrapper_click .radio-custom_last', function () {
 			$(".box").hide();
 		});
 
@@ -101,17 +110,11 @@
 			$('#table-breakpoint').basictable({ breakpoint: 768 });
 		}
 
-		// ================= POPUP CART =================
-		$('.logo_number').on('click', function () {
-			$('.popup__cart').stop().slideToggle();
-		});
-
-		$(document).on('mouseup', function (e) {
-			var div = $(".popup__cart");
-			if (!div.is(e.target) && div.has(e.target).length === 0) {
-				div.slideUp();
-			}
-		});
+		// ================= POPUP CART (ИСПРАВЛЕНО) =================
+		// Делегирование события клика, чтобы работало после AJAX
+	$(document).on('click', '.popup__cart', function (e) {
+    e.stopPropagation();
+});
 
 		// ================= STICKY =================
 		if (typeof Stickyfill !== 'undefined') {
@@ -119,14 +122,11 @@
 		}
 
 		// ================= LANG MENU =================
-		var menuElem = document.getElementById('lang-menu');
-
+		const menuElem = document.getElementById('lang-menu');
 		if (menuElem) {
-			var titleElem = menuElem.querySelector('.title');
-
+			const titleElem = menuElem.querySelector('.title');
 			document.addEventListener('click', function (event) {
-				var target = event.target;
-
+				let target = event.target;
 				while (target && target !== document) {
 					if (target === menuElem) {
 						if (event.target.tagName === 'A') {
@@ -143,46 +143,39 @@
 		}
 
 		// ================= SWIPERS =================
-		function initSwiper(selector, options) {
-			if (document.querySelector(selector)) {
-				return new Swiper(selector, options);
-			}
+		if (document.querySelector('.news-container') && typeof Swiper !== 'undefined') {
+			new Swiper('.news-container', {
+				slidesPerView: 3,
+				spaceBetween: 30,
+				loop: true,
+				navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev',
+				},
+				autoplay: {
+					delay: 2500,
+					disableOnInteraction: false,
+				},
+				breakpoints: {
+					1024: { slidesPerView: 3 },
+					920: { slidesPerView: 2 },
+					578: { slidesPerView: 1 }
+				}
+			});
 		}
 
-		initSwiper('.news-container', {
-			slidesPerView: 3,
-			spaceBetween: 30,
-			loop: true,
-			navigation: {
-				nextEl: '.swiper-button-next',
-				prevEl: '.swiper-button-prev',
-			},
-			autoplay: {
-				delay: 2500,
-				disableOnInteraction: false,
-			},
-			breakpoints: {
-				1024: { slidesPerView: 3 },
-				920: { slidesPerView: 2 },
-				578: { slidesPerView: 1 }
-			}
-		});
-
-		// FIX hover
 		$('.swiper-container').hover(
-			function () {
-				if (this.swiper) this.swiper.autoplay.stop();
-			},
-			function () {
-				if (this.swiper) this.swiper.autoplay.start();
-			}
+			function () { if (this.swiper) this.swiper.autoplay.stop(); },
+			function () { if (this.swiper) this.swiper.autoplay.start(); }
 		);
 
-		// ================= SELECT =================
+		// ================= SELECT (ИСПРАВЛЕНО) =================
 		$('select').each(function () {
-			var $this = $(this);
-			var $styled = $('<div class="select-styled"></div>');
-			var $list = $('<ul class="select-options"></ul>');
+			const $this = $(this);
+			if ($this.hasClass('select-hidden')) return;
+
+			const $styled = $('<div class="select-styled"></div>');
+			const $list = $('<ul class="select-options"></ul>');
 
 			$this.addClass('select-hidden').wrap('<div class="select"></div>').after($styled);
 			$styled.text($this.find(':selected').text());
@@ -204,39 +197,39 @@
 
 			$list.on('click', 'li', function () {
 				$styled.text($(this).text()).removeClass('active');
-				$this.val($(this).attr('rel'));
-				$list.hide();
-			});
-
-			$(document).on('click', function () {
-				$styled.removeClass('active');
+				$this.val($(this).attr('rel')).trigger('change');
 				$list.hide();
 			});
 		});
 
+		$(document).on('click', function () {
+			$('.select-styled').removeClass('active');
+			$('.select-options').hide();
+		});
+
 		// ================= LOAD MORE =================
-		var btn = document.getElementById('load-more-btn');
-
-		if (btn) {
-			btn.addEventListener('click', function (e) {
+		const btnLoad = document.getElementById('load-more-btn');
+		if (btnLoad) {
+			btnLoad.addEventListener('click', function (e) {
 				e.preventDefault();
-
-				var page = parseInt(this.dataset.page);
+				const page = parseInt(this.dataset.page);
 				this.textContent = 'Загрузка...';
 
 				fetch(`/api/products?page=${page}&per_page=6`)
 					.then(res => res.json())
 					.then(products => {
-						if (!products.length) return;
-
-						var container = document.getElementById('products-container');
-
-						products.forEach(p => {
-							container.insertAdjacentHTML('beforeend', renderCard(p));
-						});
-
+						if (!products || !products.length) {
+							this.style.display = 'none';
+							return;
+						}
+						const container = document.getElementById('products-container');
+						if (container) {
+							products.forEach(p => {
+								container.insertAdjacentHTML('beforeend', renderCard(p));
+							});
+						}
 						this.dataset.page = page + 1;
-						this.textContent = 'Загрузить ещё';
+						this.textContent = 'Показать еще';
 					});
 			});
 		}
@@ -246,7 +239,7 @@
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="production__item">
 						<div class="production__item_title">${p.name}</div>
-						<div class="production__item_descr">${p.summary}</div>
+						<div class="production__item_descr">${p.summary || ''}</div>
 						<div class="production__item_price">${p.price}</div>
 					</div>
 				</div>
@@ -257,18 +250,14 @@
 
 })(jQuery);
 
-
 // ================= GOOGLE MAP =================
 function initMap() {
-	if (typeof google === 'undefined') return;
-
-	var odessa = { lat: 46.4846, lng: 30.7326 };
-
-	var map = new google.maps.Map(document.getElementById('map'), {
+	if (typeof google === 'undefined' || !document.getElementById('map')) return;
+	const odessa = { lat: 46.4846, lng: 30.7326 };
+	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 15,
 		center: odessa
 	});
-
 	new google.maps.Marker({
 		position: odessa,
 		map: map

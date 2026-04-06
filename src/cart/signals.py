@@ -1,7 +1,7 @@
 # signals.py
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
-from services.cart_services import merge_carts
+from .services.cart_services import merge_carts
 
 
 @receiver(user_logged_in)

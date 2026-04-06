@@ -43,13 +43,21 @@
 <body class="home">
 
 	{% include "includes/header.html" %}
-
+	{% include "includes/cart_pr.html" %}
  	{% block content%}
 	{% endblock %}
 
 	{% include "includes/footer.html"%}
+
+	<div id="cart-urls"
+     data-detail="{% url 'cart:detail' %}"
+     data-update="{% url 'cart:update' %}"
+     data-remove="{% url 'cart:remove' %}"
+     style="display:none;">
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="{% static  'js/scripts.min.js' %}"></script>
+	<script src="{% static  'js/cart-ajax.js' %}"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVofcK1JyIWtVb3kaEbvHi9WqHCteWpxI&amp;callback=initMap"></script>
 
 {% block extra_js %}{% endblock %}

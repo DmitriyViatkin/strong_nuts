@@ -153,9 +153,9 @@
 
                                 <!-- Кошик -->
                                 {% if settings.wagtail_cms.HeaderSettings.cart_icon %}
-                                    <a href="/cart/" class="logo_number">
+                                    <a href="#" class="logo_number"  >
                                         <i class="nut-icon icons-number"></i>
-                                        <span class="quantity">{{ cart_count|default:0 }}</span>
+                                        <span class="quantity cart-count">{{ cart_count|default:0 }}</span>
                                     </a>
                                 {% endif %}
 

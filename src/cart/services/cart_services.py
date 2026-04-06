@@ -1,5 +1,5 @@
 import uuid
-from .models import Cart, CartItem
+from ..models import Cart, CartItem
 
 
 def get_or_create_cart(request):

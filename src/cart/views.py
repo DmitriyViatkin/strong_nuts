@@ -1,8 +1,8 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from product_management.models import Product
-from .services import get_or_create_cart, add_to_cart, remove_from_cart, update_quantity, clear_cart
+from .services.cart_services import get_or_create_cart, add_to_cart, remove_from_cart, update_quantity, clear_cart
 import json
 
 
@@ -57,3 +57,13 @@ def cart_clear(request):
     cart = get_or_create_cart(request)
     clear_cart(cart)
     return JsonResponse({'status': 'ok'})
+
+
+
+def cart_page(request):
+    cart = get_or_create_cart(request)
+    items = cart.items.select_related('product').all()
+    return render(request, 'cart/cart.html', {
+        'cart_items': items,
+        'cart_total': cart.total,
+    })

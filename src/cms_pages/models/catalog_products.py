@@ -15,7 +15,7 @@ from wagtail_cms.blocks import (
 
 
 class CatalogProduct(Page):
-    template = 'cms_page/catalog_product.html'
+    template = 'cms_pages/catalog_product.html'
     max_count = 1
 
     image_top_baner = StreamField(
@@ -46,7 +46,7 @@ class CatalogProduct(Page):
     def get_context(self, request):
 
         context = super().get_context(request)
-        context['ware'] = Product.objects.all().order_by('-date')[:6]
+        context['ware'] = Product.objects.all().order_by('-created_at')[:6]
 
         return context
 

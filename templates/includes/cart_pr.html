@@ -1,0 +1,23 @@
+{% load i18n %}
+<div class="container pr">
+    <div class="popup__cart" style="display:none;">
+        <div class="wrap">
+            <div id="cart-popup-items">
+                <!-- Товари завантажуються через JS -->
+            </div>
+            <div class="popup__cart_sum">
+                <div class="sum_item">
+                    <div class="sum_item_title"><p>Всього</p></div>
+                    <div class="sum_item_new">
+                        <p><span id="cart-popup-total">0</span> <i>грн.</i></p>
+                    </div>
+                </div>
+                <div class="sum_item">
+                    <div class="sum_item_button">
+                        <a href="{% url 'cart:cart' %}" class="button">Перейти в кошик</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
