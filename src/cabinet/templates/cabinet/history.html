@@ -26,7 +26,7 @@
                             <td>{{ order.summary }} грн.</td>
                             <td>
                                 <div class="icons_wrap">
-                                    <a href="#"
+                                    <a href="{% url 'orders:order_detail' order.id %}"
                                        class="tooltip"
                                        title="Переглянути замовлення">
                                         <i class="nut-icon icons-view"></i>

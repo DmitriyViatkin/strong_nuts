@@ -31,7 +31,7 @@ class OrderCreateView(CreateView):
     model = ClientOrder
     form_class = OrderCreateForm
     template_name = 'checkout_fiz.html'
-    success_url = reverse_lazy('orders:order_success')
+    success_url = reverse_lazy('cabinet:history-orders')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -43,42 +43,49 @@ class OrderCreateView(CreateView):
         return context
 
     def form_valid(self, form):
-        cart = Cart(self.request)
+        # Отримуємо кошик з БД, а не створюємо об'єкт як обгортку
+        cart = Cart.objects.filter(
+            user=self.request.user).first() if self.request.user.is_authenticated else None
 
-        # Проверка на пустую корзину перед созданием заказа
-        if not cart:
-            return redirect('cart:cart_detail')
+        if not cart or cart.items.count() == 0:
+            return redirect('cart:cart')
 
         with transaction.atomic():
-            # 1. Сначала сохраняем данные формы, но не в БД
             order = form.save(commit=False)
 
-            # 2. Привязываем пользователя, если он залогинен
             if self.request.user.is_authenticated:
                 order.user = self.request.user
 
-            # 3. Устанавливаем итоговую сумму из корзины
-            order.summary = cart.get_total_price()
+            # cart.total — це @property з вашої моделі Cart
+            order.summary = cart.total
             order.save()
 
-            # 4. Переносим товары из корзины в OrderItem
             order_items = []
-            for item in cart:
+            for item in cart.items.select_related('product'):
                 order_items.append(
                     OrderItem(
                         order=order,
-                        product=item['product'],
-                        price=item['price'],
-                        count=item['quantity']
+                        product=item.product,
+                        price=item.product.price,
+                        count=item.quantity,
                     )
                 )
 
-            # Используем bulk_create для экономии SQL-запросов
             OrderItem.objects.bulk_create(order_items)
 
-            # 5. Очищаем корзину после успешного заказа
-            cart.clear()
+            # Видаляємо всі позиції кошика
+            cart.items.all().delete()
 
         return super().form_valid(form)
 
-    
+class OrderDetailView(DetailView):
+    model = ClientOrder
+    template_name = 'order.html'
+    context_object_name = 'order'
+
+    def get_queryset(self):
+        """
+        Ограничиваем доступ к заказу только его владельцу.
+        """
+        return (ClientOrder.objects.filter(user=self.request.user).
+                prefetch_related('items__product'))

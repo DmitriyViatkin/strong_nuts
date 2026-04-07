@@ -240,7 +240,7 @@
             <tbody>
               {% for item in cart_items %}
               <tr>
-                <td>{{ item.product.title }}</td>
+                <td>{{ item.product.name }}</td>
                 <td>
                   <div class="item_quantity">
                     <button type="button" class="quantity_minus">
@@ -252,8 +252,8 @@
                     </button>
                   </div>
                 </td>
-                <td>{{ item.price }} грн.</td>
-                <td>{{ item.total_price }} грн.</td>
+                <td>{{ item.product.price }} грн.</td>
+                <td>{{ item.total }} грн.</td>
               </tr>
               {% endfor %}
             </tbody>
