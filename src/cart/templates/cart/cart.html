@@ -94,7 +94,7 @@
                                     <div class="sum_item_button">
                                         <!-- ✅ Кнопка тільки для залогінених -->
                                         {% if user.is_authenticated %}
-                                        <a href="#" class="button">Оформить заказ</a>
+                                        <a href="{% url "orders:order_checkout" %}" class="button">Оформить заказ</a>
                                         {% endif %}
                                     </div>
                                 </div>

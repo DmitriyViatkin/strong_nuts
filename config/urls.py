@@ -9,6 +9,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 from product_management import urls as product_urls
 from cart import urls as cart_urls
 from accounts import urls as accounts_urls
+from order_management import urls as order_urls
 
 
 
@@ -26,7 +27,9 @@ urlpatterns += i18n_patterns(
     path('cabinet/', include('cabinet.urls')),
     path('cart/', include((cart_urls, 'cart'))),
     path('products/', include(product_urls)),
+    path('orders/', include((order_urls, 'orders'))),
     path('api/', include('cms_pages.urls')),
+
     path('', include(wagtail_urls)),
 
 )
