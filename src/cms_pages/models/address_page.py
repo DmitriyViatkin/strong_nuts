@@ -25,17 +25,9 @@ class AddressPage(Page):
     def serve(self, request):
         user = request.user
         user.refresh_from_db()
-        print("user.address:", user.address)
-        print("user.address.pk:", getattr(user.address, 'pk', None))
-        address = user.address  # зберігаємо в змінну
-        print("address:", address)
-        print("address.pk:", getattr(address, 'pk', None))
-        print("address.country:", getattr(address, 'country', None))
-        print("address.country.pk:",
-              getattr(getattr(address, 'country', None), 'pk', None))
+
         form = AddressForm(request.POST or None, instance=user.address)
-        print("form.initial:", form.initial)
-        print("form['country'].value():", form['country'].value())
+
         if request.method == 'POST' and form.is_valid():
             address = form.save(commit=False)
             address.address_type = Address.TYPE_PHYSICAL

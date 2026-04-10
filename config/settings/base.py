@@ -25,13 +25,15 @@ INSTALLED_APPS = [
     'unfold.contrib.forms',
     'django_vite',
     'ninja',
-    
+
     #Wagtails
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',
-   #'wagtail.contrib.simple_translation',
+    'wagtail_modeltranslation',
+    'wagtail_modeltranslation.makemigrations',
+    'wagtail_modeltranslation.migrate',
     #'wagtail_localize',
     #'wagtail_localize.locales',
     'wagtail.embeds',
@@ -94,8 +96,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 #'wagtail.contrib.settings.context_processors.settings_processor',
+                'django.template.context_processors.i18n',
                 'wagtail.contrib.settings.context_processors.settings',
                 'cms_pages.context_processor.cabinet_pages',
+                'cms_pages.context_processor.translated_urls',
             ],
         },
     },
@@ -125,9 +129,13 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'uk'
 
 LANGUAGES = [
-    ('uk', _("Українська")),
-    ('en',_('English')),
-    ('ru',_('Русский'))
+    ('uk', _('Ukrainian')),
+    ('en', _('English')),
+    ('ru', _('Russian')),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
 ]
 
 
@@ -138,11 +146,12 @@ USE_TZ = True
 
 WAGTAIL_I18N_ENABLED = True
 
-WAGTAIL_CONTENT_LANGUAGES = [
-    ('uk', _('Українська')),
-    ('en', _('English')),
-    ('ru', _('Русский'))
 
+
+WAGTAIL_CONTENT_LANGUAGES = [
+    ('uk', _('Ukrainian')),
+    ('en', _('English')),
+    ('ru', _('Russian')),
 ]
 
 STATIC_URL = '/static/'

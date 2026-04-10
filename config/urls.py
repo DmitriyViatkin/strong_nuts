@@ -18,6 +18,7 @@ urlpatterns = [
     path('admin/',      admin.site.urls),
     path('cms/',        include(wagtailadmin_urls)),
     path('documents/',  include(wagtaildocs_urls)),
+path('i18n/',       include('django.conf.urls.i18n')),
 
 ]
 
@@ -31,6 +32,7 @@ urlpatterns += i18n_patterns(
     path('api/', include('cms_pages.urls')),
 
     path('', include(wagtail_urls)),
+prefix_default_language=True,
 
 )
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -531,6 +531,22 @@ django = ">=4.2"
 taggit = ["django-taggit (>=3.1)"]
 
 [[package]]
+name = "django-modeltranslation"
+version = "0.20.2"
+description = "Translates Django models using a registration approach."
+optional = false
+python-versions = "<4,>=3.10"
+groups = ["main"]
+files = [
+    {file = "django_modeltranslation-0.20.2-py3-none-any.whl", hash = "sha256:964385c3cf3a584f564e995f2e9ff0e961d0297ef04ff51821ac529e12064290"},
+    {file = "django_modeltranslation-0.20.2.tar.gz", hash = "sha256:d687bdcae9305dcdc8d644b75f1d687f355073e82049f4b9c4ba0feb347a0980"},
+]
+
+[package.dependencies]
+django = ">=5.1"
+typing-extensions = ">=4.0.1"
+
+[[package]]
 name = "django-ninja"
 version = "1.6.2"
 description = "Django Ninja - Fast Django REST framework"
@@ -1676,6 +1692,23 @@ linting = ["pre-commit (>=4.2.0,<6)"]
 testing = ["coverage (>=7.0,<8.0)", "dj-database-url (>=2.1.0,<3)", "django-rq (>=2.5,<3.0)", "freezegun (>=1.2,<2)", "google-cloud-translate (>=3.0.0)", "wagtail-modeladmin (>=2.0,<3.0)"]
 
 [[package]]
+name = "wagtail-modeltranslation"
+version = "0.16.0"
+description = "Translates Wagtail CMS models using a registration approach."
+optional = false
+python-versions = "<4.0,>=3.9"
+groups = ["main"]
+files = [
+    {file = "wagtail_modeltranslation-0.16.0-py3-none-any.whl", hash = "sha256:d0e8bd0fe4ce8310f5acd67c1362428eeb0c653e0fac00ee0a44707c791bc5d5"},
+    {file = "wagtail_modeltranslation-0.16.0.tar.gz", hash = "sha256:2978cbfd7ec173f9767880fa7fcb4f4c915426e636faf82b052053873dfd94bb"},
+]
+
+[package.dependencies]
+Django = ">=4.2"
+django-modeltranslation = ">=0.19"
+wagtail = ">=6.4,<8"
+
+[[package]]
 name = "wagtail-ninja"
 version = "0.1.20"
 description = "Ninja API for Wagtail"
@@ -1744,4 +1777,4 @@ wand = ["Wand (>=0.6,<1.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "2d00507b8ba20db5c98d1b1cc702ee72f1762fe5a9c5987ab2a39b6dc76a1e47"
+content-hash = "d3e9b4de7bbf85ea54376b9eaa27a475af2e2b66d001223ff5600b012018f289"

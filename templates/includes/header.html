@@ -1,14 +1,11 @@
-{% load static %}
-{% load i18n %}
-{% load wagtailimages_tags %}
-{% load wagtailsettings_tags %}  {# ← добавить #}
+{% load static i18n wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
 {% get_settings %}
+
 <header class="top-header">
     <div class="top-header__line">
         <div class="container">
             <div class="row align-items-center">
 
-                <!-- Соцмережі -->
                 <div class="col-lg-4 col-12 d-lg-block d-none">
                     <ul class="line_social">
                         {% for item in settings.wagtail_cms.BrandSettings.social_links %}
@@ -21,91 +18,81 @@
                     </ul>
                 </div>
 
-                <!-- Банер знижки -->
                 <div class="col-lg-4 col-12 d-lg-flex d-none justify-content-center">
                     <p>{{ settings.wagtail_cms.HeaderSettings.top_banner_discount }}</p>
                 </div>
 
-                <!-- Вхід / Реєстрація -->
                 <div class="col-lg-4 col-12">
-                    <div class="wrap">
-                        <ul class="log_in d-lg-flex d-none">
+                    <div class="wrap d-flex justify-content-end align-items-center">
+                        <ul class="log_in d-lg-flex d-none mb-0">
                             {% if user.is_authenticated %}
                                 <li>
                                     <a href="{% url 'cabinet:my_cabinet' %}">
                                         <i class="nut-icon icons-man-user"></i>
-                                        <span>Мій кабінет</span>
+                                        <span>{% trans "Мій кабінет" %}</span>
                                     </a>
                                 </li>
                                 <li>
                                     <form action="{% url 'accounts:logout' %}" method="post" style="display:inline">
                                         {% csrf_token %}
                                         <button type="submit" style="background:none;border:none;cursor:pointer;color:inherit;font:inherit;">
-                                            <span>Вихід</span>
+                                            <span>{% trans "Вийти" %}</span>
                                         </button>
                                     </form>
                                 </li>
                             {% else %}
-                                <li>
-                                    <a href="{% url 'accounts:login' %}">
-                                        <i class="nut-icon icons-man-user"></i>
-                                        <span>Вхід</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'accounts:register' %}">
-                                        <span>Реєстрація</span>
-                                    </a>
-                                </li>
+                                <li><a href="{% url 'accounts:login' %}"><span>{% trans "Вхід" %}</span></a></li>
+                                <li><a href="{% url 'accounts:register' %}"><span>{% trans "Реєстрація" %}</span></a></li>
                             {% endif %}
                         </ul>
 
-                        <!-- Мова -->
-                        <div id="lang-menu" class="lang-menu">
-                            <span class="title">{{ LANGUAGE_CODE|upper }}</span>
-                            <ul>
-                                {% get_available_languages as languages %}
-                                {% for lang_code, lang_name in languages %}
-                                    <li>
-                                        <a href="/{{ lang_code }}/">{{ lang_code|upper }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                            <div id="lang-menu" class="lang-menu">
+                                <span class="title">{{ LANGUAGE_CODE|upper }}</span>
+                                    <ul>
+                                        {% get_available_languages as languages %}
+                                        {% for lang_code, lang_name in languages %}
+                                            <li>
+                                                <form action="{% url 'set_language' %}" method="post" id="lang-form-{{ lang_code }}" style="display:none;">
+                                                    {% csrf_token %}
+                                                    <input name="next" type="hidden" id="next-input-{{ lang_code }}" value="/">
+                                                    <input name="language" type="hidden" value="{{ lang_code }}">
+                                                </form>
+                                                <a href="javascript:void(0)" onclick="
+                                                    document.getElementById('next-input-{{ lang_code }}').value = translatedUrls['{{ lang_code }}'] || '/';
+                                                    document.getElementById('lang-form-{{ lang_code }}').submit();
+                                                ">
+                                                    {{ lang_code|upper }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                             </div>
+                            </div>
+                         </div>
 
-            </div>
+                    </div>
         </div>
     </div>
 
-    <!-- Логотип і телефон -->
     <div class="top-header__logo">
         <div class="container">
-            <div class="row">
-                <div class="col-2 d-lg-none">
-                    <div class="mobile-menu-button d-lg-none d-block">
-                        <img src="{% static 'img/menu.svg' %}" alt="menu">
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-3 col-8 align-self-center">
+            <div class="row align-items-center">
+                <div class="col-xl-4 col-lg-3 col-8">
                     <a href="/" class="logo">
                         {% if settings.wagtail_cms.BrandSettings.logo %}
                             {% image settings.wagtail_cms.BrandSettings.logo original %}
                         {% else %}
                             <img src="{% static 'img/logo.png' %}" alt="logo">
                         {% endif %}
-                        <span>ГОРІХ<br>ПРИЧОРНОМОР'Я</span>
+                        <span>{% trans "Міць" %}<br>{% trans "природи" %}</span>
                     </a>
                 </div>
 
                 <div class="col-xl-8 col-lg-9 col-2 align-self-center">
                     <div class="row">
-                        <div class="col-lg-6 col-12 align-self-center d-lg-block d-none">
-                            <div class="wrap">
-
-                                <!-- Месенджери -->
-                                <ul class="logo_social">
+                        <div class="col-lg-6 d-lg-block d-none align-self-center">
+                            <div class="wrap d-flex align-items-center">
+                                <ul class="logo_social mb-0">
                                     {% for item in settings.wagtail_cms.BrandSettings.messenger_links %}
                                         <li>
                                             <a href="{{ item.value.link }}">
@@ -114,82 +101,74 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
-
-                                <!-- Телефон -->
-                                <ul class="logo_tel">
+                                <ul class="logo_tel mb-0 ms-3">
                                     <li>
                                         <a href="tel:{{ settings.wagtail_cms.HeaderSettings.phone_number }}">
                                             {{ settings.wagtail_cms.HeaderSettings.phone_number }}
                                         </a>
                                     </li>
                                 </ul>
-
                             </div>
                         </div>
 
                         <div class="col-lg-6 col-12 align-self-center">
-                            <div class="wraper">
-
-                                <!-- Мобільний телефон -->
-                                <ul class="logo_tel_mobile d-lg-none d-flex">
+                            <div class="wraper d-flex justify-content-end align-items-center">
+                                <ul class="logo_button d-lg-flex d-none mb-0 me-3">
                                     <li>
-                                        <a href="tel:{{ settings.wagtail_cms.HeaderSettings.phone_number }}">
-                                            {{ settings.wagtail_cms.HeaderSettings.phone_number }}
-                                        </a>
+                                        <a href="#" class="button">{{ settings.wagtail_cms.HeaderSettings.button_text }}</a>
                                     </li>
                                 </ul>
-
-                                <!-- Кнопка замовити дзвінок -->
-                                <ul class="logo_button d-lg-flex d-none">
-                                    <li>
-                                        <a href="#" class="button">
-                                            {{ settings.wagtail_cms.HeaderSettings.button_text }}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <p>{{ settings.wagtail_cms.HeaderSettings.button_working_hours }}</p>
-                                    </li>
-                                </ul>
-
-                                <!-- Кошик -->
                                 {% if settings.wagtail_cms.HeaderSettings.cart_icon %}
-                                    <a href="#" class="logo_number"  >
+                                    <a href="#" class="logo_number">
                                         <i class="nut-icon icons-number"></i>
                                         <span class="quantity cart-count">{{ cart_count|default:0 }}</span>
                                     </a>
                                 {% endif %}
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!-- Мобільний банер знижки -->
-    <div class="top-header__discount d-lg-none d-flex">
-        <p>{{ settings.wagtail_cms.HeaderSettings.top_banner_discount }}</p>
-    </div>
-
-    <!-- Навігаційне меню -->
     <div class="top-header__menu d-lg-flex d-none">
         <div class="container">
             <nav class="menu_main menu_top">
                 <ul class="menu_main_ul">
-                   {% for item in settings.wagtail_cms.NavLinks.naw_link %}
-    <li>
-            {% if item.value.page %}
-                    <a href="{{ item.value.page.url }}">{{ item.value.name }}</a>
-                {% else %}
-                    <a href="{{ item.value.url }}">{{ item.value.name }}</a>
-                {% endif %}
-                </li>
-             {% endfor %}
+                    {% for item in settings.wagtail_cms.NavLinks.naw_link %}
+                        <li>
+                            {% if item.value.page %}
+                                {# Використовуємо сторінку з контексту #}
+                                <a href="{% pageurl item.value.page %}">{{ item.value.name }}</a>
+                            {% else %}
+                                <a href="{{ item.value.url }}">{{ item.value.name }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
                 </ul>
             </nav>
         </div>
     </div>
-
 </header>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var langMenu = document.getElementById('lang-menu');
+    if (langMenu) {
+        langMenu.addEventListener('click', function (e) {
+            this.classList.toggle('open');
+            e.stopPropagation();
+        });
+        document.addEventListener('click', function () {
+            langMenu.classList.remove('open');
+        });
+    }
+});
+var translatedUrls = {
+    {% for code, url in translated_urls.items %}
+        "{{ code }}": "{{ url }}",
+    {% endfor %}
+};
+</script>
