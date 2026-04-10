@@ -58,7 +58,7 @@ class Product(models.Model):
     )
     flavor_categories =   models.CharField(
         max_length=20,
-        choices=PACKAGING_CHOICE,
+        choices=FLAVOR_CATEGORIES_CHOICE,
         default='sweet',
         verbose_name=_('Смакові Якості')
     )

@@ -57,12 +57,12 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-5">
-                                        <select>
+                                        <select id="flavor-select">
                                             <option value="hide">Вкус</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
-                                        <select>
+                                        <select id="mass-select" >
                                             <option value="hide">Масса</option>
                                         </select>
                                     </div>
@@ -71,7 +71,7 @@
                             <div class="col-lg-5 align-self-center">
                                 <div class="row">
                                     <div class="col-lg-5 align-self-center">
-                                        <div class="production__filter_price">
+                                        <div class="production__filter_price" id="price-sort" data-order="">
                                             <span>Стоимость</span>
                                             <i class="nut-icon icons-arrow-down"></i>
                                         </div>
@@ -103,18 +103,22 @@
                             <div class="products-container swiper-container">
                                 <div class="swiper-wrapper">
                                     {% for image in product.gallery.all %}
-                                    <div class="swiper-slide">
-                                        <a href="#">
-                                            <img src="{{ image.image.url }}" alt="{{ product.name }}"/>
-                                        </a>
-                                    </div>
-                                    {% empty %}
-                                    <div class="swiper-slide">
-                                        <a href="#">
-                                            <img src="{% static 'img/no-image.png' %}" alt="{{ product.name }}"/>
-                                        </a>
-                                    </div>
-                                    {% endfor %}
+<div class="swiper-slide">
+    <a href="#">
+        {% if image.image %}
+            <img src="{{ image.image.url }}" alt="{{ product.name }}"/>
+        {% else %}
+            <img src="{% static 'img/no-image.png' %}" alt="{{ product.name }}"/>
+        {% endif %}
+    </a>
+</div>
+{% empty %}
+<div class="swiper-slide">
+    <a href="#">
+        <img src="{% static 'img/no-image.png' %}" alt="{{ product.name }}"/>
+    </a>
+</div>
+{% endfor %}
                                 </div>
                                 <div class="swiper-button-prev"></div>
                                 <div class="swiper-button-next"></div>
