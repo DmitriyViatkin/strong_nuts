@@ -9,6 +9,11 @@ PACKAGING_CHOICE = [
     ('vacuum', _('Вакуумна')),
     ('box',    _('Коробка')),
 ]
+FLAVOR_CATEGORIES_CHOICE = [
+    ('sweet',   _('Сладкие и десертные')),
+    ('savory',  _('Соленые и пикантные')),
+    ('spicy',   _('Пряные и необычные')),
+]
 
 
 class Gallery(models.Model):
@@ -51,6 +56,13 @@ class Product(models.Model):
         blank=True,
         verbose_name=_('Склад')
     )
+    flavor_categories =   models.CharField(
+        max_length=20,
+        choices=PACKAGING_CHOICE,
+        default='sweet',
+        verbose_name=_('Смакові Якості')
+    )
+
     energy_value = models.CharField(
         max_length=100,
         blank=True,
