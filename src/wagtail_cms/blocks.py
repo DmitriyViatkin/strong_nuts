@@ -4,9 +4,9 @@ from wagtail.images.blocks import  ImageChooserBlock
 from wagtail import blocks
 
 class MessengerBlock(StructBlock):
-    name = CharBlock(label='Назва (viber, telegram, watsap)')
-    link = URLBlock(label="Посилання")
-    icon = ImageChooserBlock(label="Іконка", required=False)
+    name = CharBlock(label='Назва (viber, telegram, watsap)',required=False)
+    link = URLBlock(label="Посилання",required=False)
+    icon = ImageChooserBlock(label="Іконка", required=False,)
     class Meta:
         icon = "link"
         label = 'Месенджер'
@@ -14,7 +14,7 @@ class MessengerBlock(StructBlock):
 class NavLinkBlock(StructBlock):
     name = CharBlock(label='Назва')
     page = blocks.PageChooserBlock(required=False)
-    url = URLBlock(label='Посилання')
+    url = URLBlock(label='Посилання',required=False)
 
     def clean(self,value):
         if not value.get('page') and not value.get('url'):
@@ -27,8 +27,8 @@ class NavLinkBlock(StructBlock):
 
 
 class SocialLinkBlock(StructBlock):
-    name = CharBlock(label='Назва (facebook, instagram, youtube)')
-    link = URLBlock(label="Посилання")
+    name = CharBlock(label='Назва (facebook, instagram, youtube)', required=False)
+    link = URLBlock(label="Посилання", required=False)
 
     class Meta:
         icon = 'link'
@@ -36,7 +36,7 @@ class SocialLinkBlock(StructBlock):
 
 
 class PhoneBlock(StructBlock):
-    number_1 = CharBlock(label='Номер 1')
+    number_1 = CharBlock(label='Номер 1',required=False)
     number_2 = CharBlock(label='Номер 2', required=False)
 
     class Meta:
@@ -55,7 +55,7 @@ class AddressBlock(StructBlock):
 
 class VideoBannerBlock(StructBlock):  # 👈 добавили
 
-    video_url = URLBlock(label="Посилання на відео")
+    video_url = URLBlock(label="Посилання на відео",required=False)
     title = CharBlock(max_length=255, label="Заголовок")
     text = RichTextBlock(
         label="Текст",
@@ -68,7 +68,7 @@ class VideoBannerBlock(StructBlock):  # 👈 добавили
         label = "Відео банер"
 
 class StatisticItemBlock(StructBlock):
-    number = CharBlock(label='Число (например: 240)')
+    number = CharBlock(label='Число (например: 240)',required=False)
     unit = CharBlock(label='Одиниця (Га, %, шт)', required=False)
     description = CharBlock(label='Опис')
     sub_description = CharBlock(label='Підопис', required=False)
@@ -78,11 +78,11 @@ class StatisticItemBlock(StructBlock):
         label = 'Статистика'
 
 class BenefitItemBlock(StructBlock):
-    image = ImageChooserBlock(label='Фонове зображення')
-    icon = CharBlock(label='Клас іконки (наприклад: icons-group4)')
+    image = ImageChooserBlock(label='Фонове зображення',required=False)
+    icon = CharBlock(label='Клас іконки (наприклад: icons-group4)',required=False)
     title = CharBlock(label='Заголовок')
     text_1 = blocks.TextBlock(label='Текст 1')
-    text_2 = blocks.TextBlock(label='Текст 2', required=False)
+    text_2 = blocks.TextBlock(label='Текст 2')
 
     class Meta:
         icon = 'pick'
@@ -96,7 +96,7 @@ class MediaSourceBlock(StructBlock):
         label = "Медіа-файл"
 
 class GalleryBlock(StructBlock):
-    media = MediaSourceBlock(label="Вміст (Картинка або Відео)")
+    media = MediaSourceBlock(label="Вміст (Картинка або Відео)", required=False)
     title = CharBlock(label='Заголовок', required=False)
     description = CharBlock(label='Опис', required=False)
     size = ChoiceBlock(

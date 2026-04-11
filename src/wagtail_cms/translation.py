@@ -5,12 +5,7 @@ from .models import (
 )
 
 
-@register(BrandSettings)
-class BrandSettingsTranslationOptions(TranslationOptions):
-    fields = (
-        'social_links',
-        'messenger_links',
-    )
+
 
 @register(NavLinks)
 class NavLinksTranslationOptions(TranslationOptions):
@@ -21,19 +16,19 @@ class NavLinksTranslationOptions(TranslationOptions):
 @register(HeaderSettings)
 class HeaderSettingsTranslationOptions(TranslationOptions):
     fields = (
-        'top_banner_discount',
-        'phone_number',
+
+
         'button_text',
-        'button_working_hours',
+        'text'
+
     )
 
 @register(ContactSettings)
 class ContactSettingsTranslationOptions(TranslationOptions):
     fields = (
         'seo',
-        'phone_numbers',
-        'email',
-        'map_embed_url',
+
+
         'address',
     )
 
@@ -41,7 +36,7 @@ class ContactSettingsTranslationOptions(TranslationOptions):
 class FooterSettingsTranslationOptions(TranslationOptions):
     fields = (
         'developer_name',
-        'developer_url',
+
         'copyright_text',
     )
 

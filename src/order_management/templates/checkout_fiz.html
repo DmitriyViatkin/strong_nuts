@@ -238,24 +238,24 @@
               </tr>
             </thead>
             <tbody>
-              {% for item in cart_items %}
-              <tr>
-                <td>{{ item.product.name }}</td>
-                <td>
-                  <div class="item_quantity">
-                    <button type="button" class="quantity_minus">
-                      <i class="nut-icon icons-qty-left"></i>
-                    </button>
-                    <input type="text" value="{{ item.quantity }}" class="quantity_input" readonly>
-                    <button type="button" class="quantity_plus">
-                      <i class="nut-icon icons-qty-right"></i>
-                    </button>
-                  </div>
-                </td>
-                <td>{{ item.product.price }} грн.</td>
-                <td>{{ item.total }} грн.</td>
-              </tr>
-              {% endfor %}
+             {% for item in cart_items %}
+                <tr data-product-id="{{ item.product.id }}" data-price="{{ item.product.price }}">
+                  <td>{{ item.product.name }}</td>
+                  <td>
+                    <div class="item_quantity">
+                      <button type="button" class="quantity_minus">
+                        <i class="nut-icon icons-qty-left"></i>
+                      </button>
+                      <input type="text" value="{{ item.quantity }}" class="quantity_input" readonly>
+                      <button type="button" class="quantity_plus">
+                        <i class="nut-icon icons-qty-right"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td>{{ item.product.price }} грн.</td>
+                  <td class="row-total">{{ item.total }} грн.</td>
+                </tr>
+                {% endfor %}
             </tbody>
           </table>
         </div>
@@ -270,7 +270,7 @@
                   <div class="sum_item">
                     <div class="sum_item_title"><p>Всього</p></div>
                     <div class="sum_item_new">
-                      <p>{{ cart.get_total_price }} <i>грн.</i></p>
+                          <p id="cart-total">{{ cart.get_total_price }} <i>грн.</i></p>
                     </div>
                   </div>
                 </div>
@@ -315,9 +315,9 @@
                     >
                     <label class="radio-custom-label" for="{{ radio.id_for_label }}">
                       <span>{{ radio.choice_label }}</span>
-                      {% if radio.data.value == 'courier' %}
-                        <span class="sticker">БЕЗКОШТОВНО</span>
-                      {% endif %}
+                      {% if radio.choice_label.is_free %}
+                              <span class="sticker"><i class="nut-icon icons-novinka"></i><span class="p">БЕСПЛАТНО</span>
+                        {% endif %}
                     </label>
 
                     {% if radio.data.value == 'NP' %}
@@ -370,25 +370,79 @@
     </form>
   </div>
 </section>
-
+{% csrf_token %}
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  var npBlock = document.getElementById('np-fields');
-  var courierBlock = document.getElementById('courier-fields');
+const CSRF = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-  function updateDeliveryFields() {
-    var selected = document.querySelector('input[name="delivery"]:checked');
-    if (!selected) return;
-    var val = selected.value;
-    if (npBlock)      npBlock.style.display      = (val === 'NP')      ? 'block' : 'none';
-    if (courierBlock) courierBlock.style.display  = (val === 'courier') ? 'block' : 'none';
-  }
+function recalcRowTotal(row) {
+  const price = parseFloat(row.dataset.price) || 0;
+  const qty = parseInt(row.querySelector('.quantity_input').value) || 0;
+  row.querySelector('.row-total').textContent = (price * qty).toFixed(0) + ' грн.';
+}
 
-  document.querySelectorAll('input[name="delivery"]').forEach(function (radio) {
-    radio.addEventListener('change', updateDeliveryFields);
+function recalcCartTotal() {
+  let total = 0;
+  document.querySelectorAll('#table tbody tr').forEach(row => {
+    const price = parseFloat(row.dataset.price) || 0;
+    const qty = parseInt(row.querySelector('.quantity_input').value) || 0;
+    total += price * qty;
   });
+  document.getElementById('cart-total').innerHTML = total.toFixed(0) + ' <i>грн.</i>';
+}
 
-  updateDeliveryFields();
+document.querySelectorAll('.quantity_input').forEach(input => {
+  input.addEventListener('change', function () {
+    const row = this.closest('tr');
+    const productId = row.dataset.productId;
+    const quantity = parseInt(this.value);
+    recalcRowTotal(row);
+    recalcCartTotal();
+    updateCart(productId, quantity);
+  });
 });
+
+document.querySelectorAll('.quantity_plus').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const input = this.closest('.item_quantity').querySelector('.quantity_input');
+    input.value = parseInt(input.value) + 1;
+    input.dispatchEvent(new Event('change'));
+  });
+});
+
+document.querySelectorAll('.quantity_minus').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const input = this.closest('.item_quantity').querySelector('.quantity_input');
+    const newVal = parseInt(input.value) - 1;
+    if (newVal <= 0) {
+      const row = this.closest('tr');
+      removeFromCart(row.dataset.productId, row);
+    } else {
+      input.value = newVal;
+      input.dispatchEvent(new Event('change'));
+    }
+  });
+});
+
+function updateCart(productId, quantity) {
+  fetch("{% url 'cart:update' %}", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
+    body: JSON.stringify({ product_id: productId, quantity: quantity })
+  });
+}
+
+function removeFromCart(productId, row) {
+  fetch("{% url 'cart:remove' %}", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
+    body: JSON.stringify({ product_id: productId })
+  })
+  .then(r => r.json())
+  .then(() => {
+    row.remove();
+    recalcCartTotal();
+  });
+}
 </script>
+
 {% endblock %}

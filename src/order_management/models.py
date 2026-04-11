@@ -11,12 +11,21 @@ PAYMENT_STATUS = [
     ('cancelled',       _('Скасовано')),
 ]
 
-DELIVERY_STATUS = [
-    ('NP',  _('Нова пошта')),
+class DeliveryMethod(models.Model):
+    slug = models.CharField(max_length=50, unique=True, verbose_name=_('Slug'))
+    name = models.CharField(max_length=255, verbose_name=_('Назва'))
+    is_free = models.BooleanField(default=False, verbose_name=_('Безкоштовна'))
+    cost = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0,
+        verbose_name=_('Вартість')
+    )
 
-    ('courier', _('Курʼєр')),
-    ('pickup', _('Самовивіз')),
-]
+    class Meta:
+        verbose_name = _('Метод доставки')
+        verbose_name_plural = _('Методи доставки')
+
+    def __str__(self):
+        return f'{self.name} '
 
 PAYMENT_METHODS_CHOICES = [
     ('liqpay', _('LiqPay / Приват24')),
@@ -59,11 +68,12 @@ class ClientOrder(models.Model):
     )
 
     # 🔹 Доставка
-    delivery = models.CharField(
-        max_length=20,
-        choices=DELIVERY_STATUS,
-        default='NP',
-        verbose_name=_('Тип доставки')
+    delivery = models.ForeignKey(
+        DeliveryMethod,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_('Способ доставки')
     )
 
     # 🔹 Контактні дані (snapshot)

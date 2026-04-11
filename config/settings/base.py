@@ -74,7 +74,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -99,7 +99,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'wagtail.contrib.settings.context_processors.settings',
                 'cms_pages.context_processor.cabinet_pages',
-                'cms_pages.context_processor.translated_urls',
+
             ],
         },
     },
@@ -144,7 +144,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-WAGTAIL_I18N_ENABLED = True
+WAGTAIL_I18N_ENABLED = False
 
 
 

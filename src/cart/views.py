@@ -33,7 +33,10 @@ def cart_add(request):
     quantity = int(body.get('quantity', 1))
     cart = get_or_create_cart(request)
     item = add_to_cart(cart, product, quantity)
-    return JsonResponse({'quantity': item.quantity, 'total': str(cart.total)})
+    return JsonResponse({'quantity': item.quantity,
+                         'total': str(cart.total),
+                         'total_quantity': cart.total_quantity,
+                         })
 
 
 @require_POST

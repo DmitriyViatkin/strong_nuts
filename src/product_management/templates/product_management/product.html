@@ -54,7 +54,7 @@
 					</div>
 					<div class="sum_item">
 						<div class="sum_item_button">
-							<a href="#" class="button">Перейти до кошика</a>
+							<a href="{% url 'cart:cart' %}" class="button">Перейти до кошика</a>
 						</div>
 					</div>
 				</div>
@@ -248,7 +248,7 @@
 
 									<div class="sum_item">
 										<div class="sum_item_button">
-											<a href="#" class="button">Купити</a>
+											<a href="#" class="button add-to-cart-btn" data-product-id="{{ product.pk }}">Купити</a>
 										</div>
 									</div>
 								</div>
@@ -321,4 +321,41 @@
 		</div>
 	</section>
 
+{% endblock %}
+{% block extra_js %}
+<script>
+document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productId = this.dataset.productId;
+        const quantity = parseInt(document.querySelector('.quantity_input')?.value) || 1;
+        const button = this;
+
+        fetch('{% url "cart:add" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({ product_id: productId, quantity: quantity })
+        })
+        .then(res => res.json())
+        .then(data => {
+            // Оновлюємо лічильник у шапці
+            const counter = document.querySelector('.cart-count');
+            if (counter) counter.textContent = data.quantity;
+
+            // Перезавантажуємо popup кошика
+            if (window.refreshCartPopup) window.refreshCartPopup();
+
+            // Візуальний фідбек
+            button.textContent = 'Додано ✓';
+            setTimeout(() => button.textContent = 'Купити', 2000);
+        })
+        .catch(err => console.error('Помилка:', err));
+    });
+});
+
+
+</script>
 {% endblock %}

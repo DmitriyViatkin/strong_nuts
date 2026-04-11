@@ -30,11 +30,7 @@ class AboutManufacturerPageTranslationOptions(TranslationOptions):
         'image_baner',
     )
 
-@register(AddressPage)
-class AddressPageTranslationOptions(TranslationOptions):
-    fields = (
-        # Тут лише поле image, перекладати не потрібно
-    )
+
 
 @register(CatalogProduct)
 class CatalogProductTranslationOptions(TranslationOptions):
@@ -63,17 +59,13 @@ class DeliveryPaymentPageTranslationOptions(TranslationOptions):
     )
 
 
-@register(HomePage)
-class HomePageTranslationOptions(TranslationOptions):
-    fields = (
-        # HomePage не має власних текстових полів
-    )
+
 
 
 @register(Main)
 class MainTranslationOptions(TranslationOptions):
     fields = (
-        'video_banner_url',
+
         'video_banner_title',
         'video_banner_text',
         'about_title',
@@ -81,7 +73,7 @@ class MainTranslationOptions(TranslationOptions):
         'about_button_text',
         'about_button_url',
         'about_images',
-        'promo_video_url',
+
         'promo_video_title',
         'promo_video_text',
         'benefit_title',
@@ -89,7 +81,7 @@ class MainTranslationOptions(TranslationOptions):
         'benefit_items',
         'eco_title',
         'eco_text',
-        'eco_url',
+
         'news_title',
         'news_subtitle',
     )

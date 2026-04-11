@@ -57,13 +57,19 @@ class HeaderSettings(BaseSiteSetting):
         verbose_name=_('Текст банера знижки')
     )
 
-    phone_number = models.CharField(
-        max_length=20, blank=True,
-        verbose_name=_('Телефон')
+    phone_numbers = StreamField(
+        [('phone', PhoneBlock())],
+        use_json_field=True, blank=True,
+        verbose_name=_('Телефони')
     )
+
     button_text = models.CharField(
         max_length=50, blank=True,
         verbose_name=_('Текст кнопки')
+    )
+    text = models.CharField(
+        max_length=250, blank=True,
+        verbose_name=_('Текст')
     )
     button_working_hours = models.CharField(
         max_length=100, blank=True,
@@ -79,7 +85,8 @@ class HeaderSettings(BaseSiteSetting):
     panels = [
 
         FieldPanel('top_banner_discount'),
-        FieldPanel('phone_number'),
+        FieldPanel('phone_numbers'),
+        FieldPanel('text'),
         FieldPanel('button_text'),
         FieldPanel('button_working_hours'),
         FieldPanel('cart_icon'),
@@ -108,9 +115,15 @@ class ContactSettings(BaseSiteSetting):
         blank=True,
         verbose_name=_('Email')
     )
-    map_embed_url = models.URLField(
-        blank=True,
-        verbose_name=_('URL карти')
+    latitude = models.DecimalField(
+        max_digits=9, decimal_places=6,
+        null=True, blank=True,
+        verbose_name=_('Широта (Latitude)')
+    )
+    longitude = models.DecimalField(
+        max_digits=9, decimal_places=6,
+        null=True, blank=True,
+        verbose_name=_('Долгота (Longitude)')
     )
     address = StreamField(
         [('address', AddressBlock())],
@@ -123,7 +136,9 @@ class ContactSettings(BaseSiteSetting):
         FieldPanel('phone_numbers'),
 
         FieldPanel('email'),
-        FieldPanel('map_embed_url'),
+        MultiFieldPanel([
+            FieldPanel('latitude'),
+            FieldPanel('longitude'),],heading=_("Координаты карты")),
         FieldPanel('address'),
     ]
 

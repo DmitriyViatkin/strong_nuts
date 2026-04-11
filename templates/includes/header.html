@@ -102,11 +102,20 @@
                                     {% endfor %}
                                 </ul>
                                 <ul class="logo_tel mb-0 ms-3">
-                                    <li>
-                                        <a href="tel:{{ settings.wagtail_cms.HeaderSettings.phone_number }}">
-                                            {{ settings.wagtail_cms.HeaderSettings.phone_number }}
-                                        </a>
-                                    </li>
+                                   {% for phone in settings.wagtail_cms.HeaderSettings.phone_numbers %}
+                                        <li>
+                                            <a href="tel:{{ phone.value.number_1 }}">
+                                                {{ phone.value.number_1 }}
+                                            </a>
+                                        </li>
+                                        {% if phone.value.number_2 %}
+                                        <li>
+                                            <a href="tel:{{ phone.value.number_2 }}">
+                                                {{ phone.value.number_2 }}
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
@@ -116,6 +125,9 @@
                                 <ul class="logo_button d-lg-flex d-none mb-0 me-3">
                                     <li>
                                         <a href="#" class="button">{{ settings.wagtail_cms.HeaderSettings.button_text }}</a>
+                                    </li>
+                                    <li>
+											{{ settings.wagtail_cms.HeaderSettings.text }}
                                     </li>
                                 </ul>
                                 {% if settings.wagtail_cms.HeaderSettings.cart_icon %}
