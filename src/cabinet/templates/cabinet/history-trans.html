@@ -1,5 +1,6 @@
 {% extends "base_cabinet/base_cabinet.html" %}
-
+{% load static %}
+{% load i18n %}
 {% block cabinet_content %}
 <div class="col-lg-9">
     <div class="row">
@@ -8,9 +9,9 @@
                 <table id="table">
                     <thead>
                         <tr>
-                            <th><span>Дата</span></th>
-                            <th><span>Статус</span></th>
-                            <th><span>Сума</span></th>
+                            <th><span>{% trans "Дата" %}</span></th>
+                            <th><span>{% trans "Статус" %}</span></th>
+                            <th><span>{% trans "Сума" %}</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,7 +21,7 @@
                             <td>{{ operation.get_status_display }}</td>
                             <td>
                                 <div class="icons_wrap">
-                                    <span>{{ operation.amount }} грн.</span>
+                                    <span>{{ operation.amount }} {% trans "грн." %}</span>
                                     {% if operation.order %}
                                         <a href="#" class="tooltip" title="Переглянути замовлення">
                                             <i class="nut-icon icons-view"></i>
@@ -33,7 +34,7 @@
                     </tbody>
                 </table>
             {% else %}
-                <div class="table__message">У вас ще немає операцій!</div>
+                <div class="table__message">{% trans "У вас ще немає операцій!" %}</div>
             {% endif %}
         </div>
     </div>

@@ -1,41 +1,41 @@
 {% load wagtailcore_tags %}
-
+{% load i18n %}
 
 <nav class="navigation">
-    <p>Мої замовлення</p>
+    <p> {% trans "Мої замовлення" %}</p>
     <ul>
         <li>
             <a href="{% url 'cabinet:history-orders' %}"
                class="{% if request.resolver_match.url_name == 'history-orders' %}active{% endif %}">
-                Історія замовлень
+                {% trans "Історія замовлень" %}
             </a>
         </li>
         <li>
             <a href="{% url 'cabinet:history-trans' %}"
                class="{% if request.resolver_match.url_name == 'history-trans' %}active{% endif %}">
-                Історія транзакцій
+                {% trans "Історія транзакцій" %}
             </a>
         </li>
     </ul>
-    <p>Моя учетная запись</p>
+    <p>{% trans "Моя учетная запись" %}</p>
     <ul>
         <li>
             <a href="{% url 'cabinet:contact-information' %}"
                class="{% if request.resolver_match.url_name == 'contact-information' %}active{% endif %}">
-                Контактна інформація
+                {% trans "Контактна інформація" %}
             </a>
         </li>
         <li>
             <a href="{% url 'accounts:change_password' %}"
                class="{% if request.resolver_match.url_name == 'change_password' %}active{% endif %}">
-                Пароль
+                {% trans "Пароль" %}
             </a>
         </li>
         <li>
             {% if address_page %}
             <a href="{% pageurl address_page %}"
                class="{% if request.resolver_match.url_name == 'address' %}active{% endif %}">
-                Адреса та реквізити
+                {% trans "Адреса та реквізити" %}
             </a>
             {% endif %}
         </li>

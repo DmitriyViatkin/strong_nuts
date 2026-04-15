@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static wagtailimages_tags wagtailcore_tags wagtailsettings_tags %}
-
+ {% load i18n %}
 {% block content %}
 {% get_settings use_default_site=True %}
 	<div class="container pr">
@@ -28,7 +28,7 @@
 								</div>
 								<div class="col-5">
 									<div class="item_sum">
-										<p>{{ product.price }} <span>грн.</span></p>
+										<p>{{ product.price }} <span>{% trans "грн." %} </span></p>
 									</div>
 								</div>
 								<div class="col-1">
@@ -46,15 +46,15 @@
 				<div class="popup__cart_sum">
 					<div class="sum_item">
 						<div class="sum_item_title">
-							<p>Разом </p>
+							<p>{% trans "Разом" %} </p>
 						</div>
 						<div class="sum_item_new">
-							<p>{{ product.price }} <i>грн.</i></p>
+							<p>{{ product.price }} <i>{% trans "грн." %} </i></p>
 						</div>
 					</div>
 					<div class="sum_item">
 						<div class="sum_item_button">
-							<a href="{% url 'cart:cart' %}" class="button">Перейти до кошика</a>
+							<a href="{% url 'cart:cart' %}" class="button">{% trans "Перейти до кошика" %}</a>
 						</div>
 					</div>
 				</div>
@@ -67,7 +67,7 @@
 			<div class="breadcrumbs">
 				<ul>
 					<li>
-						<a href="/">Головна</a>
+						<a href="/">{% trans "Головна" %}</a>
 					</li>
 					<li>
 						{{ product.name }}
@@ -87,7 +87,7 @@
 							{% if product.is_sale %}
 							<div class="sticker">
 								<i class="nut-icon icons-actciya"></i>
-								<p>Акція</p>
+								<p>{% trans "Акція" %}</p>
 							</div>
 							{% endif %}
 
@@ -149,7 +149,7 @@
 										<li>
 											<div class="row">
 												<div class="col-md-5">
-													<strong>Склад:</strong>
+													<strong>{% trans "Склад:" %}</strong>
 												</div>
 												<div class="col-md-7">
 													<span>{{ product.composition }}</span>
@@ -175,7 +175,7 @@
 										<li>
 											<div class="row">
 												<div class="col-md-5">
-													<strong>Енергетична цінність:</strong>
+													<strong>{% trans "Енергетична цінність:" %}</strong>
 												</div>
 												<div class="col-md-7">
 													<span>{{ product.energy_value }}</span>
@@ -188,7 +188,7 @@
 										<li>
 											<div class="row">
 												<div class="col-md-5">
-													<strong>Дата придатності:</strong>
+													<strong>{% trans "Дата придатності:" %}</strong>
 												</div>
 												<div class="col-md-7">
 													<span>{{ product.expiration_date }}</span>
@@ -201,7 +201,7 @@
 										<li>
 											<div class="row">
 												<div class="col-md-5">
-													<strong>Пакування:</strong>
+													<strong>{% trans "Пакування:" %}</strong>
 												</div>
 												<div class="col-md-7">
 													<span>{{ product.get_packaging_display }}</span>
@@ -226,10 +226,10 @@
 								<div class="product__content_sum">
 									<div class="sum_item">
 										<div class="sum_item_title">
-											<p>Ціна зараз: </p>
+											<p>{% trans "Ціна зараз:" %} </p>
 										</div>
 										<div class="sum_item_new">
-											<p>{{ product.price }} <i>грн.</i></p>
+											<p>{{ product.price }} <i>{% trans "грн.</i></p>
 										</div>
 										{% if product.is_sale and product.old_price %}
 										<div class="sum_item_old">
@@ -248,7 +248,7 @@
 
 									<div class="sum_item">
 										<div class="sum_item_button">
-											<a href="#" class="button add-to-cart-btn" data-product-id="{{ product.pk }}">Купити</a>
+											<a href="#" class="button add-to-cart-btn" data-product-id="{{ product.pk }}"> {% trans "Купити" %}</a>
 										</div>
 									</div>
 								</div>
@@ -267,10 +267,10 @@
 				<div class="container">
 					<div class="row">
 						<ul class="tabs__caption">
-							<li class="active"><span>Описання</span></li>
-							<li><span>Доставка</span></li>
-							<li><span>Оплата</span></li>
-							<li><span>Відгуки</span></li>
+							<li class="active"><span>{% trans "Описання" %}</span></li>
+							<li><span>{% trans "Доставка" %}</span></li>
+							<li><span>{% trans "Оплата" %}</span></li>
+							<li><span>{% trans "Відгуки" %}</span></li>
 						</ul>
 					</div>
 				</div>
@@ -302,17 +302,17 @@
 
 						<!-- Вкладка 2: Доставка -->
 						<div class="tabs__content">
-							Інформація про доставку
+							{% trans "Інформація про доставку" %}
 						</div>
 
 						<!-- Вкладка 3: Оплата -->
 						<div class="tabs__content">
-							Інформація про оплату
+							{% trans "Інформація про оплату" %}
 						</div>
 
 
 						<div class="tabs__content">
-							Відгуки
+							{% trans "Відгуки" %}
 						</div>
 
 					</div>

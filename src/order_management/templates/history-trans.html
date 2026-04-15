@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-
-{% block title %}Історія операцій{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Історія операцій" %}{% endblock %}
 {% block body_class %}page{% endblock %}
 
 {% block content %}
@@ -10,9 +10,9 @@
         <div class="container">
             <div class="breadcrumbs">
                 <ul>
-                    <li><a href="/">Головна</a></li>
-                    <li><a href="#">Особистий кабінет</a></li>
-                    <li>Білінг операції</li>
+                    <li><a href="/">{% trans "Головна" %}</a></li>
+                    <li><a href="#">{% trans "Особистий кабінет" %}</a></li>
+                    <li>{% trans "Білінг операції" %}</li>
                 </ul>
             </div>
         </div>
@@ -22,12 +22,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6">
-                    <h1>Особистий кабінет</h1>
+                    <h1>{% trans "Особистий кабінет" %}</h1>
                 </div>
                 <div class="col-lg-9 col-md-6">
                     <div class="accaunt__manager">
                         <ul>
-                            <li><p>Ваш менеджер допоможе вам</p></li>
+                            <li><p>{% trans "Ваш менеджер допоможе вам" %}</p></li>
                             <li>
                                 <i class="nut-icon icons-phone"></i>
                                 <a href="tel:+380677771412">+38 067 777 14 12</a>
@@ -40,14 +40,14 @@
                     <nav class="navigation">
                         <p>Мій кабінет</p>
                         <ul>
-                            <li><a href="#">Особисті дані</a></li>
-                            <li><a href="#" class="active">Білінг операції</a></li>
+                            <li><a href="#">{% trans "Особисті дані" %}</a></li>
+                            <li><a href="#" class="active">{% trans "Білінг операції" %}</a></li>
                         </ul>
-                        <p>Моя історія замовлень</p>
+                        <p>{% trans "Моя історія замовлень" %}</p>
                         <ul>
-                            <li><a href="#">Мої замовлення</a></li>
-                            <li><a href="#">Обране</a></li>
-                            <li><a href="#">Вихід</a></li>
+                            <li><a href="#">{% trans "Мої замовлення" %}</a></li>
+                            <li><a href="#">{% trans "Обране" %}</a></li>
+                            <li><a href="#">{% trans "Вихід" %} </a></li>
                         </ul>
                     </nav>
                 </div>
@@ -59,9 +59,9 @@
                                 <table id="table">
                                     <thead>
                                         <tr>
-                                            <th><span>Дата</span></th>
-                                            <th><span>Статус</span></th>
-                                            <th><span>Сума</span></th>
+                                            <th><span>{% trans "Дата" %}</span></th>
+                                            <th><span>{% trans "Статус" %}</span></th>
+                                            <th><span>{% trans "Сума" %}</span></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -86,7 +86,7 @@
                                     </tbody>
                                 </table>
                             {% else %}
-                                <div class="table__message">У вас ще немає операцій!</div>
+                                <div class="table__message">{% trans "У вас ще немає операцій!" %}</div>
                             {% endif %}
                         </div>
                     </div>

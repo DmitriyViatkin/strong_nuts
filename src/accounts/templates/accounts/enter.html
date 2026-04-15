@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-
-{% block title %}Вхід{% endblock %}
+{% load i18n %}
+{% block title %}{% trans Вхід %} {% endblock %}
 {% block body_class %}page{% endblock %}
 
 {% block content %}
@@ -10,8 +10,8 @@
     <div class="container">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/">Головна</a></li>
-                <li>Вхід</li>
+                <li><a href="/"> {% trans "Головна" % } </a></li>
+                <li> {% trans Вхід %} </li>
             </ul>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6">
-                <h1 class="text-center py-4">Увійти в особистий кабінет</h1>
+                <h1 class="text-center py-4">{% trans "Увійти в особистий кабінет" %} </h1>
 
                 <form method="POST">
                     {% csrf_token %}
@@ -48,13 +48,13 @@
                     {% endif %}
 
                     <div class="mini_link">
-                        <a href="{% url 'accounts:password-recovery'%}">Забули пароль?</a>
+                        <a href="{% url 'accounts:password-recovery'%}"> {% trans "Забули пароль?" %} </a>
                     </div>
 
-                    <button class="button" type="submit">Увійти</button>
+                    <button class="button" type="submit"> {% trans "Увійти" %} </button>
 
                     <div class="mini_link">
-                        <a href="{% url 'accounts:register' %}">Реєстрація</a>
+                        <a href="{% url 'accounts:register' %}"> {% trans "Реєстрація" %} </a>
                     </div>
                 </form>
 

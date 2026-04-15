@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n%}
 {% load static wagtailimages_tags wagtailcore_tags %}
 
 {% block content %}
@@ -105,13 +106,13 @@
 			<div class="breadcrumbs">
 				<ul>
 					<li>
-						<a href="/">Главная</a>
+						<a href="/">{% trans "Главная" %}</a>
 					</li>
 					<li>
-						<a href="#">Регистрация</a>
+						<a href="#">{% trans "Регистрация" %}</a>
 					</li>
 					<li>
-							Пользовательское соглашение 
+							{% trans "Пользовательское соглашение" %}
 					</li>
 				</ul>
 			</div>

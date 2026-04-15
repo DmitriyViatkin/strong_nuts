@@ -1,5 +1,6 @@
 {% extends "base_cabinet/base_cabinet.html" %}
-
+{% load static %}
+{% load i18n %}
 {% block cabinet_content %}
 <div class="col-lg-9">
     <div class="row">
@@ -8,12 +9,12 @@
                 <table id="table">
                     <thead>
                         <tr>
-                            <th><span># Замовлення</span></th>
-                            <th><span>Дата</span></th>
-                            <th><span>Кіл-сть товарів</span></th>
-                            <th><span>Статус</span></th>
-                            <th><span>Вартість</span></th>
-                            <th><span>Дії</span></th>
+                            <th><span># {% trans "Замовлення" %}</span></th>
+                            <th><span>{% trans "Дата" %}</span></th>
+                            <th><span>{% trans "Кіл-сть товарів" %}</span></th>
+                            <th><span>{% trans "Статус" %}</span></th>
+                            <th><span>{% trans "Вартість" %}</span></th>
+                            <th><span>{% trans "Дії" %}</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,25 +26,27 @@
                             <td>{{ order.get_status_display }}</td>
                             <td>{{ order.summary }} грн.</td>
                             <td>
-                                <div class="icons_wrap">
-                                    <a href="{% url 'orders:order_detail' order.id %}"
-                                       class="tooltip"
-                                       title="Переглянути замовлення">
-                                        <i class="nut-icon icons-view"></i>
-                                    </a>
-                                    <a href="#"
-                                       class="tooltip"
-                                       title="Повторити">
-                                        <i class="nut-icon icons-copy"></i>
-                                    </a>
-                                </div>
-                            </td>
+                                    <div class="icons_wrap">
+                                        <a href="{% url 'orders:order_detail' order.id %}"
+                                           class="tooltip"
+                                           title="Переглянути замовлення">
+                                            <i class="nut-icon icons-view"></i>
+                                        </a>
+
+                                        <form method="post" action="{% url 'orders:order-repeat' pk=order.id %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="tooltip" title="Повторити" style="background:none; border:none; padding:0; cursor:pointer;">
+                                                <i class="nut-icon icons-copy"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             {% else %}
-                <div class="table__message">У вас ще немає замовлень!</div>
+                <div class="table__message"> {% trans "У вас ще немає замовлень!" %}</div>
             {% endif %}
         </div>
     </div>

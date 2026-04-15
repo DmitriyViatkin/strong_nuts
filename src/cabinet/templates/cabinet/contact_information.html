@@ -1,5 +1,6 @@
 {% extends "base_cabinet/base_cabinet.html" %}
-
+{% load static %}
+{% load i18n %}
 {% block cabinet_content %}
 <div class="col-md-9">
     <div class="row">
@@ -45,7 +46,7 @@
                            value="{{ user.phone }}">
                 {% endif %}
 
-                <button class="button float-left" type="submit">Зберегти</button>
+                <button class="button float-left" type="submit">{% trans "Зберегти" %}</button>
 
         </div>
 
@@ -59,7 +60,7 @@
                            {% if user.avatar %}
                                style="background-image: url('{{ user.avatar.url }}');"
                            {% endif %}>
-                        <span>Завантажити фото</span>
+                        <span>{% trans "Завантажити фото" %}</span>
                     </label>
                 </div>
             </div>

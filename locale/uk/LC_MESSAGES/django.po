@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-07 13:21+0300\n"
-"PO-Revision-Date: 2026-04-07 14:30+0200\n"
+"POT-Creation-Date: 2026-04-15 14:13+0300\n"
+"PO-Revision-Date: 2026-04-15 14:30+0200\n"
 "Last-Translator: Gemini AI\n"
 "Language-Team: Ukrainian\n"
 "Language: uk\n"
@@ -21,82 +20,157 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: config/settings/base.py:128 config/settings/base.py:146
-msgid "Українська"
+#: config/settings/base.py:133 config/settings/base.py:153
+msgid "Ukrainian"
 msgstr "Українська"
 
-#: config/settings/base.py:129 config/settings/base.py:147
+#: config/settings/base.py:134 config/settings/base.py:154
 msgid "English"
 msgstr "English"
 
-#: config/settings/base.py:130 config/settings/base.py:148
-msgid "Русский"
-msgstr "Русский"
+#: config/settings/base.py:135 config/settings/base.py:155
+msgid "Russian"
+msgstr "Російська"
 
-#: config/settings/unfold_settings.py:16
+#: config/settings/unfold_settings.py:20
 msgid "Відкрити сайт"
 msgstr "Відкрити сайт"
 
-#: config/settings/unfold_settings.py:22
+#: config/settings/unfold_settings.py:26
 msgid "Головна адмінки"
 msgstr "Головна адмінки"
 
-#: config/settings/unfold_settings.py:34
-msgid "Management"
+#: config/settings/unfold_settings.py:37
+msgid "Управление"
 msgstr "Керування"
 
-#: config/settings/unfold_settings.py:39 src/cabinet/models.py:163
-#: src/unfold_admin/tamplate/admin/index.html:33
-#: src/unfold_admin/tamplate/admin/index.html:90
-msgid "Користувачі"
-msgstr "Користувачі"
-
 #: config/settings/unfold_settings.py:44
-msgid "Співробітники"
-msgstr "Співробітники"
+msgid "Сотрудники"
+msgstr "Працівники"
 
 #: config/settings/unfold_settings.py:49
-msgid "Групи і права"
-msgstr "Групи і права"
+msgid "Пользователи"
+msgstr "Користувачі"
 
-#: config/settings/unfold_settings.py:56
-msgid "Orders"
+#: config/settings/unfold_settings.py:54
+msgid "Группы и права"
+msgstr "Групи та права"
+
+#: config/settings/unfold_settings.py:61
+msgid "Заказы"
 msgstr "Замовлення"
 
-#: config/settings/unfold_settings.py:61 src/order_management/models.py:179
-#: src/order_management/models.py:180 src/order_management/models.py:194
-#: src/order_management/models.py:237
-msgid "Замовлення"
-msgstr "Замовлення"
+#: config/settings/unfold_settings.py:68
+msgid "Все заказы"
+msgstr "Всі замовлення"
 
-#: config/settings/unfold_settings.py:68 src/order_management/models.py:257
-msgid "Транзакції"
+#: config/settings/unfold_settings.py:75
+msgid "Транзакции"
 msgstr "Транзакції"
 
-#: config/settings/unfold_settings.py:77
-msgid "Catalog"
+#: config/settings/unfold_settings.py:83
+msgid "Каталог"
 msgstr "Каталог"
 
-#: config/settings/unfold_settings.py:82 src/product_management/models.py:114
-#: src/unfold_admin/tamplate/admin/index.html:58
-msgid "Товари"
+#: config/settings/unfold_settings.py:90
+msgid "Товары"
 msgstr "Товари"
 
-#: config/settings/unfold_settings.py:90
-msgid "Celery Tasks"
-msgstr "Завдання Celery"
+#: config/settings/unfold_settings.py:98
+msgid "Фоновые задачи"
+msgstr "Фонові завдання"
 
-#: config/settings/unfold_settings.py:95
-msgid "Task results"
+#: config/settings/unfold_settings.py:105
+msgid "Результаты задач"
 msgstr "Результати завдань"
 
-#: config/settings/unfold_settings.py:102
-msgid "Group results"
+#: config/settings/unfold_settings.py:111
+msgid "Результаты групп"
 msgstr "Результати груп"
+
+#: src/accounts/templates/accounts/enter.html:24
+msgid "Увійти в особистий кабінет"
+msgstr "Увійти в особистий кабінет"
+
+#: src/accounts/templates/accounts/enter.html:51
+msgid "Забули пароль?"
+msgstr "Забули пароль?"
+
+#: src/accounts/templates/accounts/enter.html:54
+msgid "Увійти"
+msgstr "Увійти"
+
+#: src/accounts/templates/accounts/enter.html:57
+#: src/cms_pages/templates/cms_pages/404.html:2
+#: templates/includes/header.html:46
+msgid "Реєстрація"
+msgstr "Реєстрація"
+
+#: src/accounts/templates/accounts/password-recovery.html:4
+#: src/accounts/templates/accounts/password-recovery.html:13
+#: src/accounts/templates/accounts/password.html:4
+msgid "Восстановление пароля"
+msgstr "Відновлення пароля"
+
+#: src/accounts/templates/accounts/password-recovery.html:18
+msgid "Введите Email Вашего аккаунта, Вам будет выслана ссылка."
+msgstr "Введіть Email Вашого акаунта, Вам буде надіслано посилання."
+
+#: src/accounts/templates/accounts/password-recovery.html:33
+msgid "Отправить ссылку"
+msgstr "Надіслати посилання"
+
+#: src/accounts/templates/accounts/password-recovery.html:38
+msgid "Письмо отправлено"
+msgstr "Лист відправлено"
+
+#: src/accounts/templates/accounts/password-recovery.html:46
+msgid "Введите новый пароль"
+msgstr "Введіть новий пароль"
+
+#: src/accounts/templates/accounts/password-recovery.html:60
+msgid "Сменить пароль"
+msgstr "Змінити пароль"
+
+#: src/accounts/templates/accounts/password-recovery.html:64
+msgid "Ссылка недействительна или устарела."
+msgstr "Посилання недійсне або застаріло."
+
+#: src/accounts/templates/accounts/password-recovery.html:66
+msgid "Запросить новую"
+msgstr "Запросити нове"
+
+#: src/accounts/templates/accounts/password.html:111
+#: src/cart/templates/cart/cart.html:12
+#: src/cms_pages/templates/cms_pages/about.html:26
+#: src/cms_pages/templates/cms_pages/catalog_product.html:16
+#: src/cms_pages/templates/cms_pages/catalog_product.html:31
+#: src/cms_pages/templates/cms_pages/customers.html:68
+#: src/cms_pages/templates/cms_pages/delivery_payment.html:68
+#: src/cms_pages/templates/cms_pages/gallery.html:16
+#: src/cms_pages/templates/cms_pages/news/news_list.html:10
+#: src/cms_pages/templates/cms_pages/news/one-new.html:12
+#: src/cms_pages/templates/cms_pages/therms-of-use.html:109
+#: src/order_management/templates/order.html:12
+msgid "Главная"
+msgstr "Головна"
+
+#: src/accounts/templates/accounts/password.html:114
+msgid "Вход"
+msgstr "Вхід"
+
+#: src/accounts/templates/accounts/password.html:125
+#: src/cabinet/templates/base_cabinet/includes/navigation.html:31
+msgid "Пароль"
+msgstr "Пароль"
+
+#: src/accounts/templates/accounts/password.html:134
+msgid "Продолжить"
+msgstr "Продовжити"
 
 #: src/cabinet/admin.py:28
 msgid "Персональна інформація"
-msgstr "Персональна інформація"
+msgstr "Особиста інформація"
 
 #: src/cabinet/admin.py:30
 msgid "Тип клієнта"
@@ -122,7 +196,7 @@ msgstr "Юридична особа"
 msgid "Тип адреси"
 msgstr "Тип адреси"
 
-#: src/cabinet/models.py:49 src/order_management/models.py:100
+#: src/cabinet/models.py:49 src/order_management/models.py:110
 msgid "Країна"
 msgstr "Країна"
 
@@ -130,7 +204,7 @@ msgstr "Країна"
 msgid "Область"
 msgstr "Область"
 
-#: src/cabinet/models.py:61 src/order_management/models.py:116
+#: src/cabinet/models.py:61 src/order_management/models.py:126
 msgid "Місто"
 msgstr "Місто"
 
@@ -166,12 +240,12 @@ msgstr "ПДВ"
 msgid "Адреса"
 msgstr "Адреса"
 
-#: src/cabinet/models.py:105 src/wagtail_cms/models.py:118
+#: src/cabinet/models.py:105 src/wagtail_cms/models.py:131
 msgid "Адреси"
 msgstr "Адреси"
 
-#: src/cabinet/models.py:124 src/order_management/models.py:85
-#: src/wagtail_cms/models.py:109
+#: src/cabinet/models.py:124 src/order_management/models.py:95
+#: src/wagtail_cms/models.py:116
 msgid "Email"
 msgstr "Email"
 
@@ -183,8 +257,7 @@ msgstr "Аватар"
 msgid "По батькові"
 msgstr "По батькові"
 
-#: src/cabinet/models.py:140 src/order_management/models.py:79
-#: src/wagtail_cms/models.py:62
+#: src/cabinet/models.py:140 src/order_management/models.py:89
 msgid "Телефон"
 msgstr "Телефон"
 
@@ -193,10 +266,136 @@ msgid "ФОП"
 msgstr "ФОП"
 
 #: src/cabinet/models.py:162 src/cart/models.py:14
-#: src/order_management/models.py:43 src/order_management/models.py:230
+#: src/order_management/models.py:52 src/order_management/models.py:240
 #: src/unfold_admin/tamplate/admin/index.html:129
 msgid "Користувач"
 msgstr "Користувач"
+
+#: src/cabinet/models.py:163 src/unfold_admin/tamplate/admin/index.html:33
+#: src/unfold_admin/tamplate/admin/index.html:90
+msgid "Користувачі"
+msgstr "Користувачі"
+
+#: src/cabinet/templates/base_cabinet/base_cabinet.html:13
+#: src/order_management/templates/history-trans.html:13
+#: src/product_management/templates/product_management/product.html:70
+msgid "Головна"
+msgstr "Головна"
+
+#: src/cabinet/templates/base_cabinet/base_cabinet.html:14
+#: src/cabinet/templates/base_cabinet/base_cabinet.html:24
+#: src/cabinet/templates/cabinet/account.html:5
+#: src/order_management/templates/history-trans.html:14
+#: src/order_management/templates/history-trans.html:25
+msgid "Особистий кабінет"
+msgstr "Особистий кабінет"
+
+#: src/cabinet/templates/base_cabinet/base_cabinet.html:31
+#: src/order_management/templates/history-trans.html:30
+msgid "Ваш менеджер допоможе вам"
+msgstr "Ваш менеджер допоможе вам"
+
+#: src/cabinet/templates/base_cabinet/base_cabinet.html:42
+msgid "Ваша персональна знижка"
+msgstr "Ваша персональна знижка"
+
+#: src/cabinet/templates/base_cabinet/includes/navigation.html:5
+#: src/order_management/templates/history-trans.html:48
+msgid "Мої замовлення"
+msgstr "Мої замовлення"
+
+#: src/cabinet/templates/base_cabinet/includes/navigation.html:10
+msgid "Історія замовлень"
+msgstr "Історія замовлень"
+
+#: src/cabinet/templates/base_cabinet/includes/navigation.html:16
+msgid "Історія транзакцій"
+msgstr "Історія транзакцій"
+
+#: src/cabinet/templates/base_cabinet/includes/navigation.html:20
+msgid "Моя учетная запись"
+msgstr "Мій обліковий запис"
+
+#: src/cabinet/templates/base_cabinet/includes/navigation.html:25
+msgid "Контактна інформація"
+msgstr "Контактна інформація"
+
+#: src/cabinet/templates/base_cabinet/includes/navigation.html:38
+msgid "Адреса та реквізити"
+msgstr "Адреса та реквізити"
+
+#: src/cabinet/templates/cabinet/contact_information.html:49
+#: src/cms_pages/templates/cms_pages/address.html:29
+msgid "Зберегти"
+msgstr "Зберегти"
+
+#: src/cabinet/templates/cabinet/contact_information.html:63
+msgid "Завантажити фото"
+msgstr "Завантажити фото"
+
+#: src/cabinet/templates/cabinet/history-trans.html:12
+#: src/cabinet/templates/cabinet/history.html:13
+#: src/order_management/templates/history-trans.html:62
+#: src/unfold_admin/tamplate/admin/index.html:133
+msgid "Дата"
+msgstr "Дата"
+
+#: src/cabinet/templates/cabinet/history-trans.html:13
+#: src/cabinet/templates/cabinet/history.html:15
+#: src/order_management/templates/history-trans.html:63
+#: src/product_management/admin.py:58
+#: src/unfold_admin/tamplate/admin/index.html:130
+msgid "Статус"
+msgstr "Статус"
+
+#: src/cabinet/templates/cabinet/history-trans.html:14
+#: src/order_management/admin.py:43 src/order_management/models.py:258
+#: src/order_management/templates/history-trans.html:64
+#: src/unfold_admin/tamplate/admin/index.html:132
+msgid "Сума"
+msgstr "Сума"
+
+#: src/cabinet/templates/cabinet/history-trans.html:24
+#: src/cart/templates/cart/cart.html:61 src/cart/templates/cart/cart.html:62
+#: src/cms_pages/templates/cms_pages/catalog_product.html:164
+#: src/cms_pages/templates/cms_pages/main/index.html:57
+#: src/order_management/templates/checkout_fiz.html:256
+#: src/order_management/templates/checkout_fiz.html:274
+#: src/order_management/templates/order.html:51
+#: src/order_management/templates/order.html:52
+#: src/order_management/templates/order.html:75
+#: src/product_management/templates/product_management/product.html:31
+#: src/product_management/templates/product_management/product.html:52
+msgid "грн."
+msgstr "грн."
+
+#: src/cabinet/templates/cabinet/history-trans.html:37
+#: src/order_management/templates/history-trans.html:89
+msgid "У вас ще немає операцій!"
+msgstr "У вас ще немає операцій!"
+
+#: src/cabinet/templates/cabinet/history.html:12
+#: src/order_management/models.py:189 src/order_management/models.py:190
+#: src/order_management/models.py:204 src/order_management/models.py:247
+msgid "Замовлення"
+msgstr "Замовлення"
+
+#: src/cabinet/templates/cabinet/history.html:14
+msgid "Кіл-сть товарів"
+msgstr "Кіл-сть товарів"
+
+#: src/cabinet/templates/cabinet/history.html:16
+#: src/order_management/models.py:20
+msgid "Вартість"
+msgstr "Вартість"
+
+#: src/cabinet/templates/cabinet/history.html:17
+msgid "Дії"
+msgstr "Дії"
+
+#: src/cabinet/templates/cabinet/history.html:49
+msgid "У вас ще немає замовлень!"
+msgstr "У вас ще немає замовлень!"
 
 #: src/cart/models.py:20
 msgid "Ключ сесії"
@@ -210,12 +409,15 @@ msgstr "Кошик"
 msgid "Кошики"
 msgstr "Кошики"
 
-#: src/cart/models.py:51 src/order_management/models.py:200
-#: src/product_management/models.py:113
+#: src/cart/models.py:51 src/cart/templates/cart/cart.html:38
+#: src/order_management/models.py:210
+#: src/order_management/templates/checkout_fiz.html:235
+#: src/order_management/templates/order.html:40
+#: src/product_management/models.py:125
 msgid "Товар"
 msgstr "Товар"
 
-#: src/cart/models.py:53 src/order_management/models.py:204
+#: src/cart/models.py:53 src/order_management/models.py:214
 msgid "Кількість"
 msgstr "Кількість"
 
@@ -227,18 +429,160 @@ msgstr "Елемент кошика"
 msgid "Елементи кошика"
 msgstr "Елементи кошика"
 
+#: src/cart/templates/cart/cart.html:5 src/cart/templates/cart/cart.html:13
+#: src/cart/templates/cart/cart.html:23
+msgid "Корзина"
+msgstr "Кошик"
+
+#: src/cart/templates/cart/cart.html:28
+#: src/order_management/templates/order.html:31
+msgid "Ваш личный менеджер Олег"
+msgstr "Ваш особистий менеджер Олег"
+
+#: src/cart/templates/cart/cart.html:39
+#: src/order_management/templates/order.html:41
+msgid "Кол - во"
+msgstr "Кіл-сть"
+
+#: src/cart/templates/cart/cart.html:40
+#: src/order_management/templates/order.html:42
+msgid "Цена за товар"
+msgstr "Ціна за товар"
+
+#: src/cart/templates/cart/cart.html:41
+#: src/order_management/templates/order.html:43
+msgid "Итоговая стоимость"
+msgstr "Підсумкова вартість"
+
+#: src/cart/templates/cart/cart.html:71
+msgid "Корзина пуста"
+msgstr "Кошик порожній"
+
+#: src/cart/templates/cart/cart.html:83
+msgid "Продолжить покупки"
+msgstr "Продовжити покупки"
+
+#: src/cart/templates/cart/cart.html:89
+#: src/order_management/templates/order.html:72
+msgid "Всего"
+msgstr "Всього"
+
+#: src/cart/templates/cart/cart.html:99
+msgid "Оформить заказ"
+msgstr "Оформити замовлення"
+
+#: src/cart/templates/cart/cart.html:113
+msgid "Для оформления заказа необходимо"
+msgstr "Для оформлення замовлення необхідно"
+
+#: src/cart/templates/cart/cart.html:115
+msgid "Авторизоваться"
+msgstr "Авторизуватися"
+
+#: src/cart/templates/cart/cart.html:117
+msgid "Зарегистрироваться"
+msgstr "Зареєструватися"
+
+#: src/cms_pages/templates/cms_pages/404.html:111
+msgid "Вернуться на Главную страницу"
+msgstr "Повернутися на Головну сторінку"
+
+#: src/cms_pages/templates/cms_pages/about.html:27
+msgid "О производстве"
+msgstr "Про виробництво"
+
+#: src/cms_pages/templates/cms_pages/about.html:165
+msgid "Смотреть всю галерею"
+msgstr "Дивитися всю галерею"
+
+#: src/cms_pages/templates/cms_pages/about.html:243
+#: src/cms_pages/templates/cms_pages/main/index.html:257
+msgid "Смотреть все новости"
+msgstr "Дивитися всі новини"
+
+#: src/cms_pages/templates/cms_pages/catalog_product.html:36
+msgid "Каталог продукции"
+msgstr "Каталог продукції"
+
+#: src/cms_pages/templates/cms_pages/catalog_product.html:61
+msgid "Вкус"
+msgstr "Смак"
+
+#: src/cms_pages/templates/cms_pages/catalog_product.html:66
+msgid "Масса"
+msgstr "Маса"
+
+#: src/cms_pages/templates/cms_pages/catalog_product.html:81
+msgid "Применить"
+msgstr "Застосувати"
+
+#: src/cms_pages/templates/cms_pages/catalog_product.html:84
+msgid "Сбросить"
+msgstr "Скинути"
+
+#: src/cms_pages/templates/cms_pages/catalog_product.html:161
+#: src/cms_pages/templates/cms_pages/main/index.html:56
+msgid "Цена:"
+msgstr "Ціна:"
+
+#: src/cms_pages/templates/cms_pages/catalog_product.html:169
+#: src/cms_pages/templates/cms_pages/main/index.html:61
+msgid "Купить"
+msgstr "Купити"
+
+#: src/cms_pages/templates/cms_pages/catalog_product.html:179
+msgid "Товары не найдены."
+msgstr "Товари не знайдено."
+
+#: src/cms_pages/templates/cms_pages/catalog_product.html:190
+msgid "Загрузить еще"
+msgstr "Завантажити ще"
+
+#: src/cms_pages/templates/cms_pages/gallery.html:113
+#: src/cms_pages/templates/cms_pages/news/news_list.html:98
+msgid "Посмотреть еще"
+msgstr "Подивитися ще"
+
+#: src/cms_pages/templates/cms_pages/main/index.html:31
+msgid "Продукція"
+msgstr "Продукція"
+
+#: src/cms_pages/templates/cms_pages/main/index.html:52
+msgid "Арт:"
+msgstr "Арт:"
+
+#: src/cms_pages/templates/cms_pages/main/index.html:73
+msgid "Перейти в магазин"
+msgstr "Перейти до магазину"
+
+#: src/cms_pages/templates/cms_pages/news/one-new.html:50
+msgid "Последние публикации"
+msgstr "Останні публікації"
+
+#: src/cms_pages/templates/cms_pages/news/one-new.html:70
+msgid "Читать"
+msgstr "Читати"
+
+#: src/cms_pages/templates/cms_pages/thanks.html:31
+msgid "Контакты"
+msgstr "Контакти"
+
+#: src/cms_pages/templates/cms_pages/therms-of-use.html:112
+msgid "Регистрация"
+msgstr "Реєстрація"
+
+#: src/cms_pages/templates/cms_pages/therms-of-use.html:115
+msgid "Пользовательское соглашение"
+msgstr "Угода користувача"
+
 #: src/order_management/admin.py:14
+#: src/product_management/templates/product_management/product.html:49
 msgid "Разом"
 msgstr "Разом"
 
 #: src/order_management/admin.py:38
 msgid "Інформація про замовлення"
 msgstr "Інформація про замовлення"
-
-#: src/order_management/admin.py:43 src/order_management/models.py:248
-#: src/unfold_admin/tamplate/admin/index.html:132
-msgid "Сума"
-msgstr "Сума"
 
 #: src/order_management/models.py:9
 msgid "Оплачено"
@@ -248,129 +592,217 @@ msgstr "Оплачено"
 msgid "Очікує оплати"
 msgstr "Очікує оплати"
 
-#: src/order_management/models.py:11 src/order_management/models.py:31
+#: src/order_management/models.py:11 src/order_management/models.py:40
 msgid "Скасовано"
 msgstr "Скасовано"
 
 #: src/order_management/models.py:15
-msgid "Нова пошта"
-msgstr "Нова пошта"
+msgid "Slug"
+msgstr "Слаг (URL)"
+
+#: src/order_management/models.py:16 src/product_management/models.py:38
+msgid "Назва"
+msgstr "Назва"
 
 #: src/order_management/models.py:17
-msgid "Курʼєр"
-msgstr "Курʼєр"
+msgid "Безкоштовна"
+msgstr "Безкоштовна"
 
-#: src/order_management/models.py:18
-msgid "Самовивіз"
-msgstr "Самовивіз"
+#: src/order_management/models.py:24
+msgid "Метод доставки"
+msgstr "Метод доставки"
 
-#: src/order_management/models.py:22
+#: src/order_management/models.py:25
+msgid "Методи доставки"
+msgstr "Методи доставки"
+
+#: src/order_management/models.py:31
 msgid "LiqPay / Приват24"
 msgstr "LiqPay / Приват24"
 
-#: src/order_management/models.py:23
+#: src/order_management/models.py:32
 msgid "Безготівковий розрахунок"
 msgstr "Безготівковий розрахунок"
 
-#: src/order_management/models.py:24
+#: src/order_management/models.py:33
 msgid "Накладений платіж (при отриманні)"
 msgstr "Накладений платіж (при отриманні)"
 
-#: src/order_management/models.py:27
+#: src/order_management/models.py:36
 msgid "Новий"
 msgstr "Новий"
 
-#: src/order_management/models.py:28
+#: src/order_management/models.py:37
 msgid "В обробці"
 msgstr "В обробці"
 
-#: src/order_management/models.py:29
+#: src/order_management/models.py:38
 msgid "Відправлено"
 msgstr "Відправлено"
 
-#: src/order_management/models.py:30
+#: src/order_management/models.py:39
 msgid "Доставлено"
 msgstr "Доставлено"
 
-#: src/order_management/models.py:51
+#: src/order_management/models.py:60
 msgid "Статус замовлення"
 msgstr "Статус замовлення"
 
-#: src/order_management/models.py:58 src/order_management/models.py:243
+#: src/order_management/models.py:67 src/order_management/models.py:253
 msgid "Статус оплати"
 msgstr "Статус оплати"
 
-#: src/order_management/models.py:66
-msgid "Тип доставки"
-msgstr "Тип доставки"
+#: src/order_management/models.py:76
+msgid "Способ доставки"
+msgstr "Спосіб доставки"
 
-#: src/order_management/models.py:73
+#: src/order_management/models.py:83
 msgid "Ім'я отримувача"
 msgstr "Ім'я отримувача"
 
-#: src/order_management/models.py:91
+#: src/order_management/models.py:101
 msgid "Компанія"
 msgstr "Компанія"
 
-#: src/order_management/models.py:108
+#: src/order_management/models.py:118
 msgid "Регіон"
 msgstr "Регіон"
 
-#: src/order_management/models.py:123
+#: src/order_management/models.py:133
 msgid "Адреса доставки (вулиця, будинок, квартира)"
 msgstr "Адреса доставки (вулиця, будинок, квартира)"
 
-#: src/order_management/models.py:130
+#: src/order_management/models.py:140
 msgid "NP City Ref"
-msgstr "Ref міста (НП)"
+msgstr "Ref Міста НП"
 
-#: src/order_management/models.py:136
+#: src/order_management/models.py:146
 msgid "NP Відділення Ref"
-msgstr "Ref відділення (НП)"
+msgstr "Ref Відділення НП"
 
-#: src/order_management/models.py:142
+#: src/order_management/models.py:152
 msgid "NP Відділення"
-msgstr "Відділення Нової пошти"
+msgstr "Відділення НП"
 
-#: src/order_management/models.py:148
+#: src/order_management/models.py:158
 msgid "ТТН"
 msgstr "ТТН"
 
-#: src/order_management/models.py:157
+#: src/order_management/models.py:167
 msgid "Сума замовлення"
 msgstr "Сума замовлення"
 
-#: src/order_management/models.py:163
+#: src/order_management/models.py:173
 msgid "Коментар"
 msgstr "Коментар"
 
-#: src/order_management/models.py:168 src/product_management/models.py:109
+#: src/order_management/models.py:178 src/product_management/models.py:121
 msgid "Дата створення"
 msgstr "Дата створення"
 
-#: src/order_management/models.py:175
+#: src/order_management/models.py:185
 msgid "Способ оплати"
 msgstr "Спосіб оплати"
 
-#: src/order_management/models.py:209
+#: src/order_management/models.py:219
 msgid "Ціна на момент замовлення"
 msgstr "Ціна на момент замовлення"
 
-#: src/order_management/models.py:213
+#: src/order_management/models.py:223
 msgid "Позиція замовлення"
 msgstr "Позиція замовлення"
 
-#: src/order_management/models.py:214
+#: src/order_management/models.py:224
 msgid "Позиції замовлення"
 msgstr "Позиції замовлення"
 
-#: src/order_management/models.py:252
+#: src/order_management/models.py:262
 msgid "Дата транзакції"
 msgstr "Дата транзакції"
 
-#: src/order_management/models.py:256
+#: src/order_management/models.py:266
 msgid "Транзакція"
 msgstr "Транзакція"
+
+#: src/order_management/models.py:267
+msgid "Транзакції"
+msgstr "Транзакції"
+
+#: src/order_management/templates/checkout_fiz.html:236
+msgid "Кол-во"
+msgstr "Кіл-сть"
+
+#: src/order_management/templates/checkout_fiz.html:237
+msgid "Ціна за товар"
+msgstr "Ціна за товар"
+
+#: src/order_management/templates/checkout_fiz.html:238
+msgid "Підсумкова вартість"
+msgstr "Підсумкова вартість"
+
+#: src/order_management/templates/checkout_fiz.html:272
+#: src/unfold_admin/tamplate/admin/index.html:16
+#: src/unfold_admin/tamplate/admin/index.html:61
+msgid "Всього"
+msgstr "Всього"
+
+#: src/order_management/templates/checkout_fiz.html:290
+#: src/wagtail_cms/models.py:146
+msgid "Контактні дані"
+msgstr "Контактні дані"
+
+#: src/order_management/templates/checkout_fiz.html:304
+msgid "Спосіб доставки"
+msgstr "Спосіб доставки"
+
+#: src/order_management/templates/checkout_fiz.html:320
+msgid "БЕСПЛАТНО"
+msgstr "БЕЗКОШТОВНО"
+
+#: src/order_management/templates/checkout_fiz.html:342
+msgid "Спосіб оплати"
+msgstr "Спосіб оплати"
+
+#: src/order_management/templates/checkout_fiz.html:363
+msgid "Продовжити"
+msgstr "Продовжити"
+
+#: src/order_management/templates/history-trans.html:4
+msgid "Історія операцій"
+msgstr "Історія операцій"
+
+#: src/order_management/templates/history-trans.html:15
+#: src/order_management/templates/history-trans.html:44
+msgid "Білінг операції"
+msgstr "Білінг операції"
+
+#: src/order_management/templates/history-trans.html:43
+msgid "Особисті дані"
+msgstr "Особисті дані"
+
+#: src/order_management/templates/history-trans.html:46
+msgid "Моя історія замовлень"
+msgstr "Моя історія замовлень"
+
+#: src/order_management/templates/history-trans.html:49
+msgid "Обране"
+msgstr "Обране"
+
+#: src/order_management/templates/history-trans.html:50
+msgid "Вихід"
+msgstr "Вихід"
+
+#: src/order_management/templates/order.html:15
+msgid "Личный кабинет"
+msgstr "Особистий кабінет"
+
+#: src/order_management/templates/order.html:26
+msgid "аказ №"
+msgstr "Замовлення №"
+
+#: src/order_management/templates/order.html:56
+msgid "Товарів немає"
+msgstr "Товарів немає"
 
 #: src/product_management/admin.py:12
 msgid "Фото в галереї"
@@ -404,11 +836,6 @@ msgstr "Медіа та статус"
 msgid "Цена"
 msgstr "Ціна"
 
-#: src/product_management/admin.py:58
-#: src/unfold_admin/tamplate/admin/index.html:130
-msgid "Статус"
-msgstr "Статус"
-
 #: src/product_management/models.py:8
 msgid "Банка"
 msgstr "Банка"
@@ -421,78 +848,145 @@ msgstr "Вакуумна"
 msgid "Коробка"
 msgstr "Коробка"
 
-#: src/product_management/models.py:17 src/product_management/models.py:22
+#: src/product_management/models.py:13
+msgid "Сладкие и десертные"
+msgstr "Солодкі та десертні"
+
+#: src/product_management/models.py:14
+msgid "Соленые и пикантные"
+msgstr "Солоні та пікантні"
+
+#: src/product_management/models.py:15
+msgid "Пряные и необычные"
+msgstr "Пряні та незвичні"
+
+#: src/product_management/models.py:22 src/product_management/models.py:27
 msgid "Зображення"
 msgstr "Зображення"
 
-#: src/product_management/models.py:23 src/product_management/models.py:101
+#: src/product_management/models.py:28 src/product_management/models.py:113
 msgid "Галерея"
 msgstr "Галерея"
 
-#: src/product_management/models.py:33
-msgid "Назва"
-msgstr "Назва"
-
-#: src/product_management/models.py:38
+#: src/product_management/models.py:43
 msgid "Короткий опис"
 msgstr "Короткий опис"
 
-#: src/product_management/models.py:42
+#: src/product_management/models.py:47
 msgid "Опис"
 msgstr "Опис"
 
-#: src/product_management/models.py:47
+#: src/product_management/models.py:52
 msgid "Маса"
 msgstr "Маса"
 
-#: src/product_management/models.py:52
+#: src/product_management/models.py:57
 msgid "Склад"
 msgstr "Склад"
 
-#: src/product_management/models.py:57
+#: src/product_management/models.py:63
+msgid "Смакові Якості"
+msgstr "Смакові Якості"
+
+#: src/product_management/models.py:69
 msgid "Енергетична цінність"
 msgstr "Енергетична цінність"
 
-#: src/product_management/models.py:61
+#: src/product_management/models.py:73
 msgid "Термін придатності"
 msgstr "Термін придатності"
 
-#: src/product_management/models.py:66
+#: src/product_management/models.py:78
 msgid "Умови зберігання"
 msgstr "Умови зберігання"
 
-#: src/product_management/models.py:73
+#: src/product_management/models.py:85
 msgid "Ціна"
 msgstr "Ціна"
 
-#: src/product_management/models.py:79
+#: src/product_management/models.py:91
 msgid "Стара ціна"
 msgstr "Стара ціна"
 
-#: src/product_management/models.py:83
+#: src/product_management/models.py:95
+#: src/product_management/templates/product_management/product.html:90
 msgid "Акція"
 msgstr "Акція"
 
-#: src/product_management/models.py:90
+#: src/product_management/models.py:102
 msgid "Артикул"
 msgstr "Артикул"
 
-#: src/product_management/models.py:96
+#: src/product_management/models.py:108
 msgid "Упаковка"
 msgstr "Упаковка"
 
-#: src/product_management/models.py:105
+#: src/product_management/models.py:117
 msgid "Активний"
 msgstr "Активний"
+
+#: src/product_management/models.py:126
+#: src/unfold_admin/tamplate/admin/index.html:58
+msgid "Товари"
+msgstr "Товари"
+
+#: src/product_management/templates/product_management/product.html:57
+msgid "Перейти до кошика"
+msgstr "Перейти до кошика"
+
+#: src/product_management/templates/product_management/product.html:152
+msgid "Склад:"
+msgstr "Склад:"
+
+#: src/product_management/templates/product_management/product.html:178
+msgid "Енергетична цінність:"
+msgstr "Енергетична цінність:"
+
+#: src/product_management/templates/product_management/product.html:191
+msgid "Дата придатності:"
+msgstr "Дата придатності:"
+
+#: src/product_management/templates/product_management/product.html:204
+msgid "Пакування:"
+msgstr "Пакування:"
+
+#: src/product_management/templates/product_management/product.html:229
+msgid "Ціна зараз:"
+msgstr "Ціна зараз:"
+
+#: src/product_management/templates/product_management/product.html:251
+msgid "Купити"
+msgstr "Купити"
+
+#: src/product_management/templates/product_management/product.html:270
+msgid "Описання"
+msgstr "Описання"
+
+#: src/product_management/templates/product_management/product.html:271
+#: src/unfold_admin/tamplate/admin/index.html:131
+msgid "Доставка"
+msgstr "Доставка"
+
+#: src/product_management/templates/product_management/product.html:272
+msgid "Оплата"
+msgstr "Оплата"
+
+#: src/product_management/templates/product_management/product.html:273
+#: src/product_management/templates/product_management/product.html:315
+msgid "Відгуки"
+msgstr "Відгуки"
+
+#: src/product_management/templates/product_management/product.html:305
+msgid "Інформація про доставку"
+msgstr "Інформація про доставку"
+
+#: src/product_management/templates/product_management/product.html:310
+msgid "Інформація про оплату"
+msgstr "Інформація про оплату"
 
 #: src/unfold_admin/tamplate/admin/index.html:13
 msgid "Замовлення сьогодні"
 msgstr "Замовлення сьогодні"
-
-#: src/unfold_admin/tamplate/admin/index.html:16
-#: src/unfold_admin/tamplate/admin/index.html:61
-msgid "Всього"
-msgstr "Всього"
 
 #: src/unfold_admin/tamplate/admin/index.html:23
 #: src/unfold_admin/tamplate/admin/index.html:95
@@ -501,7 +995,7 @@ msgstr "Нові замовлення"
 
 #: src/unfold_admin/tamplate/admin/index.html:26
 msgid "Статус: new"
-msgstr "Статус: новий"
+msgstr "Статус: нове"
 
 #: src/unfold_admin/tamplate/admin/index.html:36
 msgid "Нових цього місяця"
@@ -547,14 +1041,6 @@ msgstr "Останні замовлення"
 msgid "Всі замовлення →"
 msgstr "Всі замовлення →"
 
-#: src/unfold_admin/tamplate/admin/index.html:131
-msgid "Доставка"
-msgstr "Доставка"
-
-#: src/unfold_admin/tamplate/admin/index.html:133
-msgid "Дата"
-msgstr "Дата"
-
 #: src/unfold_admin/tamplate/admin/index.html:165
 msgid "Замовлень поки немає"
 msgstr "Замовлень поки немає"
@@ -583,54 +1069,82 @@ msgstr "Навігаційне меню"
 msgid "Текст банера знижки"
 msgstr "Текст банера знижки"
 
-#: src/wagtail_cms/models.py:66
-msgid "Текст кнопки"
-msgstr "Текст кнопки"
-
-#: src/wagtail_cms/models.py:70
-msgid "Години роботи"
-msgstr "Години роботи"
-
-#: src/wagtail_cms/models.py:75
-msgid "Показувати іконку кошика"
-msgstr "Показувати іконку кошика"
-
-#: src/wagtail_cms/models.py:91
-msgid "Налаштування шапки"
-msgstr "Налаштування шапки"
-
-#: src/wagtail_cms/models.py:99
-msgid "SEO"
-msgstr "SEO"
-
-#: src/wagtail_cms/models.py:104
+#: src/wagtail_cms/models.py:63 src/wagtail_cms/models.py:111
 msgid "Телефони"
 msgstr "Телефони"
 
-#: src/wagtail_cms/models.py:113
-msgid "URL карти"
-msgstr "URL карти"
+#: src/wagtail_cms/models.py:68
+msgid "Текст кнопки"
+msgstr "Текст кнопки"
 
-#: src/wagtail_cms/models.py:131
-msgid "Контактні дані"
-msgstr "Контактні дані"
+#: src/wagtail_cms/models.py:72
+msgid "Текст"
+msgstr "Текст"
 
-#: src/wagtail_cms/models.py:140
+#: src/wagtail_cms/models.py:76
+msgid "Години роботи"
+msgstr "Години роботи"
+
+#: src/wagtail_cms/models.py:81
+msgid "Показувати іконку кошика"
+msgstr "Показувати іконку кошика"
+
+#: src/wagtail_cms/models.py:98
+msgid "Налаштування шапки"
+msgstr "Налаштування шапки"
+
+#: src/wagtail_cms/models.py:106
+msgid "SEO"
+msgstr "SEO"
+
+#: src/wagtail_cms/models.py:121
+msgid "Широта (Latitude)"
+msgstr "Широта (Latitude)"
+
+#: src/wagtail_cms/models.py:126
+msgid "Долгота (Longitude)"
+msgstr "Довгота (Longitude)"
+
+#: src/wagtail_cms/models.py:141
+msgid "Координаты карты"
+msgstr "Координати карти"
+
+#: src/wagtail_cms/models.py:155
 msgid "Розробник"
 msgstr "Розробник"
 
-#: src/wagtail_cms/models.py:144
+#: src/wagtail_cms/models.py:159
 msgid "URL розробника"
 msgstr "URL розробника"
 
-#: src/wagtail_cms/models.py:148
+#: src/wagtail_cms/models.py:163
 msgid "Копірайт"
 msgstr "Копірайт"
 
-#: src/wagtail_cms/models.py:159
+#: src/wagtail_cms/models.py:174
 msgid "Налаштування футера"
 msgstr "Налаштування футера"
 
-#: src/wagtail_cms/models.py:173
+#: src/wagtail_cms/models.py:188
 msgid "Статистика"
 msgstr "Статистика"
+
+#: templates/includes/header.html:33
+msgid "Мій кабінет"
+msgstr "Мій кабінет"
+
+#: templates/includes/header.html:40
+msgid "Вийти"
+msgstr "Вийти"
+
+#: templates/includes/header.html:45
+msgid "Вхід"
+msgstr "Вхід"
+
+#: templates/includes/header.html:88
+msgid "Міць"
+msgstr "Міць"
+
+#: templates/includes/header.html:88
+msgid "природи"
+msgstr "природи"

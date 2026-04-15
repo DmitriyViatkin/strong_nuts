@@ -1,6 +1,12 @@
 from cms_pages.models import AddressPage
 from django.utils import translation
 import re
+from django.conf import settings
+
+def google_maps_api_key(request):
+    return {
+        'GOOGLE_MAPS_API_KEY': settings.GOOGLE_MAPS_API_KEY
+    }
 
 def cabinet_pages (request):
     try:

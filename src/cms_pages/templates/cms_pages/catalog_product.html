@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static wagtailimages_tags wagtailcore_tags wagtailsettings_tags %}
-
+{% load i18n%}
 {% block content %}
 {% get_settings use_default_site=True %}
 
@@ -13,8 +13,8 @@
             <div class="container">
                 <div class="breadcrumbs">
                     <ul>
-                        <li><a href="/">Главная</a></li>
-                        <li>Магазин</li>
+                        <li><a href="/">{% trans "Главная" %}</a></li>
+                        <li>{% trans "Магазин"}</li>
                     </ul>
                 </div>
                 <div class="row align-items-center justify-content-center">
@@ -28,12 +28,12 @@
             <div class="container">
                 <div class="breadcrumbs">
                     <ul>
-                        <li><a href="/">Главная</a></li>
+                        <li><a href="/">{% trans "Главная" %}</a></li>
                         <li>Магазин</li>
                     </ul>
                 </div>
                 <div class="row align-items-center justify-content-center">
-                    <h1>Каталог продукции</h1>
+                    <h1>{% trans "Каталог продукции" %}</h1>
                 </div>
             </div>
         </section>
@@ -58,12 +58,12 @@
                                     </div>
                                     <div class="col-lg-5">
                                         <select id="flavor-select">
-                                            <option value="hide">Вкус</option>
+                                            <option value="hide">{% trans "Вкус" %}</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
                                         <select id="mass-select" >
-                                            <option value="hide">Масса</option>
+                                            <option value="hide">{% trans "Масса" %}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -78,10 +78,10 @@
                                     </div>
                                     <div class="col-lg-7">
                                         <div class="production__filter_button">
-                                            <a href="#" class="button">Применить</a>
+                                            <a href="#" class="button">{% trans "Применить" %}</a>
                                             <a href="#" class="button_close">
                                                 <i class="nut-icon icons-close-button"></i>
-                                                <span> Сбросить</span>
+                                                <span> {% trans "Сбросить" %}</span>
                                             </a>
                                         </div>
                                     </div>
@@ -158,15 +158,15 @@
                                 <div class="production__item_sum">
                                     <div class="sum_item">
                                         <div class="sum_item_title">
-                                            <p>Цена: </p>
+                                            <p>{% trans "Цена:" %} </p>
                                         </div>
                                         <div class="sum_item_new">
-                                            <p>{{ product.price }} <i>грн.</i></p>
+                                            <p>{{ product.price }} <i>{% trans "грн." %}</i></p>
                                         </div>
                                     </div>
                                     <div class="sum_item">
                                         <div class="sum_item_button">
-                                            <a href="#" class="button add-to-cart-btn " data-product-id="{{ product.id}}">Купить</a>
+                                            <a href="#" class="button add-to-cart-btn " data-product-id="{{ product.id}}"> {% trans "Купить" %}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +176,7 @@
                     </div>
                 </div>
                 {% empty %}
-                    <p>Товары не найдены.</p>
+                    <p>{% trans "Товары не найдены." %}</p>
                 {% endfor %}
             </div>
 
@@ -187,7 +187,7 @@
                        class="button button_transparent"
                        id="load-more-btn"
                        data-page="2">
-                        Загрузить еще
+                        {% trans "Загрузить еще" %}
                     </a>
                 </div>
             </div>

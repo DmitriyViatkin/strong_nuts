@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% load static wagtailimages_tags wagtailcore_tags wagtailsettings_tags %}
+{% load i18n %}
 
+{% block title %}{% trans "Корзина" %} {% endblock %}
 {% block content %}
 
 <section class="first-section no-bg">
     <div class="container">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/">Главная</a></li>
-                <li>Корзина</li>
+                <li><a href="/">{% trans "Главная" %}</a></li>
+                <li>{% trans "Корзина" %}</li>
             </ul>
         </div>
     </div>
@@ -18,12 +20,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6">
-                <h1>Корзина</h1>
+                <h1>{% trans "Корзина" %}</h1>
             </div>
             <div class="col-lg-9 col-md-6">
                 <div class="accaunt__manager">
                     <ul>
-                        <li><p>Ваш личный менеджер Олег</p></li>
+                        <li><p>{% trans "Ваш личный менеджер Олег" %}</p></li>
                         <li><i class="nut-icon icons-phone"></i> <a href="tel:+380677771412">+38 067 777 14 12</a></li>
                     </ul>
                 </div>
@@ -33,10 +35,10 @@
                 <table id="table">
                     <thead>
                         <tr>
-                            <th><span>Товар</span></th>
-                            <th><span>Кол - во</span></th>
-                            <th><span>Цена за товар</span></th>
-                            <th><span>Итоговая стоимость</span></th>
+                            <th><span>{% trans "Товар" %}</span></th>
+                            <th><span>{% trans "Кол - во" %}</span></th>
+                            <th><span>{% trans "Цена за товар" %}</span></th>
+                            <th><span>{% trans "Итоговая стоимость" %}</span></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -56,8 +58,8 @@
                                     </button>
                                 </div>
                             </td>
-                            <td>{{ item.product.price }} грн.</td>
-                            <td class="item-total">{{ item.total }} грн.</td>
+                            <td>{{ item.product.price }} {% trans "грн." %}</td>
+                            <td class="item-total">{{ item.total }}{% trans "грн." %}</td>
                             <!-- ✅ Кнопка видалення -->
                             <td>
                                 <button class="btn-remove" data-product-id="{{ item.product.id }}">✕</button>
@@ -66,7 +68,7 @@
                         {% empty %}
                         <!-- ✅ Якщо кошик порожній -->
                         <tr>
-                            <td colspan="5">Корзина пуста</td>
+                            <td colspan="5">{% trans "Корзина пуста" %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -78,23 +80,23 @@
                     <div class="row">
                         <div class="col-md-6">
                             <a href="/" class="button_transparent with_arrow">
-                                <i class="nut-icon icons-left-arrow"></i> <b>Продолжить покупки</b>
+                                <i class="nut-icon icons-left-arrow"></i> <b>{% trans "Продолжить покупки" %}</b>
                             </a>
                         </div>
                         <div class="col-md-6">
                             <div class="popup__cart_sum">
                                 <div class="sum_item">
-                                    <div class="sum_item_title"><p>Всего</p></div>
+                                    <div class="sum_item_title"><p>{% trans "Всего" %}</p></div>
                                     <div class="sum_item_new">
                                         <!-- ✅ Загальна сума з context -->
-                                        <p id="cart-total">{{ cart_total }} <i>грн.</i></p>
+                                        <p id="cart-total">{{ cart_total }} <i> {% trans "грн."}</i></p>
                                     </div>
                                 </div>
                                 <div class="sum_item">
                                     <div class="sum_item_button">
                                         <!-- ✅ Кнопка тільки для залогінених -->
                                         {% if user.is_authenticated %}
-                                        <a href="{% url "orders:order_checkout" %}" class="button">Оформить заказ</a>
+                                        <a href="{% url "orders:order_checkout" %}" class="button">{% trans "Оформить заказ" %}</a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -108,11 +110,11 @@
             {% if not user.is_authenticated %}
             <div class="col-12">
                 <div class="no_log-in">
-                    <h2>Для оформления заказа необходимо</h2>
+                    <h2>{% trans "Для оформления заказа необходимо" %}</h2>
                     <div class="no_log-in_link">
-                        <a href="{% url 'login' %}">Авторизоваться</a>
+                        <a href="{% url 'login' %}">{% trans "Авторизоваться" %}</a>
                         <span>или</span>
-                        <a href="{% url 'register' %}">Зарегистрироваться</a>
+                        <a href="{% url 'register' %}">{% trans "Зарегистрироваться" %}</a>
                     </div>
                 </div>
             </div>

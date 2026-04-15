@@ -10,7 +10,7 @@ export default defineConfig({
     manifest: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'frontend/src/js/main.js'),
+        main: resolve(__dirname, 'src/js/main.js'),
       }
     },
     assetsDir: 'assets',

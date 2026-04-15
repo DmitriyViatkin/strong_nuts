@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load static wagtailimages_tags wagtailcore_tags %}
-
+{% load i18n %}
 {% block content %}
 
 <section class="first-section no-bg">
     <div class="container">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/">Главная</a></li>
+                <li><a href="/">{% trans "Главная" %}</a></li>
                 <li>{{ page.title }}</li>
             </ul>
         </div>
@@ -95,7 +95,7 @@
         <div class="row">
             <div class="wrapper">
                 <a href="#" class="button button_transparent">
-                    Посмотреть еще
+                    {% trans "Посмотреть еще" %}
                 </a>
             </div>
         </div>

@@ -436,16 +436,20 @@
 
 })(jQuery);
 
+
 // ================= GOOGLE MAP =================
-function initMap() {
-	if (typeof google === 'undefined' || !document.getElementById('map')) return;
-	const odessa = { lat: 46.4846, lng: 30.7326 };
-	const map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 15,
-		center: odessa
-	});
-	new google.maps.Marker({
-		position: odessa,
-		map: map
-	});
+window.initMap = function() {
+    const el = document.getElementById('map');
+    if (typeof google === 'undefined' || !el) return;
+
+    const lat = parseFloat(el.dataset.lat);
+    const lng = parseFloat(el.dataset.lng);
+
+    console.log('lat:', lat, 'lng:', lng);
+
+    if (isNaN(lat) || isNaN(lng)) return;
+
+    const location = { lat, lng };
+    const map = new google.maps.Map(el, { zoom: 15, center: location });
+    new google.maps.Marker({ position: location, map });
 }

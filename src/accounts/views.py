@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.views import View
 from cities_light.models import Country, Region
+
+from cms_pages.models import UserAgreement
 from .forms import RegisterPhysicalForm, RegisterLegalForm, LoginForm, CustomPasswordChangeForm
 from django.core.mail import send_mail
 from django.contrib.auth.tokens import default_token_generator
@@ -25,6 +27,7 @@ class RegisterView(View):
             'legal_form':    legal_form    or RegisterLegalForm(),
             'countries':     Country.objects.all(),
             'regions':       Region.objects.all(),
+            'agreement_page': UserAgreement.objects.live().first(),
         }
 
     def get(self, request):

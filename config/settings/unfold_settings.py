@@ -1,7 +1,11 @@
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 
+def is_manager(user):
+    return user.is_authenticated and (user.groups.filter(name="managers").exists() or user.is_superuser)
 
+def is_inventory_admin(user):
+    return user.is_authenticated and (user.groups.filter(name="admins").exists() or user.is_superuser)
 
 UNFOLD = {
     "SITE_TITLE": "Nuts Admin",
@@ -29,57 +33,61 @@ UNFOLD = {
         "show_all_applications": False,
 
         "navigation": [
-
             {
-                "title": _("Management"),
+                "title": _("Управление"),
                 "separator": True,
                 "collapsible": True,
+                # Доступно только Суперюзеру
+                "permission": lambda r: r.user.is_superuser,
                 "items": [
                     {
-                        "title": _("Користувачі"),
+                        "title": _("Сотрудники"),
                         "icon": "people",
                         "link": "/admin/cabinet/user/?is_staff=1",
                     },
                     {
-                        "title": _("Співробітники"),
+                        "title": _("Пользователи"),
                         "icon": "badge",
-                         "link": "/admin/cabinet/user/?is_staff=0",
+                        "link": "/admin/cabinet/user/?is_staff=0",
                     },
                     {
-                        "title": _("Групи і права"),
+                        "title": _("Группы и права"),
                         "icon": "admin_panel_settings",
                         "link": reverse_lazy("admin:auth_group_changelist"),
                     },
                 ],
             },
             {
-                "title": _("Orders"),
+                "title": _("Заказы"),
                 "separator": True,
                 "collapsible": True,
+                # Видят Менеджеры и Суперюзеры
+                "permission": lambda r: is_manager(r.user),
                 "items": [
                     {
-                        "title": _("Замовлення"),
+                        "title": _("Все заказы"),
                         "icon": "shopping_bag",
                         "link": reverse_lazy(
                             "admin:order_management_clientorder_changelist"),
                         "badge": "unfold_admin.views.orders_badge",
                     },
                     {
-                        "title": _("Транзакції"),
+                        "title": _("Транзакции"),
                         "icon": "payments",
-                        "link":
-                            reverse_lazy(
-                                "admin:order_management_billingoperation_changelist"),
+                        "link": reverse_lazy(
+                            "admin:order_management_billingoperation_changelist"),
                     },
                 ],
             },
             {
-                "title": _("Catalog"),
+                "title": _("Каталог"),
                 "separator": True,
                 "collapsible": True,
+                # Видят   и Суперюзеры
+                "permission": lambda r: is_inventory_admin(r.user),
                 "items": [
                     {
-                        "title": _("Товари"),
+                        "title": _("Товары"),
                         "icon": "inventory_2",
                         "link": reverse_lazy(
                             "admin:product_management_product_changelist"),
@@ -87,23 +95,23 @@ UNFOLD = {
                 ],
             },
             {
-                "title": _("Celery Tasks"),
+                "title": _("Фоновые задачи"),
                 "separator": True,
                 "collapsible": True,
+
+                "permission": lambda r: r.user.is_superuser,
                 "items": [
                     {
-                        "title": _("Task results"),
+                        "title": _("Результаты задач"),
                         "icon": "task",
                         "link": reverse_lazy(
-                            "admin:django_celery_results_taskresult_changelist"
-                        ),
+                            "admin:django_celery_results_taskresult_changelist"),
                     },
                     {
-                        "title": _("Group results"),
+                        "title": _("Результаты групп"),
                         "icon": "lan",
                         "link": reverse_lazy(
-                            "admin:django_celery_results_groupresult_changelist"
-                        ),
+                            "admin:django_celery_results_groupresult_changelist"),
                     },
                 ],
             },

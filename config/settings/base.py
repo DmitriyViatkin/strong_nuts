@@ -34,8 +34,7 @@ INSTALLED_APPS = [
     'wagtail_modeltranslation',
     'wagtail_modeltranslation.makemigrations',
     'wagtail_modeltranslation.migrate',
-    #'wagtail_localize',
-    #'wagtail_localize.locales',
+
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -99,6 +98,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'wagtail.contrib.settings.context_processors.settings',
                 'cms_pages.context_processor.cabinet_pages',
+                'cms_pages.context_processor.google_maps_api_key',
 
             ],
         },
@@ -119,6 +119,7 @@ DATABASES = {
 }
 
 
+GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},

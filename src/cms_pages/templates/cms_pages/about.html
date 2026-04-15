@@ -1,6 +1,6 @@
  {% extends 'base.html' %}
 {% load static wagtailimages_tags wagtailcore_tags %}
-
+{% load i18n%}
 {% block content %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
@@ -23,8 +23,8 @@
             <div class="container">
                 <div class="breadcrumbs">
                     <ul>
-                        <li><a href="/">Главная</a></li>
-                        <li>О производстве</li>
+                        <li><a href="/">{% trans "Главная" %}</a></li>
+                        <li>{% trans "О производстве" %}</li>
                     </ul>
                 </div>
                 <div class="row align-items-center justify-content-center">
@@ -162,7 +162,7 @@
         <div class="row">
             <div class="wrapper">
                 <a href="{% pageurl gallery_page %}" class="button button_transparent">
-                    Смотреть всю галерею
+                   {% trans "Смотреть всю галерею" %}
                 </a>
             </div>
         </div>
@@ -240,7 +240,7 @@
         </div>
         <div class="row">
             <div class="wrapper">
-                <a href="#" class="button button_transparent">Смотреть все новости</a>
+                <a href="#" class="button button_transparent"> {% trans "Смотреть все новости" %}</a>
             </div>
         </div>
     </div>

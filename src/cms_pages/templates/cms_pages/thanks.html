@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n%}
 {% load static wagtailimages_tags wagtailcore_tags wagtailsettings_tags %}
 
 {% block content %}
@@ -27,7 +28,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h2>Контакты</h2>
+                    <h2>{% trans "Контакты" %}</h2>
 
                     {# Телефоны #}
                     <div class="contact-row">
