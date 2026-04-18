@@ -28,6 +28,6 @@ COPY . .
 ENV DJANGO_SETTINGS_MODULE=config.settings.base
 
 LABEL authors="dima"
-COPY deploy/entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
