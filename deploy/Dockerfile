@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
     build-essential \
     curl \
     gettext \
+    make\
     && rm -rf /var/lib/apt/lists/*
 
 #Poetry
@@ -22,9 +23,11 @@ RUN poetry export -f requirements.txt --without-hashes -o requirements.txt\
     && pip install --no-cache-dir -r requirements.txt\
     && rm requirements.txt
 
-COPY .. .
+COPY . .
 
-
+ENV DJANGO_SETTINGS_MODULE=config.settings.base
 
 LABEL authors="dima"
+COPY deploy/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 

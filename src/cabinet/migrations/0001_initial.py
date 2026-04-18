@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '0012_alter_user_first_name_max_length'),
-        ('cities_light', '0001_initial'),
+        ('cities_light', '0002_city'),
     ]
 
     operations = [
@@ -28,9 +28,9 @@ class Migration(migrations.Migration):
                 ('company_name', models.CharField(blank=True, max_length=200, verbose_name='Назва компанії')),
                 ('edrpou', models.CharField(blank=True, max_length=10, verbose_name='ЄДРПОУ')),
                 ('pdv', models.CharField(blank=True, max_length=20, verbose_name='ПДВ')),
-                ('city', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='cities_light.city', verbose_name='Місто')),
-                ('country', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='cities_light.country', verbose_name='Країна')),
-                ('region', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='cities_light.region', verbose_name='Область')),
+                ('city', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='cities_light.City', verbose_name='Місто')),
+                ('country', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='cities_light.Country', verbose_name='Країна')),
+                ('region', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='cities_light.Region', verbose_name='Область')),
             ],
             options={
                 'verbose_name': 'Адреса',

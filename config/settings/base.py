@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'django_celery_results',
+'cities_light',
 
     #my app
     'accounts.apps.AccountsConfig',
@@ -65,7 +66,7 @@ INSTALLED_APPS = [
     'cms_pages',
     'wagtail_cms',
     'unfold_admin',
-    'cities_light',
+
     'cart',
 
 ]
@@ -173,6 +174,7 @@ CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLC']
 DJANGO_VITE = {
     'default':{
         'dev_mode': DEBUG,
+        'dev_server_host':'vite',
         'dev_server_port': 5173,
         'manifest_path':BASE_DIR/'static'/'dist'/'.vite'/'manifest.json',
         'static_url_prefix':'dist'

@@ -37,3 +37,9 @@ stop_all:
 
 initial_data:
 	$(PYTHON) $(MANAGE) start_page
+start_prod:
+	$(PYTHON) $(MANAGE) migrate wagtailcore && \
+	$(PYTHON) $(MANAGE) migrate cities_light && \
+	$(PYTHON) $(MANAGE) migrate && \
+	$(PYTHON) $(MANAGE) collectstatic --noinput && \
+	gunicorn config.wsgi:application --bind 0.0.0.0:8000

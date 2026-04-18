@@ -16,9 +16,11 @@ export default defineConfig({
     assetsDir: 'assets',
   },
   server: {
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 5173,
-    hmr: { host: 'localhost' },
+    hmr: { host: 'localhost',
+           port:5173
+    },
   },
   resolve: {
     alias: {
