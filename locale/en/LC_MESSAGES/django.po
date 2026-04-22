@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 14:13+0300\n"
-"PO-Revision-Date: 2026-04-15 16:00+0300\n"
+"POT-Creation-Date: 2026-04-22 11:35+0300\n"
+"PO-Revision-Date: 2026-04-22 12:00+0300\n"
 "Last-Translator: Gemini AI\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/settings/base.py:133 config/settings/base.py:153
+#: config/settings/base.py:136 config/settings/base.py:156
 msgid "Ukrainian"
 msgstr "Ukrainian"
 
-#: config/settings/base.py:134 config/settings/base.py:154
+#: config/settings/base.py:137 config/settings/base.py:157
 msgid "English"
 msgstr "English"
 
-#: config/settings/base.py:135 config/settings/base.py:155
+#: config/settings/base.py:138 config/settings/base.py:158
 msgid "Russian"
 msgstr "Russian"
 
@@ -98,6 +98,7 @@ msgid "Увійти"
 msgstr "Login"
 
 #: src/accounts/templates/accounts/enter.html:57
+#: src/accounts/templates/accounts/reg-fiz.html:14
 #: src/cms_pages/templates/cms_pages/404.html:2
 #: templates/includes/header.html:46
 msgid "Реєстрація"
@@ -124,6 +125,14 @@ msgstr "Email sent"
 #: src/accounts/templates/accounts/password-recovery.html:46
 msgid "Введите новый пароль"
 msgstr "Enter new password"
+
+#: src/accounts/templates/accounts/password-recovery.html:52
+msgid "Новый пароль*"
+msgstr "New password*"
+
+#: src/accounts/templates/accounts/password-recovery.html:53
+msgid "Подтвердите пароль*"
+msgstr "Confirm password*"
 
 #: src/accounts/templates/accounts/password-recovery.html:60
 msgid "Сменить пароль"
@@ -157,6 +166,8 @@ msgid "Вход"
 msgstr "Login"
 
 #: src/accounts/templates/accounts/password.html:125
+#: src/accounts/templates/accounts/reg-fiz.html:101
+#: src/accounts/templates/accounts/reg-fiz.html:202
 #: src/cabinet/templates/base_cabinet/includes/navigation.html:31
 msgid "Пароль"
 msgstr "Password"
@@ -164,6 +175,114 @@ msgstr "Password"
 #: src/accounts/templates/accounts/password.html:134
 msgid "Продолжить"
 msgstr "Continue"
+
+#: src/accounts/templates/accounts/reg-fiz.html:13
+#: src/cabinet/templates/base_cabinet/base_cabinet.html:13
+#: src/order_management/templates/history-trans.html:13
+#: src/product_management/templates/product_management/product.html:70
+msgid "Головна"
+msgstr "Home"
+
+#: src/accounts/templates/accounts/reg-fiz.html:27
+#: src/order_management/templates/checkout_fiz.html:290
+#: src/wagtail_cms/models.py:146
+msgid "Контактні дані"
+msgstr "Contact details"
+
+#: src/accounts/templates/accounts/reg-fiz.html:36 src/cabinet/models.py:32
+msgid "Фізична особа"
+msgstr "Individual"
+
+#: src/accounts/templates/accounts/reg-fiz.html:39 src/cabinet/models.py:33
+#: src/cabinet/models.py:148
+msgid "Юридична особа"
+msgstr "Legal Entity"
+
+#: src/accounts/templates/accounts/reg-fiz.html:82
+#: src/accounts/templates/accounts/reg-fiz.html:99
+#: src/accounts/templates/accounts/reg-fiz.html:183
+#: src/accounts/templates/accounts/reg-fiz.html:200
+#: src/accounts/templates/accounts/reg-fiz.html:261
+#: src/accounts/templates/accounts/reg-fiz.html:287 src/cabinet/models.py:104
+#: src/cabinet/models.py:155
+msgid "Адреса"
+msgstr "Address"
+
+#: src/accounts/templates/accounts/reg-fiz.html:85
+#: src/accounts/templates/accounts/reg-fiz.html:186
+#: src/accounts/templates/accounts/reg-fiz.html:249
+#: src/accounts/templates/accounts/reg-fiz.html:275 src/cabinet/models.py:49
+#: src/order_management/models.py:110
+msgid "Країна"
+msgstr "Country"
+
+#: src/accounts/templates/accounts/reg-fiz.html:92
+#: src/accounts/templates/accounts/reg-fiz.html:193
+#: src/accounts/templates/accounts/reg-fiz.html:255
+#: src/accounts/templates/accounts/reg-fiz.html:281 src/cabinet/models.py:55
+msgid "Область"
+msgstr "Region"
+
+#: src/accounts/templates/accounts/reg-fiz.html:98
+#: src/accounts/templates/accounts/reg-fiz.html:199
+#: src/accounts/templates/accounts/reg-fiz.html:260
+#: src/accounts/templates/accounts/reg-fiz.html:286
+msgid "Місто*"
+msgstr "City*"
+
+#: src/accounts/templates/accounts/reg-fiz.html:123
+#: src/cabinet/templates/cabinet/contact_information.html:63
+msgid "Завантажити фото"
+msgstr "Upload photo"
+
+#: src/accounts/templates/accounts/reg-fiz.html:130
+msgid "Є ФОП"
+msgstr "Is Sole Proprietor"
+
+#: src/accounts/templates/accounts/reg-fiz.html:141
+#: src/accounts/templates/accounts/reg-fiz.html:299
+msgid "Я погоджуюсь з"
+msgstr "I agree to"
+
+#: src/accounts/templates/accounts/reg-fiz.html:141
+#: src/accounts/templates/accounts/reg-fiz.html:299
+msgid "Умовами реєстрації"
+msgstr "Terms of registration"
+
+#: src/accounts/templates/accounts/reg-fiz.html:144
+#: src/accounts/templates/accounts/reg-fiz.html:302
+#: src/order_management/templates/checkout_fiz.html:363
+msgid "Продовжити"
+msgstr "Continue"
+
+#: src/accounts/templates/accounts/reg-fiz.html:168
+msgid "ПІБ*"
+msgstr "Full Name*"
+
+#: src/accounts/templates/accounts/reg-fiz.html:241
+#: src/accounts/templates/accounts/reg-fiz.html:267
+msgid "Реквізити"
+msgstr "Requisites"
+
+#: src/accounts/templates/accounts/reg-fiz.html:245
+msgid "ОКПО"
+msgstr "OKPO"
+
+#: src/accounts/templates/accounts/reg-fiz.html:247
+msgid "Юридична адреса"
+msgstr "Legal address"
+
+#: src/accounts/templates/accounts/reg-fiz.html:262
+msgid "Індекс"
+msgstr "Postal code"
+
+#: src/accounts/templates/accounts/reg-fiz.html:271 src/cabinet/models.py:95
+msgid "ЄДРПОУ"
+msgstr "EDRPOU"
+
+#: src/accounts/templates/accounts/reg-fiz.html:273
+msgid "Адреса ФОП"
+msgstr "Sole Proprietor address"
 
 #: src/cabinet/admin.py:28
 msgid "Персональна інформація"
@@ -181,25 +300,9 @@ msgstr "Access Rights"
 msgid "Важливі дати"
 msgstr "Important Dates"
 
-#: src/cabinet/models.py:32
-msgid "Фізична особа"
-msgstr "Individual"
-
-#: src/cabinet/models.py:33 src/cabinet/models.py:148
-msgid "Юридична особа"
-msgstr "Legal Entity"
-
 #: src/cabinet/models.py:41
 msgid "Тип адреси"
 msgstr "Address Type"
-
-#: src/cabinet/models.py:49 src/order_management/models.py:110
-msgid "Країна"
-msgstr "Country"
-
-#: src/cabinet/models.py:55
-msgid "Область"
-msgstr "Region"
 
 #: src/cabinet/models.py:61 src/order_management/models.py:126
 msgid "Місто"
@@ -225,17 +328,9 @@ msgstr "Postal Code"
 msgid "Назва компанії"
 msgstr "Company Name"
 
-#: src/cabinet/models.py:95
-msgid "ЄДРПОУ"
-msgstr "EDRPOU"
-
 #: src/cabinet/models.py:100
 msgid "ПДВ"
 msgstr "VAT"
-
-#: src/cabinet/models.py:104 src/cabinet/models.py:155
-msgid "Адреса"
-msgstr "Address"
 
 #: src/cabinet/models.py:105 src/wagtail_cms/models.py:131
 msgid "Адреси"
@@ -272,12 +367,6 @@ msgstr "User"
 #: src/unfold_admin/tamplate/admin/index.html:90
 msgid "Користувачі"
 msgstr "Users"
-
-#: src/cabinet/templates/base_cabinet/base_cabinet.html:13
-#: src/order_management/templates/history-trans.html:13
-#: src/product_management/templates/product_management/product.html:70
-msgid "Головна"
-msgstr "Home"
 
 #: src/cabinet/templates/base_cabinet/base_cabinet.html:14
 #: src/cabinet/templates/base_cabinet/base_cabinet.html:24
@@ -325,10 +414,6 @@ msgstr "Address and details"
 #: src/cms_pages/templates/cms_pages/address.html:29
 msgid "Зберегти"
 msgstr "Save"
-
-#: src/cabinet/templates/cabinet/contact_information.html:63
-msgid "Завантажити фото"
-msgstr "Upload photo"
 
 #: src/cabinet/templates/cabinet/history-trans.html:12
 #: src/cabinet/templates/cabinet/history.html:13
@@ -531,7 +616,11 @@ msgstr "Buy"
 msgid "Товары не найдены."
 msgstr "Products not found."
 
-#: src/cms_pages/templates/cms_pages/gallery.html:113
+#: src/cms_pages/templates/cms_pages/catalog_product.html:190
+msgid "Загрузить еще"
+msgstr "Load more"
+
+#: src/cms_pages/templates/cms_pages/gallery.html:104
 #: src/cms_pages/templates/cms_pages/news/news_list.html:98
 msgid "Посмотреть еще"
 msgstr "Show more"
@@ -709,10 +798,6 @@ msgstr "Order item"
 msgid "Позиції замовлення"
 msgstr "Order items"
 
-
-
-
-
 #: src/order_management/models.py:262
 msgid "Дата транзакції"
 msgstr "Transaction date"
@@ -743,11 +828,6 @@ msgstr "Total cost"
 msgid "Всього"
 msgstr "Total"
 
-#: src/order_management/templates/checkout_fiz.html:290
-#: src/wagtail_cms/models.py:146
-msgid "Контактні дані"
-msgstr "Contact details"
-
 #: src/order_management/templates/checkout_fiz.html:304
 msgid "Спосіб доставки"
 msgstr "Delivery method"
@@ -759,10 +839,6 @@ msgstr "FREE"
 #: src/order_management/templates/checkout_fiz.html:342
 msgid "Спосіб оплати"
 msgstr "Payment method"
-
-#: src/order_management/templates/checkout_fiz.html:363
-msgid "Продовжити"
-msgstr "Continue"
 
 #: src/order_management/templates/history-trans.html:4
 msgid "Історія операцій"
@@ -948,8 +1024,12 @@ msgid "Пакування:"
 msgstr "Packaging:"
 
 #: src/product_management/templates/product_management/product.html:229
-msgid "Ціна сейчас:"
+msgid "Ціна зараз:"
 msgstr "Price now:"
+
+#: src/product_management/templates/product_management/product.html:251
+msgid "Купити"
+msgstr "Buy"
 
 #: src/product_management/templates/product_management/product.html:270
 msgid "Описання"
@@ -1141,3 +1221,6 @@ msgstr "Power"
 #: templates/includes/header.html:88
 msgid "природи"
 msgstr "of nature"
+
+#~ msgid "Ціна сейчас:"
+#~ msgstr "Price now:"

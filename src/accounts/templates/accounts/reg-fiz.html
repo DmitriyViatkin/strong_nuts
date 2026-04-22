@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
+{% load static city_tags %}
 {% block title %}Реєстрація{% endblock %}
 {% block body_class %}page{% endblock %}
 
@@ -9,8 +10,8 @@
     <div class="container">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/">Головна</a></li>
-                <li>Реєстрація</li>
+                <li><a href="/">{% trans "Головна" %} </a></li>
+                <li> {% trans "Реєстрація" %}</li>
             </ul>
         </div>
     </div>
@@ -23,7 +24,7 @@
                 <h1>Реєстрація</h1>
             </div>
             <div class="col-12">
-                <div class="form__title">1. Контактні дані</div>
+                <div class="form__title">1. {% trans "Контактні дані" %}</div>
             </div>
 
             <div class="tabs">
@@ -32,10 +33,10 @@
                         <div class="tabs__wrap">
                             <ul class="tabs__caption">
                                 <li class="{% if active_tab == 'physical' %}active{% endif %}">
-                                    Фізична особа
+                                    {% trans "Фізична особа" %}
                                 </li>
                                 <li class="{% if active_tab == 'legal' %}active{% endif %}">
-                                    Юридична особа
+                                    {% trans "Юридична особа" %}
                                 </li>
                             </ul>
                         </div>
@@ -78,26 +79,26 @@
                                        value="{{ physical_form.phone.value|default:'' }}"
                                        placeholder="Телефон*" required>
 
-                                <div class="form__title">2. Адреса</div>
+                                <div class="form__title">2. {% trans "Адреса" %}</div>
 
                                 <select name="country">
-                                    <option value="">Країна</option>
+                                    <option value="">{% trans "Країна" %} </option>
                                     {% for country in countries %}
-                                        <option value="{{ country.id }}">{{ country.name }}</option>
+                                        <option value="{{ country.id }}">{{ country|localized_name }}</option>
                                     {% endfor %}
                                 </select>
 
                                 <select name="region">
-                                    <option value="">Область</option>
+                                    <option value=""> {% trans "Область" %} </option>
                                     {% for region in regions %}
-                                        <option value="{{ region.id }}">{{ region.name }}</option>
+                                        <option value="{{ region.id }}">{{ region|localized_name }}</option>
                                     {% endfor %}
                                 </select>
 
-                                <input type="text" name="city" placeholder="Місто*" required>
-                                <input type="text" name="street" placeholder="Адреса">
+                                <input type="text" name="city" placeholder={% trans "Місто*" %} required>
+                                <input type="text" name="street" placeholder={% trans "Адреса" %}>
 
-                                <div class="form__title">3. Пароль</div>
+                                <div class="form__title">3. {% trans "Пароль" %} </div>
 
                                 <input type="password"
                                        name="password1"
@@ -119,14 +120,14 @@
                                 <div class="wrapper">
                                     <div class="file__wrap">
                                         <input type="file" name="avatar" id="file2" class="inputfile">
-                                        <label for="file2"><span>Завантажити фото</span></label>
+                                        <label for="file2"><span>{% trans "Завантажити фото" %}</span></label>
                                     </div>
                                     <div class="checkbox__wrap">
                                         <input id="checkbox-fop" class="checkbox-custom"
                                                name="is_fop" type="checkbox"
                                                {% if physical_form.is_fop.value %}checked{% endif %}>
                                         <label for="checkbox-fop" class="checkbox-custom-label">
-                                            <span>Є ФОП</span>
+                                            <span>{% trans "Є ФОП" %} </span>
                                         </label>
                                     </div>
                                 </div>
@@ -137,10 +138,10 @@
                                     <input id="checkbox-agree" class="checkbox-custom"
                                            name="agree" type="checkbox" required>
                                     <label for="checkbox-agree" class="checkbox-custom-label">
-                                        <span>Я погоджуюсь з <a href="/terms/">Умовами реєстрації</a></span>
+                                        <span>{% trans "Я погоджуюсь з" %} <a href="/terms/">{% trans "Умовами реєстрації" %} </a></span>
                                     </label>
                                 </div>
-                                <button class="button" type="submit">Продовжити</button>
+                                <button class="button" type="submit">{% trans "Продовжити" %} </button>
                             </div>
                         </div>
                     </form>
@@ -164,7 +165,7 @@
                                 <input type="text"
                                        name="first_name"
                                        value="{{ legal_form.first_name.value|default:'' }}"
-                                       placeholder="ПІБ*" required>
+                                       placeholder={% trans "ПІБ*" %} required>
 
                                 <input type="email"
                                        name="email"
@@ -179,26 +180,26 @@
                                        value="{{ legal_form.phone.value|default:'' }}"
                                        placeholder="Телефон*" required>
 
-                                <div class="form__title">2. Адреса</div>
+                                <div class="form__title">2. {% trans "Адреса" %} </div>
 
                                 <select name="country">
-                                    <option value="">Країна</option>
+                                    <option value="">{% trans "Країна" %} </option>
                                     {% for country in countries %}
-                                        <option value="{{ country.id }}">{{ country.name }}</option>
+                                        <option value="{{ country.id }}">{{ country|localized_name }}</option>
                                     {% endfor %}
                                 </select>
 
                                 <select name="region">
-                                    <option value="">Область</option>
-                                    {% for region in regions %}
-                                        <option value="{{ region.id }}">{{ region.name }}</option>
+                                    <option value="">{% trans "Область" %} </option>
+                                   {% for region in regions %}
+                                        <option value="{{ region.id }}">{{ region|localized_name }}</option>
                                     {% endfor %}
                                 </select>
 
-                                <input type="text" name="city" placeholder="Місто*" required>
-                                <input type="text" name="street" placeholder="Адреса">
+                                <input type="text" name="city" placeholder= {% trans "Місто*" %} required>
+                                <input type="text" name="street" placeholder={% trans "Адреса" %}>
 
-                                <div class="form__title">3. Пароль</div>
+                                <div class="form__title">3. {% trans "Пароль" %} </div>
 
                                 <input type="password"
                                        name="password1"
@@ -237,53 +238,53 @@
                                     <!-- Юр. особа -->
                                     <div class="box-wrap">
                                         <div class="ur box">
-                                            <div class="form__title">1. Реквізити</div>
+                                            <div class="form__title">1.{% trans "Реквізити" %}</div>
                                             <input type="text"
                                                    name="okpo"
                                                    value="{{ legal_form.okpo.value|default:'' }}"
-                                                   placeholder="ОКПО">
+                                                   placeholder='{% trans "ОКПО" %}'>
 
-                                            <div class="form__title">2. Юридична адреса</div>
+                                            <div class="form__title">2. {% trans "Юридична адреса" %} </div>
                                             <select name="legal_country">
-                                                <option value="">Країна</option>
+                                                <option value="">{% trans "Країна" %} </option>
                                                 {% for country in countries %}
                                                     <option value="{{ country.id }}">{{ country.name }}</option>
                                                 {% endfor %}
                                             </select>
                                             <select name="legal_region">
-                                                <option value="">Область</option>
+                                                <option value="">{% trans "Область" %} </option>
                                                 {% for region in regions %}
                                                     <option value="{{ region.id }}">{{ region.name }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <input type="text" name="legal_city" placeholder="Місто*">
-                                            <input type="text" name="legal_street" placeholder="Адреса">
-                                            <input type="text" name="legal_zip" placeholder="Індекс">
+                                            <input type="text" name="legal_city" placeholder='{% trans "Місто*" %}'>
+                                            <input type="text" name="legal_street" placeholder='{% trans "Адреса" %}'>
+                                            <input type="text" name="legal_zip" placeholder='{% trans "Індекс" %}'>
                                         </div>
 
                                         <!-- ФОП -->
                                         <div class="fop box">
-                                            <div class="form__title">1. Реквізити</div>
+                                            <div class="form__title">1. {% trans "Реквізити" %} </div>
                                             <input type="text"
                                                    name="edrpou"
                                                    value="{{ legal_form.edrpou.value|default:'' }}"
-                                                   placeholder="ЄДРПОУ">
+                                                   placeholder='{% trans "ЄДРПОУ" %}' >
 
-                                            <div class="form__title">2. Адреса ФОП</div>
+                                            <div class="form__title">2. {% trans "Адреса ФОП" %} </div>
                                             <select name="legal_country">
-                                                <option value="">Країна</option>
+                                                <option value="">{% trans "Країна" %} </option>
                                                 {% for country in countries %}
                                                     <option value="{{ country.id }}">{{ country.name }}</option>
                                                 {% endfor %}
                                             </select>
                                             <select name="legal_region">
-                                                <option value="">Область</option>
+                                                <option value="">{% trans "Область" %} </option>
                                                 {% for region in regions %}
                                                     <option value="{{ region.id }}">{{ region.name }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <input type="text" name="legal_city" placeholder="Місто*">
-                                            <input type="text" name="legal_street" placeholder="Адреса">
+                                            <input type="text" name="legal_city" placeholder='{% trans "Місто*" %}'>
+                                            <input type="text" name="legal_street" placeholder='{% trans "Адреса" %}'>
                                         </div>
                                     </div>
 
@@ -295,10 +296,10 @@
                                     <input id="checkbox-agree-legal" class="checkbox-custom"
                                            name="agree" type="checkbox" required>
                                     <label for="checkbox-agree-legal" class="checkbox-custom-label">
-                                        <span>Я погоджуюсь з <a href="{{ agreement_page.url }}" target = "_blank">Умовами реєстрації</a></span>
+                                        <span> {% trans "Я погоджуюсь з" %}  <a href="{{ agreement_page.url }}" target = "_blank">{% trans "Умовами реєстрації" %}</a></span>
                                     </label>
                                 </div>
-                                <button class="button" type="submit">Продовжити</button>
+                                <button class="button" type="submit">{% trans "Продовжити" %}</button>
                             </div>
                         </div>
                     </form>

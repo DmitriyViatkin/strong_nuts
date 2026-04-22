@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cities_light', '0002_city'),
+        ('cities_light', '0001_initial'),
         ('order_management', '0003_clientorder_company_clientorder_email_and_more'),
     ]
 

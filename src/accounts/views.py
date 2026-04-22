@@ -2,8 +2,6 @@ from cabinet.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.views import View
-from cities_light.models import Country, Region
-
 from cms_pages.models import UserAgreement
 from .forms import RegisterPhysicalForm, RegisterLegalForm, LoginForm, CustomPasswordChangeForm
 from django.core.mail import send_mail
@@ -15,7 +13,18 @@ from .tasks import send_password_recovery_email, send_registration_email
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import PasswordChangeForm
+from cities_light.models import Country, Region
 
+
+
+def get_uk_name(obj):
+    if not obj.alternate_names:
+        return obj.name
+    cyrillic = [
+        n.strip() for n in obj.alternate_names.split(';')
+        if n.strip() and any('\u0400' <= c <= '\u04FF' for c in n)
+    ]
+    return cyrillic[-1] if cyrillic else obj.name
 
 
 class RegisterView(View):
@@ -25,8 +34,9 @@ class RegisterView(View):
         return {
             'physical_form': physical_form or RegisterPhysicalForm(),
             'legal_form':    legal_form    or RegisterLegalForm(),
-            'countries':     Country.objects.all(),
-            'regions':       Region.objects.all(),
+            'countries': Country.objects.all(),
+            'regions': Region.objects.all(),
+
             'agreement_page': UserAgreement.objects.live().first(),
         }
 

@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 14:13+0300\n"
-"PO-Revision-Date: 2026-04-15 14:30+0300\n"
+"POT-Creation-Date: 2026-04-22 11:35+0300\n"
+"PO-Revision-Date: 2026-04-22 11:50+0300\n"
 "Last-Translator: Gemini AI\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -19,15 +18,15 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
-#: config/settings/base.py:133 config/settings/base.py:153
+#: config/settings/base.py:136 config/settings/base.py:156
 msgid "Ukrainian"
 msgstr "Украинский"
 
-#: config/settings/base.py:134 config/settings/base.py:154
+#: config/settings/base.py:137 config/settings/base.py:157
 msgid "English"
 msgstr "Английский"
 
-#: config/settings/base.py:135 config/settings/base.py:155
+#: config/settings/base.py:138 config/settings/base.py:158
 msgid "Russian"
 msgstr "Русский"
 
@@ -100,6 +99,7 @@ msgid "Увійти"
 msgstr "Войти"
 
 #: src/accounts/templates/accounts/enter.html:57
+#: src/accounts/templates/accounts/reg-fiz.html:14
 #: src/cms_pages/templates/cms_pages/404.html:2
 #: templates/includes/header.html:46
 msgid "Реєстрація"
@@ -126,6 +126,14 @@ msgstr "Письмо отправлено"
 #: src/accounts/templates/accounts/password-recovery.html:46
 msgid "Введите новый пароль"
 msgstr "Введите новый пароль"
+
+#: src/accounts/templates/accounts/password-recovery.html:52
+msgid "Новый пароль*"
+msgstr "Новый пароль*"
+
+#: src/accounts/templates/accounts/password-recovery.html:53
+msgid "Подтвердите пароль*"
+msgstr "Подтвердите пароль*"
 
 #: src/accounts/templates/accounts/password-recovery.html:60
 msgid "Сменить пароль"
@@ -159,6 +167,8 @@ msgid "Вход"
 msgstr "Вход"
 
 #: src/accounts/templates/accounts/password.html:125
+#: src/accounts/templates/accounts/reg-fiz.html:101
+#: src/accounts/templates/accounts/reg-fiz.html:202
 #: src/cabinet/templates/base_cabinet/includes/navigation.html:31
 msgid "Пароль"
 msgstr "Пароль"
@@ -166,6 +176,114 @@ msgstr "Пароль"
 #: src/accounts/templates/accounts/password.html:134
 msgid "Продолжить"
 msgstr "Продолжить"
+
+#: src/accounts/templates/accounts/reg-fiz.html:13
+#: src/cabinet/templates/base_cabinet/base_cabinet.html:13
+#: src/order_management/templates/history-trans.html:13
+#: src/product_management/templates/product_management/product.html:70
+msgid "Головна"
+msgstr "Главная"
+
+#: src/accounts/templates/accounts/reg-fiz.html:27
+#: src/order_management/templates/checkout_fiz.html:290
+#: src/wagtail_cms/models.py:146
+msgid "Контактні дані"
+msgstr "Контактные данные"
+
+#: src/accounts/templates/accounts/reg-fiz.html:36 src/cabinet/models.py:32
+msgid "Фізична особа"
+msgstr "Физическое лицо"
+
+#: src/accounts/templates/accounts/reg-fiz.html:39 src/cabinet/models.py:33
+#: src/cabinet/models.py:148
+msgid "Юридична особа"
+msgstr "Юридическое лицо"
+
+#: src/accounts/templates/accounts/reg-fiz.html:82
+#: src/accounts/templates/accounts/reg-fiz.html:99
+#: src/accounts/templates/accounts/reg-fiz.html:183
+#: src/accounts/templates/accounts/reg-fiz.html:200
+#: src/accounts/templates/accounts/reg-fiz.html:261
+#: src/accounts/templates/accounts/reg-fiz.html:287 src/cabinet/models.py:104
+#: src/cabinet/models.py:155
+msgid "Адреса"
+msgstr "Адрес"
+
+#: src/accounts/templates/accounts/reg-fiz.html:85
+#: src/accounts/templates/accounts/reg-fiz.html:186
+#: src/accounts/templates/accounts/reg-fiz.html:249
+#: src/accounts/templates/accounts/reg-fiz.html:275 src/cabinet/models.py:49
+#: src/order_management/models.py:110
+msgid "Країна"
+msgstr "Страна"
+
+#: src/accounts/templates/accounts/reg-fiz.html:92
+#: src/accounts/templates/accounts/reg-fiz.html:193
+#: src/accounts/templates/accounts/reg-fiz.html:255
+#: src/accounts/templates/accounts/reg-fiz.html:281 src/cabinet/models.py:55
+msgid "Область"
+msgstr "Область"
+
+#: src/accounts/templates/accounts/reg-fiz.html:98
+#: src/accounts/templates/accounts/reg-fiz.html:199
+#: src/accounts/templates/accounts/reg-fiz.html:260
+#: src/accounts/templates/accounts/reg-fiz.html:286
+msgid "Місто*"
+msgstr "Город*"
+
+#: src/accounts/templates/accounts/reg-fiz.html:123
+#: src/cabinet/templates/cabinet/contact_information.html:63
+msgid "Завантажити фото"
+msgstr "Загрузить фото"
+
+#: src/accounts/templates/accounts/reg-fiz.html:130
+msgid "Є ФОП"
+msgstr "Является ФЛП"
+
+#: src/accounts/templates/accounts/reg-fiz.html:141
+#: src/accounts/templates/accounts/reg-fiz.html:299
+msgid "Я погоджуюсь з"
+msgstr "Я согласен с"
+
+#: src/accounts/templates/accounts/reg-fiz.html:141
+#: src/accounts/templates/accounts/reg-fiz.html:299
+msgid "Умовами реєстрації"
+msgstr "Условиями регистрации"
+
+#: src/accounts/templates/accounts/reg-fiz.html:144
+#: src/accounts/templates/accounts/reg-fiz.html:302
+#: src/order_management/templates/checkout_fiz.html:363
+msgid "Продовжити"
+msgstr "Продолжить"
+
+#: src/accounts/templates/accounts/reg-fiz.html:168
+msgid "ПІБ*"
+msgstr "ФИО*"
+
+#: src/accounts/templates/accounts/reg-fiz.html:241
+#: src/accounts/templates/accounts/reg-fiz.html:267
+msgid "Реквізити"
+msgstr "Реквизиты"
+
+#: src/accounts/templates/accounts/reg-fiz.html:245
+msgid "ОКПО"
+msgstr "ОКПО"
+
+#: src/accounts/templates/accounts/reg-fiz.html:247
+msgid "Юридична адреса"
+msgstr "Юридический адрес"
+
+#: src/accounts/templates/accounts/reg-fiz.html:262
+msgid "Індекс"
+msgstr "Индекс"
+
+#: src/accounts/templates/accounts/reg-fiz.html:271 src/cabinet/models.py:95
+msgid "ЄДРПОУ"
+msgstr "ЕГРПОУ"
+
+#: src/accounts/templates/accounts/reg-fiz.html:273
+msgid "Адреса ФОП"
+msgstr "Адрес ФЛП"
 
 #: src/cabinet/admin.py:28
 msgid "Персональна інформація"
@@ -183,25 +301,9 @@ msgstr "Права доступа"
 msgid "Важливі дати"
 msgstr "Важные даты"
 
-#: src/cabinet/models.py:32
-msgid "Фізична особа"
-msgstr "Физическое лицо"
-
-#: src/cabinet/models.py:33 src/cabinet/models.py:148
-msgid "Юридична особа"
-msgstr "Юридическое лицо"
-
 #: src/cabinet/models.py:41
 msgid "Тип адреси"
 msgstr "Тип адреса"
-
-#: src/cabinet/models.py:49 src/order_management/models.py:110
-msgid "Країна"
-msgstr "Страна"
-
-#: src/cabinet/models.py:55
-msgid "Область"
-msgstr "Область"
 
 #: src/cabinet/models.py:61 src/order_management/models.py:126
 msgid "Місто"
@@ -227,17 +329,9 @@ msgstr "Почтовый индекс"
 msgid "Назва компанії"
 msgstr "Название компании"
 
-#: src/cabinet/models.py:95
-msgid "ЄДРПОУ"
-msgstr "ЕГРПОУ"
-
 #: src/cabinet/models.py:100
 msgid "ПДВ"
 msgstr "НДС"
-
-#: src/cabinet/models.py:104 src/cabinet/models.py:155
-msgid "Адреса"
-msgstr "Адрес"
 
 #: src/cabinet/models.py:105 src/wagtail_cms/models.py:131
 msgid "Адреси"
@@ -274,12 +368,6 @@ msgstr "Пользователь"
 #: src/unfold_admin/tamplate/admin/index.html:90
 msgid "Користувачі"
 msgstr "Пользователи"
-
-#: src/cabinet/templates/base_cabinet/base_cabinet.html:13
-#: src/order_management/templates/history-trans.html:13
-#: src/product_management/templates/product_management/product.html:70
-msgid "Головна"
-msgstr "Главная"
 
 #: src/cabinet/templates/base_cabinet/base_cabinet.html:14
 #: src/cabinet/templates/base_cabinet/base_cabinet.html:24
@@ -327,10 +415,6 @@ msgstr "Адреса и реквизиты"
 #: src/cms_pages/templates/cms_pages/address.html:29
 msgid "Зберегти"
 msgstr "Сохранить"
-
-#: src/cabinet/templates/cabinet/contact_information.html:63
-msgid "Завантажити фото"
-msgstr "Загрузить фото"
 
 #: src/cabinet/templates/cabinet/history-trans.html:12
 #: src/cabinet/templates/cabinet/history.html:13
@@ -453,8 +537,6 @@ msgstr "Цена за товар"
 msgid "Итоговая стоимость"
 msgstr "Итоговая стоимость"
 
- 
-
 #: src/cart/templates/cart/cart.html:71
 msgid "Корзина пуста"
 msgstr "Корзина пуста"
@@ -539,7 +621,7 @@ msgstr "Товары не найдены."
 msgid "Загрузить еще"
 msgstr "Загрузить еще"
 
-#: src/cms_pages/templates/cms_pages/gallery.html:113
+#: src/cms_pages/templates/cms_pages/gallery.html:104
 #: src/cms_pages/templates/cms_pages/news/news_list.html:98
 msgid "Посмотреть еще"
 msgstr "Посмотреть еще"
@@ -747,11 +829,6 @@ msgstr "Итоговая стоимость"
 msgid "Всього"
 msgstr "Всего"
 
-#: src/order_management/templates/checkout_fiz.html:290
-#: src/wagtail_cms/models.py:146
-msgid "Контактні дані"
-msgstr "Контактные данные"
-
 #: src/order_management/templates/checkout_fiz.html:304
 msgid "Спосіб доставки"
 msgstr "Способ доставки"
@@ -763,10 +840,6 @@ msgstr "БЕСПЛАТНО"
 #: src/order_management/templates/checkout_fiz.html:342
 msgid "Спосіб оплати"
 msgstr "Способ оплаты"
-
-#: src/order_management/templates/checkout_fiz.html:363
-msgid "Продовжити"
-msgstr "Продолжить"
 
 #: src/order_management/templates/history-trans.html:4
 msgid "Історія операцій"
@@ -952,7 +1025,7 @@ msgid "Пакування:"
 msgstr "Упаковка:"
 
 #: src/product_management/templates/product_management/product.html:229
-msgid "Ціна сейчас:"
+msgid "Ціна зараз:"
 msgstr "Цена сейчас:"
 
 #: src/product_management/templates/product_management/product.html:251
@@ -1145,7 +1218,3 @@ msgstr "Вход"
 #: templates/includes/header.html:88
 msgid "Міць"
 msgstr "Мощь"
-
-#: templates/includes/header.html:88
-msgid "природи"
-msgstr "природы"

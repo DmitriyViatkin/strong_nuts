@@ -42,69 +42,60 @@
         <div class="row justify-content-center">
 
             {% for block in page.images %}
-                {% image block.value.image original as img %}
+                {% if block.block_type == 'item' %}
+                    {% if block.value.media.image %}
+                        {% image block.value.media.image original as img %}
+                    {% endif %}
 
-                {% if block.value.size == 'large' %}
-                <div class="col-lg-7 col-md-6 col-12">
-                    <div class="wrap">
-                        <div class="benefit__item"
-                             style="background-image: url('{{ img.url }}')">
-                        </div>
-                        <div class="benefit__item item_hover overlay_green overlay_green_bg">
-                            {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
-                            {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
-                        </div>
-                    </div>
-                </div>
-
-                {% elif block.value.size == 'medium' %}
-                <div class="col-lg-5 col-md-6 col-12">
-                    <div class="wrap">
-                        <div class="benefit__item"
-                             style="background-image: url('{{ img.url }}')">
-                        </div>
-                        <div class="benefit__item item_hover overlay_green overlay_green_bg">
-                            {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
-                            {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
-                        </div>
-                    </div>
-                </div>
-
-                {% elif block.value.size == 'full' %}
-                <div class="col-lg-12 col-md-12 col-12">
-                    <div class="wrap">
-                        <a href="{{ block.value.video }}"
-                           class="benefit__item overlay benefit__item_video_text"
-                           style="background-image: url('{{ img.url }}')">
-                            <span><i class="nut-icon icons-play-icon"></i></span>
-                            {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
-                            {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
-                        </a>
-                    </div>
-                </div>
-
-                {% elif block.value.size == 'small' %}
-                <div class="col-lg-4 col-md-6 col-12">
-                    <div class="wrap item_small">
-                        {% if block.value.video %}
-                            <a href="{{ block.value.video }}">
-                                <span class="benefit__item item_small benefit__item_video overlay"
-                                      style="background-image: url('{{ img.url }}')">
-                                </span>
-                            </a>
-                        {% else %}
-                            <div class="benefit__item item_small"
+                    {% if block.value.size == 'large' %}
+                    <div class="col-lg-7 col-md-6 col-12">
+                        <div class="wrap">
+                            <div class="benefit__item"
                                  style="background-image: url('{{ img.url }}')">
                             </div>
                             <div class="benefit__item item_hover overlay_green overlay_green_bg">
                                 {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
                                 {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
                             </div>
-                        {% endif %}
+                        </div>
                     </div>
-                </div>
-                {% endif %}
 
+                    {% elif block.value.size == 'full' %}
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="wrap">
+                            <a href="{{ block.value.media.video }}"   {# ← было block.value.video #}
+                               class="benefit__item overlay benefit__item_video_text"
+                               style="background-image: url('{{ img.url }}')">
+                                <span><i class="nut-icon icons-play-icon"></i></span>
+                                {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
+                                {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
+                            </a>
+                        </div>
+                    </div>
+
+                    {% elif block.value.size == 'small' %}
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="wrap item_small">
+                            {% if block.value.media.video %}   {# ← было block.value.video #}
+                                <a href="{{ block.value.media.video }}">
+                                    <span class="benefit__item item_small benefit__item_video overlay"
+                                          style="background-image: url('{{ img.url }}')">
+                                    </span>
+                                </a>
+                            {% else %}
+                                <div class="benefit__item item_small"
+                                     style="background-image: url('{{ img.url }}')">
+                                </div>
+                                <div class="benefit__item item_hover overlay_green overlay_green_bg">
+                                    {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
+                                    {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                {% endif %}
             {% endfor %}
 
         </div>
