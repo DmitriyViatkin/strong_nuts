@@ -4,12 +4,32 @@
 {% block content %}
 {% get_settings use_default_site=True %}
 
+
     <!-- Баннер -->
-    {% for block in page.image_top_baner %}
-        {% if block.block_type == 'image_baner' %}
+   {% for block in page.image_top_baner %}
+        >
+    {% if block.block_type == 'image_baner' %}
         <section class="first-section overlay">
-            {% image block.value.image fill-1920x600 as baner_img %}
-            <div class="first-section__bg" style="background-image: url('{{ baner_img.url }}')"></div>
+            {% if block.value.image %}
+                {# Генерируем картинку #}
+
+                {% image block.value.image fill-1920x600 as baner_img %}
+
+
+                 <div class="first-section__bg"
+                     style="background-image: url('{{ baner_img.url }}');
+                            background-position: center;
+                            background-size: cover;
+                            position: absolute;
+                            top: 0; left: 0; width: 100%; height: 100%;
+                            z-index: -1;">
+                </div>
+                 </div>
+            {% else %}
+                {# Фолбек, если картинку забыли загрузить в админке #}
+                <div class="first-section__bg" style="background-color: #444;"></div>
+            {% endif %}
+
             <div class="container">
                 <div class="breadcrumbs">
                     <ul>
@@ -18,27 +38,28 @@
                     </ul>
                 </div>
                 <div class="row align-items-center justify-content-center">
+                    {# Используем заголовок из блока #}
                     <h1>{{ block.value.title }}</h1>
                 </div>
             </div>
         </section>
-        {% endif %}
-    {% empty %}
-        <section class="first-section overlay">
-            <div class="container">
-                <div class="breadcrumbs">
-                    <ul>
-                        <li><a href="/">{% trans "Главная" %}</a></li>
-                        <li>Магазин</li>
-                    </ul>
-                </div>
-                <div class="row align-items-center justify-content-center">
-                    <h1>{% trans "Каталог продукции" %}</h1>
-                </div>
-            </div>
-        </section>
-    {% endfor %}
+    {% endif %}
+{% empty %}
 
+    <section class="first-section overlay">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="/">{% trans "Главная" %}</a></li>
+                    <li>{% trans "Магазин" %}</li>
+                </ul>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <h1>{% trans "Каталог продукции" %}</h1>
+            </div>
+        </div>
+    </section>
+{% endfor %}
     <!-- Каталог -->
     <section class="production">
         <div class="container">
