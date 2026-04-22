@@ -107,9 +107,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
+
 CSRF_TRUSTED_ORIGINS = [
     "https://strong-nuts-nginx.fwwkl2.easypanel.host",
+    "https://strong-nuts-web.fwwkl2.easypanel.host",
 ]
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
