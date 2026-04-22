@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 12:08+0300\n"
+"POT-Creation-Date: 2026-04-22 12:40+0300\n"
 "PO-Revision-Date: 2026-04-22 12:00+0300\n"
 "Last-Translator: Gemini AI\n"
 "Language-Team: English\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/settings/base.py:136 config/settings/base.py:156
+#: config/settings/base.py:141 config/settings/base.py:161
 msgid "Ukrainian"
 msgstr "Ukrainian"
 
-#: config/settings/base.py:137 config/settings/base.py:157
+#: config/settings/base.py:142 config/settings/base.py:162
 msgid "English"
 msgstr "English"
 
-#: config/settings/base.py:138 config/settings/base.py:158
+#: config/settings/base.py:143 config/settings/base.py:163
 msgid "Russian"
 msgstr "Russian"
 
@@ -1208,6 +1208,26 @@ msgstr "Footer settings"
 msgid "Статистика"
 msgstr "Statistics"
 
+#: templates/includes/footer.html:14
+#, fuzzy
+#| msgid "Контакты"
+msgid "Контакти"
+msgstr "Contacts"
+
+#: templates/includes/footer.html:105 templates/includes/header.html:88
+msgid "Міць"
+msgstr "Power"
+
+#: templates/includes/footer.html:105 templates/includes/header.html:88
+msgid "природи"
+msgstr "of nature"
+
+#: templates/includes/footer.html:132
+#, fuzzy
+#| msgid "Розробник"
+msgid "Розроблено"
+msgstr "Developer"
+
 #: templates/includes/header.html:33
 msgid "Мій кабінет"
 msgstr "My cabinet"
@@ -1215,14 +1235,6 @@ msgstr "My cabinet"
 #: templates/includes/header.html:40
 msgid "Вийти"
 msgstr "Logout"
-
-#: templates/includes/header.html:88
-msgid "Міць"
-msgstr "Power"
-
-#: templates/includes/header.html:88
-msgid "природи"
-msgstr "of nature"
 
 #~ msgid "Ціна сейчас:"
 #~ msgstr "Price now:"
