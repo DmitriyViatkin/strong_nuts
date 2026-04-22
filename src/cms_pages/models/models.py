@@ -6,18 +6,97 @@ from wagtail.images.models import Image
 from wagtail.models import Page
 from wagtail.blocks import RichTextBlock
 from wagtail_cms.blocks import VideoBannerBlock, BenefitItemBlock, GalleryBlock
-
+from cms_pages.models.about import AboutManufacturerPage
+from product_management.models import Product
+from .detail_news_page import DetailNewsPage
 
 class HomePage(Page):
+    template = 'cms_pages/main/index.html'
     max_count = 1
-    def serve(self, request):
-        from django.shortcuts import redirect
-        main = self.get_children().live().first()
-        if main:
-            return redirect(main.url)
-        return super().serve(request)
+
+    # Відео банер (Топ)
+    top_banner = StreamField([
+        ('video_banner', VideoBannerBlock()),
+    ], blank=True, use_json_field=True, verbose_name='Топ банер', max_num=1)
+
+    # Секція "Про виробника" на головній
+    about_title = models.CharField(max_length=255, blank=True, verbose_name="Заголовок (якщо пустий - візьме зі сторінки)")
+    about_text = RichTextField(blank=True, verbose_name="Короткий опис для головної")
+    about_button_text = models.CharField(max_length=100, blank=True, default="Читати більше")
+    about_images = StreamField([
+        ('image', ImageChooserBlock(label='Зображення')),
+    ], blank=True, use_json_field=True)
+
+    # Промо відео
+    promo_video_section = StreamField([
+        ('video_banner', VideoBannerBlock()),
+    ], blank=True, use_json_field=True, verbose_name='Промо відео секція', max_num=1)
+
+    # Про користь продукту
+    benefit_title = models.CharField(max_length=255, blank=True)
+    benefit_subtitle = models.CharField(max_length=255, blank=True)
+    benefit_items = StreamField([
+        ('item', BenefitItemBlock()),
+    ], blank=True, use_json_field=True)
+
+    # Еко банер
+    eco_banner_section = StreamField([
+        ('video_banner', VideoBannerBlock()),
+    ], blank=True, use_json_field=True, verbose_name='Еко банер секція', max_num=1)
+
+    # Новини
+    news_title = models.CharField(max_length=255, blank=True)
+    news_subtitle = models.CharField(max_length=255, blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('top_banner'),
+        MultiFieldPanel([
+            FieldPanel('about_title'),
+            FieldPanel('about_text'),
+            FieldPanel('about_button_text'),
+            FieldPanel('about_images'),
+        ], heading='Секція: Про виробника'),
+        FieldPanel('promo_video_section'),
+        MultiFieldPanel([
+            FieldPanel('benefit_title'),
+            FieldPanel('benefit_subtitle'),
+            FieldPanel('benefit_items'),
+        ], heading='Секція: Про користь продукту'),
+        FieldPanel('eco_banner_section'),
+        MultiFieldPanel([
+            FieldPanel('news_title'),
+            FieldPanel('news_subtitle'),
+        ], heading='Секція: Новини'),
+    ]
+
+    def get_context(self, request):
+        context = super().get_context(request)
 
 
+        context['news'] = DetailNewsPage.objects.live().order_by('-date')[:6]
+        context['products'] = Product.objects.filter(is_active=True).order_by('-created_at')[:6]
+
+        about_page = AboutManufacturerPage.objects.live().first()
+
+        if about_page:
+            context['about_manufacturer'] = about_page
+            context['about_page_url'] = about_page.url
+
+            context['about_remote_content'] = about_page.content
+
+        return context
+
+    class Meta:
+        verbose_name = 'Головна сторінка'
+
+    subpage_types = [
+        'cms_pages.NewsListPage',
+        'cms_pages.GalleryPage',
+        'cms_pages.Page404',
+    ]
+
+
+"""
 class Main(Page):
 
     template = 'cms_pages/main/index.html'
@@ -100,6 +179,7 @@ class Main(Page):
 
     class Meta:
         verbose_name = 'Головна сторінка'
+        """
 
 
 class Page404(Page):
@@ -147,58 +227,6 @@ class NewsListPage(Page):
         verbose_name = "Сторінка новин"
 
 
-class DetailNewsPage(Page):
-
-    template = "cms_pages/news/one-new.html"
-    parent_page_types = ['cms_pages.NewsListPage']
-
-    title_page = models.CharField(max_length=255, blank=True)
-    date = models.DateField()
-    body = StreamField([
-        ('text', RichTextBlock(label="Текст")),
-        ('image', ImageChooserBlock(label="Зображення")),
-    ], blank=True, use_json_field=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel('title_page'),
-        FieldPanel('date'),
-        FieldPanel('body'),
-    ]
-
-    def get_first_image(self):
-        for block in self.body:
-            if block.block_type == 'image':
-                return block.value
-        return None
-
-    def get_context(self, request):
-        context = super().get_context(request)
-        context['latest_news'] = DetailNewsPage.objects.live().exclude(
-            pk=self.pk
-        ).order_by('-date')[:3]
-        return context
-
-    class Meta:
-        verbose_name = "Новина"
 
 
-class GalleryPage(Page):
 
-    template = 'cms_pages/gallery.html'
-    max_count = 1
-
-    top_banner = StreamField([
-        ('video_banner', VideoBannerBlock()),
-    ], blank=True, use_json_field=True, verbose_name='Банер', default=list)
-
-    images = StreamField([
-        ('item', GalleryBlock()),
-    ], blank=True, use_json_field=True, verbose_name='Галерея')
-
-    content_panels = Page.content_panels + [
-        FieldPanel('top_banner'),
-        FieldPanel('images'),
-    ]
-
-    class Meta:
-        verbose_name = 'Галерея'

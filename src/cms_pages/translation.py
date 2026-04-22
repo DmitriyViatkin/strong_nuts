@@ -8,7 +8,7 @@ from .models import (
 from .models import (
     DeliveryPaymentPage,
     HomePage,
-    Main,
+
     Page404,
     NewsListPage,
     DetailNewsPage,
@@ -66,22 +66,19 @@ class DeliveryPaymentPageTranslationOptions(TranslationOptions):
 
 
 
-@register(Main)
+@register(HomePage)
 class MainTranslationOptions(TranslationOptions):
     fields = (
-        'top_banner',
+        'top_banner',           # StreamField
         'about_title',
         'about_text',
         'about_button_text',
-        'about_button_url',
-        'about_images',
-        'promo_video_title',
-        'promo_video_text',
+        'about_images',         # StreamField
+        'promo_video_section',  # НОВА НАЗВА замість promo_video_text/title
         'benefit_title',
         'benefit_subtitle',
-        'benefit_items',
-        'eco_title',
-        'eco_text',
+        'benefit_items',        # StreamField
+        'eco_banner_section',   # НОВА НАЗВА замість eco_title/text
         'news_title',
         'news_subtitle',
     )

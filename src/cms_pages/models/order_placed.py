@@ -4,7 +4,8 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.models import Page
 from wagtail.blocks import StructBlock, CharBlock, RichTextBlock, URLBlock
 from wagtail.images.blocks import ImageChooserBlock
-from .models import DetailNewsPage, GalleryPage
+from .detail_news_page import DetailNewsPage
+from .gallery_page import GalleryPage
 from .blocks import ContentBlock, BanerBlock
 from wagtail_cms.blocks import (
     VideoBannerBlock,
