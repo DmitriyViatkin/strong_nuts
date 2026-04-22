@@ -15,9 +15,13 @@ from .models import (
     GalleryPage,
     OrderPlaced,
     UserAgreement,
+
+
 )
 
-
+@register(AddressPage)
+class AddressPageTR(TranslationOptions):
+    pass
 
 @register(AboutManufacturerPage)
 class AboutManufacturerPageTranslationOptions(TranslationOptions):
@@ -65,7 +69,7 @@ class DeliveryPaymentPageTranslationOptions(TranslationOptions):
 @register(Main)
 class MainTranslationOptions(TranslationOptions):
     fields = (
-        'top_banner',          # ← замість video_banner_title і video_banner_text
+        'top_banner',
         'about_title',
         'about_text',
         'about_button_text',
