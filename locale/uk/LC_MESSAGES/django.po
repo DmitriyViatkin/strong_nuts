@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 11:35+0300\n"
+"POT-Creation-Date: 2026-04-22 12:08+0300\n"
 "PO-Revision-Date: 2026-04-15 14:30+0200\n"
 "Last-Translator: Gemini AI\n"
 "Language-Team: Ukrainian\n"
@@ -87,6 +87,19 @@ msgstr "Результати завдань"
 #: config/settings/unfold_settings.py:111
 msgid "Результаты групп"
 msgstr "Результати груп"
+
+#: src/accounts/templates/accounts/enter.html:13
+#: src/accounts/templates/accounts/reg-fiz.html:13
+#: src/cabinet/templates/base_cabinet/base_cabinet.html:13
+#: src/order_management/templates/history-trans.html:13
+#: src/product_management/templates/product_management/product.html:70
+msgid "Головна"
+msgstr "Головна"
+
+#: src/accounts/templates/accounts/enter.html:14
+#: templates/includes/header.html:45
+msgid "Вхід"
+msgstr "Вхід"
 
 #: src/accounts/templates/accounts/enter.html:24
 msgid "Увійти в особистий кабінет"
@@ -182,13 +195,6 @@ msgstr "Пароль"
 #: src/accounts/templates/accounts/password.html:134
 msgid "Продолжить"
 msgstr "Продовжити"
-
-#: src/accounts/templates/accounts/reg-fiz.html:13
-#: src/cabinet/templates/base_cabinet/base_cabinet.html:13
-#: src/order_management/templates/history-trans.html:13
-#: src/product_management/templates/product_management/product.html:70
-msgid "Головна"
-msgstr "Головна"
 
 #: src/accounts/templates/accounts/reg-fiz.html:27
 #: src/order_management/templates/checkout_fiz.html:290
@@ -1226,10 +1232,6 @@ msgstr "Мій кабінет"
 #: templates/includes/header.html:40
 msgid "Вийти"
 msgstr "Вийти"
-
-#: templates/includes/header.html:45
-msgid "Вхід"
-msgstr "Вхід"
 
 #: templates/includes/header.html:88
 msgid "Міць"
