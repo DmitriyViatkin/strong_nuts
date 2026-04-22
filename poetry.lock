@@ -1724,6 +1724,26 @@ files = [
 django-ninja = ">=1.4.3,<=1.7"
 
 [[package]]
+name = "wagtailmedia"
+version = "0.17.2"
+description = "A Wagtail module for audio and video files."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "wagtailmedia-0.17.2-py3-none-any.whl", hash = "sha256:abe10c6341fbc41ebc30d2955fff00abf6160bc473a5f9f1106d69111045c202"},
+    {file = "wagtailmedia-0.17.2.tar.gz", hash = "sha256:4457e267fc53d8db4c9eb9a48d27f4b47b0823a9f7d0820f2dd98f1ba5d58600"},
+]
+
+[package.dependencies]
+Django = ">=4.2"
+Wagtail = ">=6.3"
+
+[package.extras]
+linting = ["pre-commit (>=4.3.0)"]
+testing = ["coverage (>=7.10.0)", "tox (>=4.28.4)"]
+
+[[package]]
 name = "wcwidth"
 version = "0.6.0"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -1777,4 +1797,4 @@ wand = ["Wand (>=0.6,<1.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "d3e9b4de7bbf85ea54376b9eaa27a475af2e2b66d001223ff5600b012018f289"
+content-hash = "7e5272ebdc7f102137ef50350646f8cb2800a2f9ba5955cc342c8fcb91498a73"

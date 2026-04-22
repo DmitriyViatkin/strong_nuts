@@ -65,15 +65,12 @@ class DeliveryPaymentPageTranslationOptions(TranslationOptions):
 @register(Main)
 class MainTranslationOptions(TranslationOptions):
     fields = (
-
-        'video_banner_title',
-        'video_banner_text',
+        'top_banner',          # ← замість video_banner_title і video_banner_text
         'about_title',
         'about_text',
         'about_button_text',
         'about_button_url',
         'about_images',
-
         'promo_video_title',
         'promo_video_text',
         'benefit_title',
@@ -81,11 +78,9 @@ class MainTranslationOptions(TranslationOptions):
         'benefit_items',
         'eco_title',
         'eco_text',
-
         'news_title',
         'news_subtitle',
     )
-
 
 @register(Page404)
 class Page404TranslationOptions(TranslationOptions):

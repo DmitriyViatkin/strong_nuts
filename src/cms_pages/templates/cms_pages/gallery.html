@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
-{% load i18n%}
+{% load i18n %}
 {% load static wagtailimages_tags wagtailcore_tags %}
 
 {% block content %}
 
-<section class="first-section overlay"
+<section class="first-section overlay">
     {% for block in page.top_banner %}
         {% if block.block_type == 'video_banner' %}
-            style="background-image: url('{{ block.value.video_url }}')"
+            {% if block.value.video_file %}
+            <video autoplay muted loop playsinline
+                   style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+                <source src="{{ block.value.video_file.url }}" type="video/mp4">
+            </video>
+            {% endif %}
         {% endif %}
-    {% endfor %}>
-    <div class="container">
+    {% endfor %}
+    <div class="container" style="position:relative;z-index:1;">
         <div class="breadcrumbs">
             <ul>
                 <li><a href="/">{% trans "Главная" %}</a></li>
@@ -20,11 +25,11 @@
         <div class="row align-items-center justify-content-center">
             {% for block in page.top_banner %}
                 {% if block.block_type == 'video_banner' %}
-                <a href="{{ block.value.video_url }}">
+                <div>
                     <h1>{{ block.value.title }}</h1>
                     <p>{{ block.value.text }}</p>
                     <span><i class="nut-icon icons-play-icon"></i></span>
-                </a>
+                </div>
                 {% endif %}
             {% endfor %}
         </div>
@@ -42,60 +47,73 @@
         <div class="row justify-content-center">
 
             {% for block in page.images %}
-                {% if block.block_type == 'item' %}
-                    {% if block.value.media.image %}
-                        {% image block.value.media.image original as img %}
-                    {% endif %}
+            {% if block.block_type == 'item' %}
+                {% if block.value.media.image %}
+                    {% image block.value.media.image original as img %}
+                {% endif %}
 
-                    {% if block.value.size == 'large' %}
-                    <div class="col-lg-7 col-md-6 col-12">
-                        <div class="wrap">
-                            <div class="benefit__item"
+                {% if block.value.size == 'large' %}
+                <div class="col-lg-7 col-md-6 col-12">
+                    <div class="wrap">
+                        <div class="benefit__item"
+                             style="background-image: url('{{ img.url }}')">
+                        </div>
+                        <div class="benefit__item item_hover overlay_green overlay_green_bg">
+                            {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
+                            {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% elif block.value.size == 'full' %}
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="wrap">
+                        <div class="benefit__item overlay benefit__item_video_text"
+                             style="position:relative;overflow:hidden;">
+                            {% if block.value.media.video %}
+                            <video autoplay muted loop playsinline
+                                   style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+                                <source src="{{ block.value.media.video.url }}" type="video/mp4">
+                            </video>
+                            {% else %}
+                            <div style="position:absolute;top:0;left:0;width:100%;height:100%;
+                                        background-image:url('{{ img.url }}');background-size:cover;">
+                            </div>
+                            {% endif %}
+                            <div style="position:relative;z-index:1;">
+                                <span><i class="nut-icon icons-play-icon"></i></span>
+                                {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
+                                {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% elif block.value.size == 'small' %}
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="wrap item_small">
+                        {% if block.value.media.video %}
+                            <div class="benefit__item item_small benefit__item_video overlay"
+                                 style="position:relative;overflow:hidden;">
+                                <video autoplay muted loop playsinline
+                                       style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
+                                    <source src="{{ block.value.media.video.url }}" type="video/mp4">
+                                </video>
+                            </div>
+                        {% else %}
+                            <div class="benefit__item item_small"
                                  style="background-image: url('{{ img.url }}')">
                             </div>
                             <div class="benefit__item item_hover overlay_green overlay_green_bg">
                                 {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
                                 {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
-
-                    {% elif block.value.size == 'full' %}
-                    <div class="col-lg-12 col-md-12 col-12">
-                        <div class="wrap">
-                            <a href="{{ block.value.media.video }}"   {# ← было block.value.video #}
-                               class="benefit__item overlay benefit__item_video_text"
-                               style="background-image: url('{{ img.url }}')">
-                                <span><i class="nut-icon icons-play-icon"></i></span>
-                                {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
-                                {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
-                            </a>
-                        </div>
-                    </div>
-
-                    {% elif block.value.size == 'small' %}
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <div class="wrap item_small">
-                            {% if block.value.media.video %}   {# ← было block.value.video #}
-                                <a href="{{ block.value.media.video }}">
-                                    <span class="benefit__item item_small benefit__item_video overlay"
-                                          style="background-image: url('{{ img.url }}')">
-                                    </span>
-                                </a>
-                            {% else %}
-                                <div class="benefit__item item_small"
-                                     style="background-image: url('{{ img.url }}')">
-                                </div>
-                                <div class="benefit__item item_hover overlay_green overlay_green_bg">
-                                    {% if block.value.title %}<h3>{{ block.value.title }}</h3>{% endif %}
-                                    {% if block.value.description %}<p>{{ block.value.description }}</p>{% endif %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% endif %}
-
+                </div>
                 {% endif %}
+
+            {% endif %}
             {% endfor %}
 
         </div>

@@ -2,6 +2,8 @@ from wagtail.blocks import (StructBlock, CharBlock,ChoiceBlock, ListBlock, URLBl
                             StreamBlock, StructBlockValidationError, RichTextBlock)
 from wagtail.images.blocks import  ImageChooserBlock
 from wagtail import blocks
+from wagtail.documents.blocks import DocumentChooserBlock
+
 
 class MessengerBlock(StructBlock):
     name = CharBlock(label='Назва (viber, telegram, watsap)',required=False)
@@ -53,15 +55,19 @@ class AddressBlock(StructBlock):
         icon = 'home'
         label = 'Адреса'
 
-class VideoBannerBlock(StructBlock):  # 👈 добавили
+class MediaSourceBlock(StructBlock):
+    image = ImageChooserBlock(label="Зображення", required=False)
+    video = DocumentChooserBlock(label="Відео файл (MP4)", required=False)  # ← файл замість URL
+    class Meta:
+        label = "Медіа-файл"
 
-    video_url = URLBlock(label="Посилання на відео",required=False)
+class VideoBannerBlock(StructBlock):
+    video_file = DocumentChooserBlock(label="Відео файл (MP4)", required=False)  # ← файл
     title = CharBlock(max_length=255, label="Заголовок")
     text = RichTextBlock(
         label="Текст",
         features=['bold', 'italic', 'link', 'ul'],
         help_text="Додайте опис для банера")
-
     class Meta:
         template = "cms_pages/blocks/video_banner_block.html"
         icon = "media"
@@ -88,12 +94,7 @@ class BenefitItemBlock(StructBlock):
         icon = 'pick'
         label = 'Картка користі'
 
-class MediaSourceBlock(StructBlock):
-    image = ImageChooserBlock(label="Зображення", required=False)
-    video = URLBlock(label="Посилання на відео", required=False)
 
-    class Meta:
-        label = "Медіа-файл"
 
 class GalleryBlock(StructBlock):
     media = MediaSourceBlock(label="Вміст (Картинка або Відео)", required=False)
