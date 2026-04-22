@@ -7,14 +7,39 @@
 {% for block in page.top_banner %}
     {% if block.block_type == 'video_banner' %}
         {% image block.value.image original as bg %}
-        <section class="first-section overlay" style="background-image: url('{{ bg.url }}')">
-            <div class="container">
+
+        <section class="first-section overlay" style="position: relative; overflow: hidden;">
+
+            {# 1. Додаємо саме відео як фон #}
+            {% if block.value.video_file %}
+                <video
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    poster="{{ bg.url }}"
+                    class="video-background"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;"
+                >
+                    <source src="{{ block.value.video_file.url }}" type="video/mp4">
+                    Ваш браузер не підтримує відео.
+                </video>
+            {% endif %}
+
+            {# 2. Контент поверх відео #}
+            <div class="container" style="position: relative; z-index: 1;">
                 <div class="row align-items-center justify-content-center">
-                    <a href="{{ block.value.video_url }}">
+                    <div class="text-center">
                         <h1>{{ block.value.title }}</h1>
                         <p>{{ block.value.text }}</p>
-                        <span><i class="nut-icon icons-play-icon"></i></span>
-                    </a>
+
+                        {# Якщо хочеш залишити іконку просто для краси або як посилання на YouTube #}
+                        {% if block.value.video_url %}
+                            <a href="{{ block.value.video_url }}">
+                                <span><i class="nut-icon icons-play-icon"></i></span>
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </section>
@@ -128,11 +153,28 @@
 {% for block in page.promo_video_section %}
     <div class="parallax" data-scrollax-parent="true">
         {% image block.value.image original as pr_bg %}
-        <section class="goal overlay cover" style="background-image: url('{{ pr_bg.url }}')"
+
+        <section class="goal overlay cover"
+                 style="background-image: url('{{ pr_bg.url }}'); position: relative; overflow: hidden;"
                  data-scrollax="properties: { translateY: '30%' }">
-            <div class="container">
+
+            {# Додаємо відео тег #}
+            {% if block.value.video_file %}
+                <video
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    poster="{{ pr_bg.url }}"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+                    <source src="{{ block.value.video_file.url }}" type="video/mp4">
+                </video>
+            {% endif %}
+
+            <div class="container" style="position: relative; z-index: 1;">
                 <div class="row align-items-center justify-content-center">
-                    <a href="{{ block.value.video_url }}"
+                    {# Посилання залишаємо, якщо воно веде на YouTube або просто як декорацію #}
+                    <a href="{{ block.value.video_url|default:'#' }}"
                        data-scrollax="properties: { 'translateY': '5%', 'opacity': 1 }">
                         <h2>{{ block.value.title }}</h2>
                         <span><i class="nut-icon icons-play-icon"></i></span>
@@ -179,11 +221,29 @@
 {% for block in page.eco_banner_section %}
     <div class="parallax" data-scrollax-parent="true">
         {% image block.value.image original as eco_bg %}
-        <section class="eco overlay" style="background-image: url('{{ eco_bg.url }}')"
+
+        <section class="eco overlay"
+                 style="background-image: url('{{ eco_bg.url }}'); position: relative; overflow: hidden;"
                  data-scrollax="properties: { translateY: '30%' }">
-            <div class="container">
+
+            {# Додаємо фонове відео #}
+            {% if block.value.video_file %}
+                <video
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    poster="{{ eco_bg.url }}"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+                    <source src="{{ block.value.video_file.url }}" type="video/mp4">
+                    Ваш браузер не підтримує відео.
+                </video>
+            {% endif %}
+
+            <div class="container" style="position: relative; z-index: 1;">
                 <div class="row align-items-center justify-content-center">
-                    <a href="{{ block.value.video_url }}"
+                    {# Посилання на зовнішнє відео, якщо воно є #}
+                    <a href="{{ block.value.video_url|default:'#' }}"
                        data-scrollax="properties: { 'translateY': '5%', 'opacity': 1 }">
                         <i class="nut-icon icons-eco"></i>
                         <h2>{{ block.value.title }}</h2>

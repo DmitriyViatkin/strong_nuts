@@ -3,13 +3,30 @@
 {% image value.image original as bg %}
 
 <div class="wrap">
-    <a href="{{ value.video_url }}"
-       class="benefit-news__item overlay benefit-news__item_video_text"
-       style="background-image: url('{{ bg.url }}')">
-        <span>
-            <i class="nut-icon icons-play-icon"></i>
-        </span>
-        <h3>{{ value.title }}</h3>
-        <p>{{ value.text }}</p>
-    </a>
+    <div class="benefit-news__item overlay benefit-news__item_video_text"
+         style="position: relative; overflow: hidden; background-image: url('{{ bg.url }}'); background-size: cover;">
+
+        {# Автоплей відео як фон #}
+        {% if value.video_file %}
+            <video
+                autoplay
+                muted
+                loop
+                playsinline
+                poster="{{ bg.url }}"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+                <source src="{{ value.video_file.url }}" type="video/mp4">
+            </video>
+        {% endif %}
+
+        {# Контент (посилання та текст) поверх відео #}
+        <a href="{{ value.video_url|default:'#' }}"
+           style="position: relative; z-index: 1; display: block; width: 100%; height: 100%; color: inherit; text-decoration: none;">
+            <span>
+                <i class="nut-icon icons-play-icon"></i>
+            </span>
+            <h3>{{ value.title }}</h3>
+            <p>{{ value.text }}</p>
+        </a>
+    </div>
 </div>
