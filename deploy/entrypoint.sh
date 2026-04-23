@@ -2,10 +2,16 @@
 set -e
 
 echo "==> Migrating (pass 1, ignoring errors)..."
-python manage.py migrate 2>&1 || true
+python manage.py migrate --noinput 2>&1 || true
+
+echo "==> Syncing translation fields (pass 1)..."
+yes | python manage.py sync_page_translation_fields 2>&1 || true
 
 echo "==> Migrating (pass 2)..."
-python manage.py migrate
+python manage.py migrate --noinput 2>&1 || true
+
+echo "==> Syncing translation fields (pass 2)..."
+yes | python manage.py sync_page_translation_fields 2>&1 || true
 
 echo "==> Collecting static..."
 python manage.py collectstatic --noinput
