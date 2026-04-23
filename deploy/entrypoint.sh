@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+echo "==> Waiting for database..."
+until pg_isready -h "$POSTGRES_HOST" -p "${POSTGRES_PORT:-5432}" -U "$POSTGRES_USER"; do
+  echo "Database not ready, waiting..."
+  sleep 2
+done
+echo "Database is ready!"
+
 echo "==> Migrating (pass 1, ignoring errors)..."
 python manage.py migrate --noinput 2>&1 || true
 
