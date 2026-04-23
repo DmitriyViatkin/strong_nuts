@@ -2,11 +2,25 @@
 set -e
 
 echo "==> Waiting for database..."
-until pg_isready -h "$POSTGRES_HOST" -p "${POSTGRES_PORT:-5432}" -U "$POSTGRES_USER"; do
-  echo "Database not ready, waiting..."
-  sleep 2
+until python -c "
+import psycopg2, os, sys
+try:
+    psycopg2.connect(
+        host=os.environ.get('POSTGRES_HOST'),
+        port=os.environ.get('POSTGRES_PORT', 5432),
+        user=os.environ.get('POSTGRES_USER'),
+        password=os.environ.get('POSTGRES_PASSWORD'),
+        dbname=os.environ.get('POSTGRES_DB'),
+    )
+    sys.exit(0)
+except Exception as e:
+    print(f'DB not ready: {e}')
+    sys.exit(1)
+" 2>&1; do
+  echo "Waiting 3 seconds..."
+  sleep 3
 done
-echo "Database is ready!"
+echo "==> Database is ready!"
 
 echo "==> Migrating (pass 1, ignoring errors)..."
 python manage.py migrate --noinput 2>&1 || true
