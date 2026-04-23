@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-echo "==> Migrating wagtailcore..."
-yes | python manage.py migrate wagtailcore
-
 echo "==> Migrating cities_light..."
 yes | python manage.py migrate cities_light
 
