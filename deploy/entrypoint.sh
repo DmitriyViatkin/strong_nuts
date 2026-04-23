@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-echo "==> Migrating cities_light..."
-yes | python manage.py migrate cities_light
+echo "==> Migrating (pass 1, ignoring errors)..."
+python manage.py migrate 2>&1 || true
 
-echo "==> Migrating all..."
-yes | python manage.py migrate
+echo "==> Migrating (pass 2)..."
+python manage.py migrate
 
 echo "==> Collecting static..."
 python manage.py collectstatic --noinput
