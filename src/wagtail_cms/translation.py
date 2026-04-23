@@ -10,7 +10,7 @@ from .models import (
 @register(NavLinks)
 class NavLinksTranslationOptions(TranslationOptions):
     fields = (
-        'naw_link',
+        'nav_link',
     )
 
 @register(HeaderSettings)

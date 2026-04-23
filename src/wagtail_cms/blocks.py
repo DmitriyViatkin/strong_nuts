@@ -23,8 +23,12 @@ class NavLinkBlock(StructBlock):
     url = URLBlock(label='Посилання', required=False)
 
     def clean(self, value):
+        if not isinstance(value, dict):
+            raise StructBlockValidationError("Ошибка данных (не dict)")
+
         if not value.get('page') and not value.get('url'):
-            raise StructBlockValidationError("Вкажіть сторінку або URL")
+            raise StructBlockValidationError("Укажите страницу или URL")
+
         return value
 
     class Meta:

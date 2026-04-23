@@ -1,5 +1,5 @@
 {% load static i18n wagtailcore_tags wagtailimages_tags wagtailsettings_tags %}
-{% load i18n%}
+{% load i18n %}
 {% get_settings %}
 
 <header class="top-header">
@@ -149,7 +149,7 @@
         <div class="container">
             <nav class="menu_main menu_top">
                 <ul class="menu_main_ul">
-                    {% for item in settings.wagtail_cms.NavLinks.naw_link %}
+                    {% for item in settings.wagtail_cms.NavLinks.nav_link %}
                         <li>
                             {% if item.value.page %}
                                 {# Використовуємо сторінку з контексту #}

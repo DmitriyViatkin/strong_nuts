@@ -107,7 +107,7 @@
                 </div>
                 <div class="col-lg-10">
                     <ul class="menu_main_ul">
-                        {% for item in settings.wagtail_cms.NavLinks.naw_link %}
+                        {% for item in settings.wagtail_cms.NavLinks.nav_link %}
                             <li>
                                 {% if item.value.page %}
                                     <a href="{{ item.value.page.url }}">{{ item.value.name }}</a>

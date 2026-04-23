@@ -39,12 +39,12 @@ class BrandSettings(BaseSiteSetting):
 @register_setting
 class NavLinks (BaseSiteSetting):
 
-    naw_link = StreamField([('nav', NavLinkBlock())], use_json_field=True, blank=True,
+    nav_link = StreamField([('nav', NavLinkBlock())], use_json_field=True, blank=True,
                             verbose_name=_('Навігаційне меню')
                             )
 
     panels = [
-        FieldPanel('naw_link'),
+        FieldPanel('nav_link'),
     ]
 
 

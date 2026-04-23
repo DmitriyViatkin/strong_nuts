@@ -74,7 +74,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -100,6 +100,7 @@ TEMPLATES = [
                 'wagtail.contrib.settings.context_processors.settings',
                 'cms_pages.context_processor.cabinet_pages',
                 'cms_pages.context_processor.google_maps_api_key',
+                'cms_pages.context_processor.translated_urls',
 
             ],
         },
