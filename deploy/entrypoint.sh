@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-echo "NEW ENTRYPOINT"
+echo "NEW ENTRYPOINT 2"
 echo "==> Waiting for database..."
 until python -c "
 import psycopg2, os, sys
@@ -23,20 +23,24 @@ done
 
 echo "==> Database is ready!"
 
-echo "==> Migrating core dependencies first..."
-python manage.py migrate contenttypes --noinput
-python manage.py migrate auth --noinput
-python manage.py migrate cities_light --noinput
-python manage.py migrate wagtailcore --noinput
+echo "==> Making missing migrations..."
+python manage.py makemigrations --noinput 2>&1 || true
 
-echo "==> Migrating all (pass 1)..."
-python manage.py migrate --noinput || true
+echo "==> Migrating wagtailcore first (needed for sync_page_translation_fields)..."
+# Використовуємо django-admin напряму, щоб обійти перехоплення wagtail_modeltranslation
+python manage.py migrate contenttypes --noinput --run-syncdb 2>&1 || true
+python manage.py migrate auth --noinput --run-syncdb 2>&1 || true
+python manage.py migrate wagtailcore --noinput 2>&1 || true
+python manage.py migrate cities_light --noinput 2>&1 || true
+
+echo "==> Migrating all apps (pass 1)..."
+python manage.py migrate --noinput 2>&1 || true
 
 echo "==> Syncing translation fields (pass 1)..."
 yes | python manage.py sync_page_translation_fields 2>&1 || true
 
-echo "==> Migrating all (pass 2)..."
-python manage.py migrate --noinput || true
+echo "==> Migrating all apps (pass 2)..."
+python manage.py migrate --noinput 2>&1 || true
 
 echo "==> Syncing translation fields (pass 2)..."
 yes | python manage.py sync_page_translation_fields 2>&1 || true
