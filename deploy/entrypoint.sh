@@ -1,6 +1,7 @@
 #!/bin/bash
-set -e
-echo "NEW ENTRYPOINT 2"
+# НЕ set -e тут — керуємо помилками вручну
+echo "NEW ENTRYPOINT"
+
 echo "==> Waiting for database..."
 until python -c "
 import psycopg2, os, sys
@@ -26,12 +27,26 @@ echo "==> Database is ready!"
 echo "==> Making missing migrations..."
 python manage.py makemigrations --noinput 2>&1 || true
 
-echo "==> Migrating wagtailcore first (needed for sync_page_translation_fields)..."
-# Використовуємо django-admin напряму, щоб обійти перехоплення wagtail_modeltranslation
-python manage.py migrate contenttypes --noinput --run-syncdb 2>&1 || true
-python manage.py migrate auth --noinput --run-syncdb 2>&1 || true
-python manage.py migrate wagtailcore --noinput 2>&1 || true
-python manage.py migrate cities_light --noinput 2>&1 || true
+# Обходимо wagtail_modeltranslation через окремий settings без нього
+echo "==> Migrating wagtailcore directly (bypassing wagtail_modeltranslation)..."
+DJANGO_SETTINGS_MODULE=config.settings.base python -c "
+import django, os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.base')
+
+# Патчимо INSTALLED_APPS — прибираємо wagtail_modeltranslation тимчасово
+import django.conf
+apps = list(django.conf.settings.INSTALLED_APPS)
+if 'wagtail_modeltranslation' in apps:
+    apps.remove('wagtail_modeltranslation')
+django.conf.settings.INSTALLED_APPS = apps
+
+django.setup()
+from django.core.management import call_command
+call_command('migrate', 'contenttypes', '--noinput', verbosity=1)
+call_command('migrate', 'auth', '--noinput', verbosity=1)
+call_command('migrate', 'wagtailcore', '--noinput', verbosity=1)
+call_command('migrate', 'cities_light', '--noinput', verbosity=1)
+" 2>&1 || true
 
 echo "==> Migrating all apps (pass 1)..."
 python manage.py migrate --noinput 2>&1 || true
