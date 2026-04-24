@@ -20,16 +20,23 @@ except Exception as e:
   echo "Waiting 3 seconds..."
   sleep 3
 done
+
 echo "==> Database is ready!"
 
-echo "==> Migrating (pass 1, ignoring errors)..."
-python manage.py migrate --noinput 2>&1 || true
+echo "==> Migrating core dependencies first..."
+python manage.py migrate contenttypes --noinput
+python manage.py migrate auth --noinput
+python manage.py migrate cities_light --noinput
+python manage.py migrate wagtailcore --noinput
+
+echo "==> Migrating all (pass 1)..."
+python manage.py migrate --noinput || true
 
 echo "==> Syncing translation fields (pass 1)..."
 yes | python manage.py sync_page_translation_fields 2>&1 || true
 
-echo "==> Migrating (pass 2)..."
-python manage.py migrate --noinput 2>&1 || true
+echo "==> Migrating all (pass 2)..."
+python manage.py migrate --noinput || true
 
 echo "==> Syncing translation fields (pass 2)..."
 yes | python manage.py sync_page_translation_fields 2>&1 || true
