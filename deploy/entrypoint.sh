@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+echo "NEW ENTRYPOINT"
 echo "==> Waiting for database..."
 until python -c "
 import psycopg2, os, sys
