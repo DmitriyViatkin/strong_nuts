@@ -53,11 +53,7 @@
     <script src="{% static 'js/scripts.min.js' %}"></script>
     <script src="{% static 'js/cart-ajax.js' %}"></script>
 
-    <!-- 3. Vite bundle ПІСЛЯ jQuery і плагінів -->
-    {% if debug %}
-        {% vite_hmr_client %}
-    {% endif %}
-    {% vite_asset 'js/main.js' %}
+
 
     <!-- 4. Google Maps ОСТАННІМ -->
     <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap&loading=async" async defer></script>
