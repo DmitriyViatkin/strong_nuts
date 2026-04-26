@@ -14,18 +14,8 @@
                     {{ address_form.company_name }}
                     {{ address_form.pdv }}
                     <div class="form__title">2. Адреса</div>
-                   <select name="country">
-                                    <option value="">{% trans "Країна" %} </option>
-                                    {% for country in countries %}
-                                        <option value="{{ country.id }}">{{ country|localized_name }}</option>
-                                    {% endfor %}
-                                </select>
-                    <select name="region">
-                                    <option value=""> {% trans "Область" %} </option>
-                                    {% for region in regions %}
-                                        <option value="{{ region.id }}">{{ region|localized_name }}</option>
-                                    {% endfor %}
-                                </select>
+                    {{ address_form.country }}
+                    {{ address_form.region }}
                     {{ address_form.city }}
                     {{ address_form.street }}
                     {{ address_form.zip_code }}
