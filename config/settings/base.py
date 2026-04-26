@@ -181,7 +181,7 @@ CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLC']
 
 DJANGO_VITE = {
     "default": {
-        "dev_mode": True,
+        'dev_mode': False,
         "dev_server_host": "vite",
         "dev_server_port": 5173,
     }
