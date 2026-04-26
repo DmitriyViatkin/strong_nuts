@@ -1,3 +1,5 @@
+// main.js — jQuery береться з window (підключений через CDN в base.html)
+
 (function ($) {
 	'use strict';
 
@@ -16,19 +18,26 @@
 		// ================= MOBILE MENU =================
 		const $header = $('.top-header');
 		if ($header.length && !$('.mobile-menu').length) {
+
+			// Беремо логотип з вже відрендереного хедера
+			const $existingLogo = $header.find('.logo').first();
+			const logoHTML = $existingLogo.length
+				? $existingLogo[0].outerHTML
+				: `<a href="/" class="logo">
+					<img src="${document.body.dataset.logoUrl || '/static/img/logo.png'}" alt="logo">
+				   </a>`;
+
 			$header.before(`
 				<div class="mobile-menu d-lg-none">
 					<div class="row">
 						<div class="col-12">
-							<a href="/" class="logo">
-								<img src="/static/img/logo.png" alt="logo">
-								<span>Strong<br> Nuts</span>
-							</a>
+							${logoHTML}
 							<i class="nut-icon icons-close-button"></i>
 						</div>
 					</div>
 				</div>
 			`);
+
 			$('.menu_top').first().clone().appendTo('.mobile-menu');
 		}
 
@@ -81,8 +90,8 @@
 		function initRadioToggle(selector) {
 			$(document).on('click', selector + ' input[type="radio"]', function () {
 				const val = $(this).val();
-				const $target = $("." + val);
-				$(".box").not($target).hide();
+				const $target = $('.' + val);
+				$('.box').not($target).hide();
 				$target.show();
 			});
 		}
@@ -91,7 +100,7 @@
 		initRadioToggle('.radio__wrapper_click');
 
 		$(document).on('click', '.radio__wrapper_click .radio-custom_last', function () {
-			$(".box").hide();
+			$('.box').hide();
 		});
 
 		// ================= TOOLTIP =================
@@ -120,25 +129,7 @@
 		}
 
 		// ================= LANG MENU =================
-		const menuElem = document.getElementById('lang-menu');
-		if (menuElem) {
-			const titleElem = menuElem.querySelector('.title');
-			document.addEventListener('click', function (event) {
-				let target = event.target;
-				while (target && target !== document) {
-					if (target === menuElem) {
-						if (event.target.tagName === 'A') {
-							titleElem.innerHTML = event.target.textContent;
-							titleElem.style.backgroundImage = getComputedStyle(event.target).backgroundImage;
-						}
-						menuElem.classList.toggle('open');
-						return;
-					}
-					target = target.parentNode;
-				}
-				menuElem.classList.remove('open');
-			});
-		}
+		// Логіка в header.html — тут нічого не дублюємо
 
 		// ================= SWIPERS =================
 		if (document.querySelector('.news-container') && typeof Swiper !== 'undefined') {
@@ -169,22 +160,22 @@
 
 		// ================= SELECTS WITH API =================
 		const langPrefix = window.location.pathname.split('/')[1];
-		const BASE_URL = `/${langPrefix}/products/api`;
+		const BASE_URL = '/' + langPrefix + '/products/api';
 
 		const flavorSelect = document.querySelector('#flavor-select');
-		const massSelect = document.querySelector('#mass-select');
+		const massSelect   = document.querySelector('#mass-select');
 
 		if (flavorSelect && massSelect) {
 
 			function loadMass(flavor) {
 				const url = flavor
-					? `${BASE_URL}/mass/?flavor=${encodeURIComponent(flavor)}`
-					: `${BASE_URL}/mass/`;
+					? BASE_URL + '/mass/?flavor=' + encodeURIComponent(flavor)
+					: BASE_URL + '/mass/';
 
 				fetch(url)
 					.then(res => res.json())
 					.then(data => {
-						massSelect.innerHTML = "<option value=''>Оберіть масу</option>";
+						massSelect.innerHTML = "<option value=''>Оберіть вагу</option>";
 						data.mass.forEach(m => {
 							const option = document.createElement('option');
 							option.value = m;
@@ -196,7 +187,7 @@
 					.catch(err => console.error('Mass error:', err));
 			}
 
-			fetch(`${BASE_URL}/flavors/`)
+			fetch(BASE_URL + '/flavors/')
 				.then(res => res.json())
 				.then(data => {
 					flavorSelect.innerHTML = "<option value='' selected>Оберіть смак</option>";
@@ -208,12 +199,10 @@
 					});
 					flavorSelect.value = '';
 					rebuildSelect(flavorSelect);
-					// Завантажуємо всі маси одразу без фільтру по смаку
 					loadMass('');
 				})
 				.catch(err => console.error('Flavors error:', err));
 
-			// При зміні смаку — оновлюємо маси під цей смак
 			$(document).on('change', '#flavor-select', function () {
 				loadMass(this.value);
 			});
@@ -232,7 +221,7 @@
 					$(this).find('i').css('transform', 'rotate(0deg)');
 				} else {
 					next = '';
-					$(this).find('span').text('Сортування');
+					$(this).find('span').text('За замовч.');
 					$(this).find('i').css('transform', 'rotate(0deg)');
 				}
 				$(this).data('order', next);
@@ -251,14 +240,14 @@
 				if (mass)   params.append('mass', mass);
 				if (order)  params.append('order', order);
 
-				fetch(`${BASE_URL}/products/?${params.toString()}`)
+				fetch(BASE_URL + '/products/?' + params.toString())
 					.then(res => res.json())
 					.then(data => {
 						const container = document.getElementById('products-container');
 						if (!container) return;
 
 						if (!data.products || !data.products.length) {
-							container.innerHTML = '<p class="col-12">Товари не знайдені.</p>';
+							container.innerHTML = '<p class="col-12">Товари не знайдено.</p>';
 							return;
 						}
 
@@ -279,7 +268,6 @@
 					.catch(err => console.error('Filter error:', err));
 			});
 
-			// Кнопка "Скинути"
 			$(document).on('click', '.button_close', function (e) {
 				e.preventDefault();
 				location.reload();
@@ -295,7 +283,7 @@
 			$select.next('.select-options').remove();
 
 			const $styled = $('<div class="select-styled"></div>');
-			const $list = $('<ul class="select-options"></ul>');
+			const $list   = $('<ul class="select-options"></ul>');
 
 			$select.after($styled);
 			$styled.text($select.find(':selected').text());
@@ -303,7 +291,7 @@
 			$select.children('option').each(function () {
 				$('<li />', {
 					text: $(this).text(),
-					rel: $(this).val()
+					rel:  $(this).val()
 				}).appendTo($list);
 			});
 
@@ -330,7 +318,9 @@
 
 		// ================= RENDER CARD =================
 		function renderCard(p) {
-			const noImage = '/static/img/no-image.png';
+			const staticUrl = document.body.dataset.staticUrl || '/static/';
+			const noImage   = staticUrl + 'img/no-image.png';
+			const zoomIcon  = staticUrl + 'img/zoom.svg';
 
 			const slides = p.images && p.images.length
 				? p.images.map(url => `
@@ -353,23 +343,20 @@
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="wrap">
 						<div class="production__item">
-
 							<div class="products-container swiper-container">
 								<div class="swiper-wrapper">
 									${slides}
 								</div>
 								<div class="swiper-button-prev"></div>
 								<div class="swiper-button-next"></div>
-								<img class="zoom" src="/static/img/zoom.svg" alt="">
+								<img class="zoom" src="${zoomIcon}" alt="">
 							</div>
-
 							<div class="wrap">
 								<div class="production__item_title">${p.name}</div>
 								<div class="production__item_art">
 									<span>Арт:</span> ${p.articul || ''}
 								</div>
 								<div class="production__item_descr">${p.summary || ''}</div>
-
 								<div class="production__item_weight">
 									<div class="weight_item">
 										<div class="weight_item_icon">
@@ -381,7 +368,6 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="production__item_sum">
 									<div class="sum_item">
 										${saleBlock}
@@ -398,7 +384,6 @@
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -413,7 +398,7 @@
 				const page = parseInt(this.dataset.page);
 				this.textContent = 'Завантаження...';
 
-				fetch(`/api/products?page=${page}&per_page=6`)
+				fetch('/api/products?page=' + page + '&per_page=6')
 					.then(res => res.json())
 					.then(products => {
 						if (!products || !products.length) {
@@ -434,22 +419,21 @@
 
 	}); // END READY
 
-})(jQuery);
+})(window.jQuery);
 
 
 // ================= GOOGLE MAP =================
-window.initMap = function() {
-    const el = document.getElementById('map');
-    if (typeof google === 'undefined' || !el) return;
+// ВАЖЛИВО: поза jQuery обгорткою, щоб Google Maps міг знайти функцію
+window.initMap = function () {
+	const el = document.getElementById('map');
+	if (typeof google === 'undefined' || !el) return;
 
-    const lat = parseFloat(el.dataset.lat);
-    const lng = parseFloat(el.dataset.lng);
+	const lat = parseFloat(el.dataset.lat);
+	const lng = parseFloat(el.dataset.lng);
 
-    console.log('lat:', lat, 'lng:', lng);
+	if (isNaN(lat) || isNaN(lng)) return;
 
-    if (isNaN(lat) || isNaN(lng)) return;
-
-    const location = { lat, lng };
-    const map = new google.maps.Map(el, { zoom: 15, center: location });
-    new google.maps.Marker({ position: location, map });
-}
+	const location = { lat, lng };
+	const map = new google.maps.Map(el, { zoom: 15, center: location });
+	new google.maps.Marker({ position: location, map });
+};

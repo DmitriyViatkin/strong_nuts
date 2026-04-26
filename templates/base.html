@@ -4,68 +4,65 @@
 {% load i18n wagtailcore_tags %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-
 <head>
+    <meta charset="UTF-8">
+    <title>My title</title>
+    <meta name="description" content="My description">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="theme-color" content="#337D5A">
+    <link rel="shortcut icon" href="{% static 'img/icon.ico' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="128x128" href="{% static 'img/apple.png' %}">
+    <meta property="og:type" content="website">
+    <meta property="og:image:type" content="{% static 'img/image.jpg' %}">
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="500">
+    <meta property="og:title" content="My title">
+    <meta property="og:description" content="My description">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
 
-	<meta charset="UTF-8">
-	<title>My title</title>
-	<meta name="description" content="My description">
-
-	<!-- Responsive -->
-	<meta name="HandheldFriendly" content="True">
-	<meta name="MobileOptimized" content="320">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<meta name="theme-color" content="#337D5A">
-
-	<link rel="shortcut icon" href="{% static 'img/icon.ico' %}" type="image/x-icon">
-	<link rel="apple-touch-icon" sizes="128x128" href="{% static  'img/apple.png' %}">
-
-	<!-- Open Graph -->
-	<meta property="og:type" content="website">
-	<meta property="og:image:type" content="{%static 'img/image.jpg' %}">
-	<meta property="og:image:width" content="500">
-	<meta property="og:image:height" content="500">
-	<meta property="og:title" content="My title">
-	<meta property="og:description" content="My description">
-
-	<!-- Touch -->
-	<meta name="format-detection" content="telephone=no">
-	<meta name="format-detection" content="address=no">
-
-	<link rel="stylesheet" href="{% static 'css/main.min.css' %}">
-	{% vite_hmr_client %}
-    {% vite_asset 'js/main.js' %}
+    <!-- Тільки CSS в head -->
+    <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
 </head>
 
-<body class="home">
+<body class="home" data-logo-url="{% static 'img/logo.png' %}">
 
-	{% include "includes/header.html" %}
-	{% include "includes/cart_pr.html" %}
- 	{% block content%}
-	{% endblock %}
+    {% include "includes/header.html" %}
+    {% include "includes/cart_pr.html" %}
 
-	{% include "includes/footer.html"%}
+    {% block content %}{% endblock %}
 
-	<div id="cart-urls"
-     data-detail="{% url 'cart:detail' %}"
-     data-update="{% url 'cart:update' %}"
-     data-remove="{% url 'cart:remove' %}"
-     style="display:none;">
-</div>
-	{# jQuery ПЕРШИМ — до будь-якого скрипта що його використовує #}
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% include "includes/footer.html" %}
 
-	{# Потім всі залежні скрипти #}
-	<script src="{% static 'js/scripts.min.js' %}"></script>
-	<script src="{% static 'js/cart-ajax.js' %}"></script>
+    <div id="cart-urls"
+         data-detail="{% url 'cart:detail' %}"
+         data-update="{% url 'cart:update' %}"
+         data-remove="{% url 'cart:remove' %}"
+         style="display:none;">
+    </div>
 
-	{# Google Maps — async/defer, callback=initMap спрацює після завантаження #}
-	{# initMap визначена в scripts.min.js, тому він має завантажитись раніше #}
-	<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap&loading=async" async defer></script>
+    <!-- 1. jQuery ПЕРШИМ -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-{% block extra_js %}{% endblock %}
+    <!-- 2. Плагіни після jQuery -->
+    <script src="{% static 'js/scripts.min.js' %}"></script>
+    <script src="{% static 'js/cart-ajax.js' %}"></script>
+
+    <!-- 3. Vite bundle ПІСЛЯ jQuery і плагінів -->
+    {% if debug %}
+        {% vite_hmr_client %}
+    {% endif %}
+    {% vite_asset 'js/main.js' %}
+
+    <!-- 4. Google Maps ОСТАННІМ -->
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap&loading=async" async defer></script>
+
+    {% block extra_js %}{% endblock %}
+
 </body>
 </html>

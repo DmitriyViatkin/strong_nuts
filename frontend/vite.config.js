@@ -9,9 +9,9 @@ export default defineConfig({
     emptyOutDir: true,
     manifest: true,
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'src/js/main.js'),
-      }
+        input: { main: resolve(__dirname, 'src/js/main.js') },
+        external: ['jquery'],
+        output: { globals: { jquery: 'jQuery' } }
     },
     assetsDir: 'assets',
   },
