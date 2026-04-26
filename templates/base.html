@@ -55,10 +55,16 @@
      data-remove="{% url 'cart:remove' %}"
      style="display:none;">
 </div>
+	{# jQuery ПЕРШИМ — до будь-якого скрипта що його використовує #}
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="{% static  'js/scripts.min.js' %}"></script>
-	<script src="{% static  'js/cart-ajax.js' %}"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAPS_API_KEY}}&amp;callback=initMap"></script>
+
+	{# Потім всі залежні скрипти #}
+	<script src="{% static 'js/scripts.min.js' %}"></script>
+	<script src="{% static 'js/cart-ajax.js' %}"></script>
+
+	{# Google Maps — async/defer, callback=initMap спрацює після завантаження #}
+	{# initMap визначена в scripts.min.js, тому він має завантажитись раніше #}
+	<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap&loading=async" async defer></script>
 
 {% block extra_js %}{% endblock %}
 </body>

@@ -1,4 +1,4 @@
- {% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static wagtailimages_tags wagtailcore_tags %}
 {% load i18n%}
 {% block content %}
@@ -73,6 +73,48 @@
     {% endif %}
 {% endfor %}
 
+<!-- ═══ ІСТОРІЯ ПІДПРИЄМСТВА ═════════════════════════════════════════════════ -->
+{% for block in page.content %}
+    {% if block.block_type == 'history' %}
+        <section class="history gray_section">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-lg-7 col-12">
+                        <div class="history__blockquote">
+                            <div class="row no-gutters">
+                                <div class="col-md-5">
+                                    {% if block.value.person_image %}
+                                        {% image block.value.person_image original as person_img %}
+                                        <img src="{{ person_img.url }}" alt="{{ block.value.person_name }}">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="blockquote_block">
+                                        <h3>{{ block.value.person_name }}</h3>
+                                        <p>{{ block.value.person_title }}</p>
+                                        <blockquote>{{ block.value.quote }}</blockquote>
+                                        {% if block.value.button_text %}
+                                            <a href="{{ block.value.button_url }}" class="button button_transparent">
+                                                {{ block.value.button_text }}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-12">
+                        <div class="history__content">
+                            <h3>{{ block.value.history_title }}</h3>
+                            {{ block.value.history_text }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}
+
 <!-- ═══ СТАТИСТИКА ════════════════════════════════════════════════════════════ -->
 <section class="timer">
     <div class="container">
@@ -110,6 +152,9 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-12">
                 <h2>{{ page.gallery_section_title }}</h2>
+                {% if page.gallery_section_subtitle %}
+                    <p>{{ page.gallery_section_subtitle }}</p>
+                {% endif %}
             </div>
         </div>
         <div class="row justify-content-center">
