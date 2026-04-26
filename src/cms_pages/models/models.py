@@ -93,6 +93,14 @@ class HomePage(Page):
         'cms_pages.NewsListPage',
         'cms_pages.GalleryPage',
         'cms_pages.Page404',
+        'cms_pages.AboutManufacturerPage',
+        'cms_pages.OrderPlaced',
+        'cms_pages.CorporateClientsPage',
+        'cms_pages.DeliveryPaymentPage',
+        'cms_pages.UserAgreement',
+        'cms_pages.CatalogProduct',
+        'cms_pages.AddressPage',
+        'cms_pages.DetailNewsPage',
     ]
 
 
