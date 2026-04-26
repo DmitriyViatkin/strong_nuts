@@ -9,15 +9,21 @@ def get_name_by_lang(obj, lang):
         return obj.name
 
     names = [n.strip() for n in obj.alternate_names.split(';') if n.strip()]
-    cyrillic = [n for n in names if any('\u0400' <= c <= '\u04FF' for c in n)]
-    latin = [n for n in names if all(c.isascii() for c in n if c.isalpha())]
 
-    if lang == 'uk':
-        return cyrillic[-1] if cyrillic else obj.name
-    elif lang == 'ru':
-        return cyrillic[0] if cyrillic else obj.name
-    elif lang == 'en':
-        return latin[0] if latin else obj.name
+    for name in names:
+        low = name.lower()
+
+        if lang == 'uk':
+            if any(c in low for c in ['і', 'ї', 'є', 'ґ']):
+                return name
+
+        elif lang == 'ru':
+            if any(c in low for c in ['ы', 'э', 'ё']):
+                return name
+
+        elif lang == 'en':
+            if name.isascii():
+                return name
 
     return obj.name
 
