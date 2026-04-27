@@ -35,7 +35,7 @@ UNFOLD = {
                 "separator": True,
                 "collapsible": True,
 
-                "permission": lambda r: r.user.is_superuser,
+                #"permission": lambda r: r.user.is_superuser,
                 "items": [
                     {
                         "title": _("Сотрудники"),
@@ -59,7 +59,7 @@ UNFOLD = {
                 "separator": True,
                 "collapsible": True,
                 # Видят Менеджеры и Суперюзеры
-                "permission": lambda r: is_manager(r.user),
+               #"permission": lambda r: is_manager(r.user),
                 "items": [
                     {
                         "title": _("Все заказы"),
@@ -81,7 +81,7 @@ UNFOLD = {
                 "separator": True,
                 "collapsible": True,
                 # Видят   и Суперюзеры
-                "permission": lambda r: is_inventory_admin(r.user),
+                #"permission": lambda r: is_inventory_admin(r.user),
                 "items": [
                     {
                         "title": _("Товары"),
@@ -96,7 +96,7 @@ UNFOLD = {
                 "separator": True,
                 "collapsible": True,
 
-                "permission": lambda r: r.user.is_superuser,
+                #"permission": lambda r: r.user.is_superuser,
                 "items": [
                     {
                         "title": _("Результаты задач"),
