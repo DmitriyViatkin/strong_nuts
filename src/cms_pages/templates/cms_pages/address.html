@@ -1,8 +1,6 @@
 {% extends "base_cabinet/base_cabinet.html" %}
 {% load wagtailimages_tags %}
 {% load i18n%}
-{% load static %}
-{% load static city_tags %}
 {% block cabinet_content %}
 
 <div class="col-md-9">
@@ -16,35 +14,15 @@
                     {{ address_form.company_name }}
                     {{ address_form.pdv }}
                     <div class="form__title">2. Адреса</div>
-                    <select name="country">
-                                    <option value="">{% trans "Країна" %} </option>
-                                    {% for country in countries %}
-                                        <option value="{{ country.id }}">{{ country|localized_name }}</option>
-                                    {% endfor %}
-                                </select>
-                    <select name="region">
-                                    <option value=""> {% trans "Область" %} </option>
-                                    {% for region in regions %}
-                                        <option value="{{ region.id }}">{{ region|localized_name }}</option>
-                                    {% endfor %}
-                                </select>
+                    {{ address_form.country }}
+                    {{ address_form.region }}
                     {{ address_form.city }}
                     {{ address_form.street }}
                     {{ address_form.zip_code }}
                 {% else %}
                     <div class="form__title">Адреса</div>
-                    <select name="country">
-                                    <option value="">{% trans "Країна" %} </option>
-                                    {% for country in countries %}
-                                        <option value="{{ country.id }}">{{ country|localized_name }}</option>
-                                    {% endfor %}
-                                </select>
-                    <select name="region">
-                                    <option value=""> {% trans "Область" %} </option>
-                                    {% for region in regions %}
-                                        <option value="{{ region.id }}">{{ region|localized_name }}</option>
-                                    {% endfor %}
-                                </select>
+                    {{ address_form.country }}
+                    {{ address_form.region }}
                     {{ address_form.city }}
                     {{ address_form.street }}
                 {% endif %}
