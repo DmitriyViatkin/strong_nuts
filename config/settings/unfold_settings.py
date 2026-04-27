@@ -115,7 +115,7 @@ UNFOLD = {
         ],
     },
 }
-
+print("=== UNFOLD SETTINGS LOADED ===", UNFOLD.get("SITE_TITLE"))
 def is_manager(user):
     return user.is_authenticated and (user.groups.filter(name="managers").exists() or user.is_superuser)
 
