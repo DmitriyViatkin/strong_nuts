@@ -177,29 +177,7 @@ CITIES_LIGHT_TRANSLATION_LANGUAGES = ['uk', 'ru', 'en']
 CITIES_LIGHT_INCLUDE_COUNTRIES = ['UA']
 CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLC']
 
-UNFOLD = {
-    "SITE_TITLE": "Nuts Admin",
-    "SITE_HEADER": "Nuts",
-    "SITE_SYMBOL": "nutrition",
 
-    "DASHBOARD_CALLBACK": "unfold_admin.views.dashboard_callback",
-
-    "SITE_DROPDOWN": [
-        {
-            "icon": "open_in_new",
-            "title": _("Відкрити сайт"),
-            "link": "https://strong-nuts-nginx.fwwkl2.easypanel.host/",
-            "attrs": {"target": "_blank"},
-        },
-        {
-            "icon": "home",
-            "title": _("Головна адмінки"),
-            "link": reverse_lazy("admin:index"),
-        },
-    ],
-
-
-}
 
 DJANGO_VITE = {
     "default": {
