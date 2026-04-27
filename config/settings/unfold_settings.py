@@ -1,11 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
+from django.templatetags.static import static
 
-def is_manager(user):
-    return user.is_authenticated and (user.groups.filter(name="managers").exists() or user.is_superuser)
 
-def is_inventory_admin(user):
-    return user.is_authenticated and (user.groups.filter(name="admins").exists() or user.is_superuser)
 
 UNFOLD = {
     "SITE_TITLE": "Nuts Admin",
@@ -18,7 +15,7 @@ UNFOLD = {
         {
             "icon": "open_in_new",
             "title": _("Відкрити сайт"),
-            "link": "http://127.0.0.1:8000/",
+            "link": "https://strong-nuts-nginx.fwwkl2.easypanel.host/",
             "attrs": {"target": "_blank"},
         },
         {
@@ -37,7 +34,7 @@ UNFOLD = {
                 "title": _("Управление"),
                 "separator": True,
                 "collapsible": True,
-                # Доступно только Суперюзеру
+
                 "permission": lambda r: r.user.is_superuser,
                 "items": [
                     {
@@ -118,3 +115,9 @@ UNFOLD = {
         ],
     },
 }
+
+def is_manager(user):
+    return user.is_authenticated and (user.groups.filter(name="managers").exists() or user.is_superuser)
+
+def is_inventory_admin(user):
+    return user.is_authenticated and (user.groups.filter(name="admins").exists() or user.is_superuser)
