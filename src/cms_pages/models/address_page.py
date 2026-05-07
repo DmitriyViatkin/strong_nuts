@@ -5,7 +5,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.models import Page
 from cabinet.forms import AddressForm
 from cabinet.models import User, Address
-
+from cities_light.models import Country, Region
 
 class AddressPage(Page):
     template = 'cms_pages/address.html'
@@ -40,7 +40,10 @@ class AddressPage(Page):
         return TemplateResponse(request, self.template, context)
 
     def get_context(self, request, *args, **kwargs):
+
         context = super().get_context(request, *args, **kwargs)
+        context['countries'] = Country.objects.all()
+        context['regions'] = Region.objects.all()
         return context
 
     class Meta:

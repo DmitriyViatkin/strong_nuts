@@ -5,8 +5,8 @@ from unfold.admin import TabularInline
 from  unfold.admin import ModelAdmin
 from .models import Product, Gallery
 
-class GalleryInline(TabularInline):
-    model = Product.gallery.through
+class ProductAdmin(ModelAdmin):
+    inlines = [GalleryInline]
 
     extra = 1
     verbose_name = _("Фото в галереї")
@@ -38,17 +38,29 @@ class ProductAdmin(ModelAdmin):
     list_editable = ("is_active",)
 
     fieldsets = (
-        (_("Основная информация"), {
+        (_("Основна інформація"), {
             "fields": (("name", "articul"), "summary", "description"),
         }),
         (_("Характеристики"), {
-            "fields": (("price", "mass"), ("packaging", "expiration_date"),
-                       "composition", "energy_value"),
+            "fields": (
+                ("price", "old_price"),
+                ("is_sale", "is_active"),
+                ("mass", "packaging"),
+                ("expiration_date", "storage_conditions"),
+                "composition",
+                "energy_value",
+                "flavor_categories",
+            ),
         }),
-        (_("Медиа и статус"), {
-            "fields": ("gallery", "is_active"),
+        (_("Медіа"), {
+            "fields": ("gallery",),
+        }),
+        (_("Дати"), {
+            "fields": ("created_at",),
         }),
     )
+
+    readonly_fields = ("created_at",)
 
 
     @admin.display(description=_("Цена"))
