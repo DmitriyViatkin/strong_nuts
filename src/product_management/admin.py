@@ -5,8 +5,8 @@ from unfold.admin import TabularInline
 from  unfold.admin import ModelAdmin
 from .models import Product, Gallery
 
-class ProductAdmin(ModelAdmin):
-    inlines = [GalleryInline]
+class GalleryInline(TabularInline):
+    model = Product.gallery.through
 
     extra = 1
     verbose_name = _("Фото в галереї")
