@@ -36,7 +36,7 @@ class RegisterView(View):
             'legal_form':    legal_form    or RegisterLegalForm(),
             'countries': Country.objects.all(),
             'regions': Region.objects.all(),
-
+            'active_tab': 'physical',
             'agreement_page': UserAgreement.objects.live().first(),
         }
 
@@ -47,16 +47,15 @@ class RegisterView(View):
 
     def post(self, request):
         user_type = request.POST.get('user_type')
-
         if user_type == 'physical':
             form = RegisterPhysicalForm(request.POST, request.FILES)
             if form.is_valid():
                 user = form.save()
                 login(request, user)
                 return redirect('/cabinet/my_cabinet')
-
-            return render(request, self.template_name,
-                         self.get_context(physical_form=form))
+            ctx = self.get_context(physical_form=form)
+            ctx['active_tab'] = 'physical'  # явно, хоч і дефолт
+            return render(request, self.template_name, ctx)
 
         elif user_type == 'legal':
             form = RegisterLegalForm(request.POST, request.FILES)
@@ -64,9 +63,9 @@ class RegisterView(View):
                 user = form.save()
                 login(request, user)
                 return redirect('/cabinet/my_cabinet')
-
-            return render(request, self.template_name,
-                         self.get_context(legal_form=form))
+            ctx = self.get_context(legal_form=form)
+            ctx['active_tab'] = 'legal'  # ось це головне
+            return render(request, self.template_name, ctx)
 
         return redirect('accounts:register')
 
